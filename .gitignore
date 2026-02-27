@@ -1,0 +1,5 @@
+fpl_oracle/venv/
+**/venv/
+
+__pycache__/
+*.pyc
