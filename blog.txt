@@ -1,0 +1,13 @@
+2/27/26:
+
+I want to use Christian Ronsholt package for all the data i need for
+the fpl, pl and regular football data. But i will not as that way i am not 
+learning, Every thing from the sracth.
+
+			"fantasy.premierleague.com/api/bootstrap-static/"
+			
+-> 'chips'  :  useless nothing in there to use
+-> 'events' :  useless for what we want, dont have enough information just:
+				- gameweek, deadline, avg score, chip plays
+-> 'elements': players details
+				-   
