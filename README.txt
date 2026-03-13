@@ -1,40 +1,45 @@
-The Final Project Architecture: "The FPL Oracle"
-1. The Multi-Pipeline Producer (Data Ingestors)
+# 🔮 FPL Oracle: Distributed Prediction Engine
 
-Instead of one big scraper, you have Source-Specific Workers:
+A high-performance, asynchronous data pipeline designed to predict Fantasy Premier League (FPL) player performance using distributed scrapers, real-time data storage, and modular analytical workers.
 
-    Worker A (FPL API): Fetches the "Official" data (points, prices, ownership percentage).
+## 🏗️ System Architecture
 
-    Worker B (FotMob/Understat): Fetches the "Advanced" stats (xG, xA, clean sheet odds).
+The project follows a **Producer-Consumer** pattern mediated by **Redis**, ensuring total independence between data ingestion and statistical analysis.
 
-    Worker C (Social/News): Scrapes reliable FPL journalists and injury news.
+![System Architecture](./fpl_orcale_system.png)
 
-    Action: All these workers "Push" their raw JSON packets into the Redis Raw-Data Queue.
+### 1. The Producers (Data Ingestors)
+Three independent scripts fetch raw data and push it into the Redis "Pantry" using static Player IDs as keys:
+* **FPL API Worker (`fpl_api.py`)**: Fetches official prices, ownership, and current point tallies.
+* **FotMob Scraper (`fotmob_scrapper.py`)**: Uses BeautifulSoup to extract advanced metrics like xG (Expected Goals) and xA (Expected Assists) from FotMob HTML.
+* **News Scout (`news_scrapper.py`)**: Scrapes Reddit and X (Twitter) for injury news, "leaked" lineups, and tactical rumors.
 
-2. The Specialized Analysts (Probability Workers)
+### 2. The Shared Hub (Redis Store)
+Acts as the **State Store**. Data is organized by static keys (e.g., `player:305`), allowing producers to update "ingredients" independently.
+* **Atomic Updates**: If the FPL Worker updates a price, it doesn't overwrite the xG data previously sent by FotMob.
+* **Persistence**: Data remains available for the Cooks even if a Producer goes offline.
 
-Redis feeds the raw data to your 5 specialized workers. Each one calculates a specific coefficient:
+### 3. The Analysts (The Cooks)
+Modular workers (`cook_a.py` to `cook_d.py`) subscribe to Redis updates to calculate specific probability coefficients:
+* **Worker 1 (The Physio)**: Calculates injury and fitness probability ($P_{injury}$).
+* **Worker 2 (The Manager)**: Calculates rotation risk based on recent high-intensity minutes.
+* **Worker 3 (The Tactician)**: Evaluates match strength and fixture difficulty.
+* **Worker 4 (The Statistician)**: Computes weighted form using STAT 151 principles.
 
-    Worker 1 (The Physio): Calculates an Injury Probability (0.0 - 1.0). It looks at the "yellow flag" status and cross-references it with recent news.
+### 4. The Orchestration (Manager & Waiter)
+* **The Manager**: Aggregates all coefficients from the Cooks to calculate the final **Expected Points (xP)**.
+* **The Waiter (Internal API)**: An API layer that serves the final "dishes" to the dashboard.
+* **Dashboard**: A NextJS/Streamlit UI providing real-time visualizations for the end-user.
 
-    Worker 2 (The Manager): Calculates a Minutes Probability. It checks if a player just played 90 minutes in the Champions League and might be rotated (benched) in the EPL.
+---
 
-    Worker 3 (The Tactical Analyst): Calculates Match Strength. It uses MATH 120 (Linear Algebra) principles to weigh the player's team form against the opponent's defensive weaknesses.
+## 📂 Project Structure
 
-    Worker 4 (The Form Expert): Uses STAT 151 (Statistics) logic to calculate a "weighted mean" of the player's last 5 games, giving more importance to the most recent match.
-
-3. The Aggregator (The Statistical Machine Learner)
-
-This is the "Brain" that answers the user:
-
-    Logic: It takes all coefficients (Injury % × Minutes % × Match Strength × Form) to create an Expected Points (xP) value for every player.
-
-    The Answer: When a user asks "Should I captain Saka?", this worker compares Saka’s xP against Haaland’s and Salah’s for that specific Gameweek.
-
-Why this is the perfect "Portfolio Piece" for U of A:
-
-    Concurrency (CMPT 340): You are demonstrating that you know how to manage multiple data streams simultaneously using Redis and Docker. 
-
-    Statistical Logic (STAT 151): You aren't just "guessing" if Saka is good; you are using statistical probability to back it up. 
-
-    Scalability: If the project gets popular and 1,000 people ask questions at once, you just spin up more "Aggregator" Docker containers.
+```text
+fpl_oracle/
+├── common/                # Shared logic, Redis client, and Schemas
+├── producers/             # Raw data extractors (Workers A, B, C)
+├── analysts/              # Probability and Math Workers (Cooks)
+├── brain/                 # Manager/Aggregator logic
+├── dashboard/             # NextJS/Streamlit frontend
+└── docker-compose.yml     # Orchestration for Redis and Workers
