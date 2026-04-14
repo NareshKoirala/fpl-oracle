@@ -15,3 +15,5 @@ class RedisDB:
 
     def delete(self, key: str):
         self.client.delete(key)
+        
+    
