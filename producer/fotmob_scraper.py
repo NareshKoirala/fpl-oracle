@@ -10,14 +10,7 @@ def table_scrap():
     data = s.fetch_playwright(".flipmove")
     table = data.find_all("div", class_="flipmove")
     
-    """
-    run the loop:- for row in table[1:]:
-    team name :- row.span.text
-    position :- row.div.div.text
-    """
-    
-    print(table[1].div.div.text)
-    
-    #for team in table[1:]:
-    #    pass
-
+    for team in table[1:]:
+        name = team.find(class_="TeamShortname").text
+        div_data = [d.text.strip() for d in team.find_all("div")[1:-8] if d.text.strip()]
+        LOG.info(div_data)
