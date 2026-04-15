@@ -1,13 +1,13 @@
 from utils.log import Logger
 from utils.scraper import Scraper
 from db.teams import Team
+from utils.settings import FPL_BOOTSTRAP
 
-LOG = Logger("fpl_scraper")
-URL = "https://fantasy.premierleague.com/api/bootstrap-static/"
+LOG = Logger("Fpl_scraper")
 
 def api_fetch()-> dict:
     
-    data = Scraper(URL, False).fetch_request()
+    data = Scraper(FPL_BOOTSTRAP, False).fetch_request()
     
     if data:
         LOG.info("API data fetched successfully.")
@@ -17,8 +17,7 @@ def api_fetch()-> dict:
         return None
     
 
-teams, players = api_fetch()
-
-for team in teams:
-    Team(team)
-
+def fpl_data_to_db():
+    teams, players = api_fetch()
+    
+    for team in teams: Team(team)

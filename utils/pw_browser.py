@@ -1,8 +1,7 @@
 from utils.log import Logger
+from utils.settings import HEAD, BROWSER_WAIT_TIME, AGENT
 
-HEAD = True  # Set to True if you want to run in headless mode (no browser window)
 LOG = Logger("PlayWright_Browser")
-AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
 
 
 class PlayWright_Browser:
@@ -43,7 +42,7 @@ class PlayWright_Browser:
         try:
             self.page.goto(url)
             self.page.wait_for_selector(
-                tag, timeout=5000
+                tag, timeout=BROWSER_WAIT_TIME
             )  # Wait for the specific tag to load
             return self.page.content()
         except Exception as e:
