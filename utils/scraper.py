@@ -6,10 +6,14 @@ LOG = Logger("Scraper")
 
 
 class Scraper:
-    def __init__(self, url: str):
+    def __init__(self, url: str, enablePW: bool):
         self.url = url
-        self.browser = PlayWright_Browser()  # Initialize the browser instance
-        LOG.info(f"Scraper initialized with URL: {self.url}")
+        self.enablePW = enablePW
+        
+        if enablePW:
+            self.browser = PlayWright_Browser()  # Initialize the browser instance
+            
+        LOG.info(f"Scraper initialized with URL: {self.url}, with PlayWright enabled: {enablePW}")
 
     def fetch_request(self, url: str = None) -> dict:
         if url:
@@ -26,7 +30,10 @@ class Scraper:
             return None
 
     def fetch_playwright(self, tag: str, url: str = None):
-
+        if not self.enablePW:
+            LOG.error("This instancee doesnt have PlayWright enabled")
+            return None
+        
         if url:
             LOG.info(f"Updating URL from: {self.url} to: {url}")
             self.url = url  # Update URL if provided
@@ -50,6 +57,9 @@ class Scraper:
             return None
 
     def close(self):
+        if not self.enablePW:
+            LOG.info("This instancee with no PlayWright is closed")
+            return None
         LOG.info("Closing Scraper instance.")
         self.browser.close_instance()  # Close the browser instance when done
 

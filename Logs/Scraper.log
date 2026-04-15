@@ -1,2 +1,8 @@
-2026-04-12 09:30:01 - INFO: Scraper initialized with URL: https://fantasy.premierleague.com/api/bootstrap-static/
-2026-04-12 09:30:02 - INFO: Data fetched successfully from: https://fantasy.premierleague.com/api/bootstrap-static/
+2026-04-14 20:09:07 - INFO: Scraper initialized with URL: https://fantasy.premierleague.com/api/bootstrap-static/, with PlayWright enabled: False
+2026-04-14 20:09:08 - INFO: Data fetched successfully from: https://fantasy.premierleague.com/api/bootstrap-static/
+2026-04-14 20:09:08 - INFO: Scraper instance destroyed.
+2026-04-14 20:09:08 - INFO: This instancee with no PlayWright is closed
+2026-04-14 20:12:27 - INFO: Scraper initialized with URL: https://fantasy.premierleague.com/api/bootstrap-static/, with PlayWright enabled: False
+2026-04-14 20:12:28 - INFO: Data fetched successfully from: https://fantasy.premierleague.com/api/bootstrap-static/
+2026-04-14 20:12:28 - INFO: Scraper instance destroyed.
+2026-04-14 20:12:28 - INFO: This instancee with no PlayWright is closed
