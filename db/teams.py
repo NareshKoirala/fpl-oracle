@@ -1,4 +1,4 @@
-import uuid
+from utils.settings import NAME_MAP
 from utils.log import Logger
 
 LOG = Logger("Teams_DB")
@@ -70,7 +70,10 @@ class Team:
 
     def validate_name(self):
         if "name" in self.data and isinstance(self.data["name"], str):
-            return self.data["name"]
+            name = self.data["name"]
+            if name in NAME_MAP:
+                name = NAME_MAP[name]
+            return name
         else:
             LOG.error("Invalid or missing 'name' field in team data.")
 
@@ -87,7 +90,7 @@ class Team:
             if key in self.data:
                 data[key] = self.data[key]
             else:
-                data[key] = None
+                data[key] = 0.0
 
         return data
 
@@ -97,10 +100,9 @@ class Team:
         for index, team in enumerate(cls.teams):
             if team.name == team_name and team.raw_data[key] != data:
                 cls.teams[index].raw_data[key] = data
-                LOG.info(f"{key} in raw_data updated with value {data}")
                 return
 
-        LOG.error(f"{key} in raw_data was not updated with {data} value")
+        LOG.error(f"{team_name} : {key} in raw_data was not updated with {data} value")
 
     @classmethod
     def add_team(cls, team):
