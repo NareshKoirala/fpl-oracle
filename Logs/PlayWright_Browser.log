@@ -1,14 +1,30 @@
-2026-04-15 01:45:44 - INFO: Browser engine started successfully.
-2026-04-15 02:01:08 - INFO: Browser engine started successfully.
-2026-04-15 02:02:44 - INFO: Browser engine started successfully.
-2026-04-15 02:04:12 - INFO: Browser engine started successfully.
-2026-04-15 02:06:40 - INFO: Browser engine started successfully.
-2026-04-15 02:07:57 - INFO: Browser engine started successfully.
-2026-04-15 02:09:40 - INFO: Browser engine started successfully.
-2026-04-15 02:10:03 - INFO: Browser engine started successfully.
-2026-04-15 02:11:22 - INFO: Browser engine started successfully.
-2026-04-15 02:11:37 - INFO: Browser engine started successfully.
-2026-04-15 02:13:38 - INFO: Browser engine started successfully.
-2026-04-15 02:15:17 - INFO: Browser engine started successfully.
-2026-04-15 02:17:11 - INFO: Browser engine started successfully.
-2026-04-15 02:18:24 - INFO: Browser engine started successfully.
+2026-04-15 17:11:06 - INFO: Browser engine started successfully.
+2026-04-15 17:11:17 - ERROR: Scrape failed: Page.wait_for_selector: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator(".e1ef5uu60") to be visible
+
+2026-04-15 17:11:50 - INFO: Browser engine started successfully.
+2026-04-15 17:12:01 - ERROR: Scrape failed: Page.wait_for_selector: Timeout 10000ms exceeded.
+Call log:
+  - waiting for locator(".e1ef5uu60") to be visible
+
+2026-04-15 17:13:03 - INFO: Browser engine started successfully.
+2026-04-15 17:13:25 - ERROR: Scrape failed: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator(".e1ef5uu60") to be visible
+
+2026-04-15 17:20:46 - INFO: Browser engine started successfully.
+2026-04-15 17:21:11 - ERROR: Scrape failed: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator(".e1ef5uu60") to be visible
+
+2026-04-15 17:35:11 - INFO: Browser engine started successfully.
+2026-04-15 17:35:42 - ERROR: Scrape failed: Page.goto: Timeout 30000ms exceeded.
+Call log:
+  - navigating to "https://www.fotmob.com/leagues/47/stats/premier-league/teams", waiting until "networkidle"
+
+2026-04-15 17:39:47 - INFO: Browser engine started successfully.
+2026-04-15 17:40:12 - ERROR: Scrape failed: Page.wait_for_selector: Timeout 20000ms exceeded.
+Call log:
+  - waiting for locator(".e1ef5uu60") to be visible
+

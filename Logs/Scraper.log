@@ -1,18 +1,17 @@
-2026-04-15 01:45:42 - INFO: Scraper initialized with URL: https://fantasy.premierleague.com/api/bootstrap-static/, with PlayWright enabled: False
-2026-04-15 01:45:43 - INFO: Data fetched successfully from: https://fantasy.premierleague.com/api/bootstrap-static/
-2026-04-15 01:45:43 - INFO: Scraper instance destroyed.
-2026-04-15 01:45:43 - INFO: This instancee with no PlayWright is closed
-2026-04-15 01:45:44 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/table/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:01:08 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:02:44 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:04:12 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:06:41 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:07:57 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:09:40 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:10:04 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:11:22 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:11:37 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:13:38 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:15:17 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:17:11 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
-2026-04-15 02:18:24 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:11:06 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:11:07 - INFO: Updating URL from: https://www.fotmob.com/leagues/47/stats/premier-league/teams to: https://www.fotmob.com/leagues/47/stats/season/27110/teams/rating_team/premier-league-teams
+2026-04-15 17:11:17 - ERROR: Failed to fetch content with Playwright.
+2026-04-15 17:11:50 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:11:51 - INFO: Updating URL from: https://www.fotmob.com/leagues/47/stats/premier-league/teams to: https://www.fotmob.com/leagues/47/stats/season/27110/teams/rating_team/premier-league-teams
+2026-04-15 17:12:01 - ERROR: Failed to fetch content with Playwright.
+2026-04-15 17:13:03 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:13:04 - INFO: Updating URL from: https://www.fotmob.com/leagues/47/stats/premier-league/teams to: https://www.fotmob.com/leagues/47/stats/season/27110/teams/rating_team/premier-league-teams
+2026-04-15 17:13:25 - ERROR: Failed to fetch content with Playwright.
+2026-04-15 17:20:46 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:20:48 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/season/27110/teams/rating_team/premier-league-teams, with PlayWright enabled: True
+2026-04-15 17:21:11 - ERROR: Failed to fetch content with Playwright.
+2026-04-15 17:35:12 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:35:42 - ERROR: Failed to fetch content with Playwright.
+2026-04-15 17:39:47 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/premier-league/teams, with PlayWright enabled: True
+2026-04-15 17:39:49 - INFO: Scraper initialized with URL: https://www.fotmob.com/leagues/47/stats/season/27110/teams/rating_team/premier-league-teams, with PlayWright enabled: True
+2026-04-15 17:40:12 - ERROR: Failed to fetch content with Playwright.

@@ -10,12 +10,17 @@ class PlayWright_Browser:
     _shared_browser = None
 
     def __init__(self):
-        # 1. Check if the shared browser exists. If not, start it.
         self._ensure_browser_is_running()
+        
+        # Version 2.0.3 Class-based approach 
+        from playwright_stealth import Stealth
+        self.stealth = Stealth() 
 
-        # 2. Every NEW instance gets its OWN private context and page.
-        # This prevents "tab clobbering."
         self.context = self._shared_browser.new_context(user_agent=AGENT)
+        
+        # Apply to the context so ALL pages inherit the stealth 
+        self.stealth.apply_stealth_sync(self.context)
+        
         self.page = self.context.new_page()
 
     @classmethod

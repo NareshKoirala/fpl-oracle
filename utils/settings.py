@@ -6,13 +6,13 @@ FOTMOB_TEAM_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/teams"
 FOTMOB_PLAYER_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/players"
 
 # Key Classes for FotMob
-
-
+TABLE_CLASS = "flipmove"
+TEAM_STATS_CLASS = "e1m5w55z1"
 
 # Scraper Settings
 AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-HEAD = True  
-BROWSER_WAIT_TIME = 10000
+HEAD = False  
+BROWSER_WAIT_TIME = 20000
 
 # The Translator
 NAME_MAP = {

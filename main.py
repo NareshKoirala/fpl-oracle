@@ -2,6 +2,7 @@ from utils.log import Logger
 from producer.fpl_scraper import fpl_data_to_db
 from db.teams import Team
 from producer.fotmob_scraper import table_scrap, team_stats_scrap
+ 
 
 LOG = Logger("Main")
 LOG.info("---------------------------Main Running----------------------------------")
