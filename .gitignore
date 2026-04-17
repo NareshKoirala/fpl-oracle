@@ -3,4 +3,4 @@ fpl_oracle/venv/
 
 __pycache__/
 *.pyc
-Logs
+fpl_oracle/Logs
