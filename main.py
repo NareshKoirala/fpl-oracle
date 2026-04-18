@@ -1,5 +1,5 @@
 from utils.log import Logger
-from producer.fpl_scraper import fpl_data_to_db
+from producer.fpl_scraper import fpl_data_to_db, testing
 from db.teams import Team
 from producer.fotmob_scraper import table_scrap, team_stats_scrap
  
@@ -17,10 +17,10 @@ LOG.info("Finished table_scrap")
 
 
 LOG.info("Starting team_stats_scrap")
-team_stats_scrap()
+#team_stats_scrap()
 LOG.info("Finished team_stats_scrap")
 
-
+testing()
 #for team in Team.teams:
 #    print(f"{team.tid}). {team.name}:- ")
 #    print(team.raw_data)

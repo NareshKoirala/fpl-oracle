@@ -4,7 +4,7 @@ from pathlib import Path
 class Logger:
     def __init__(self, fileName):
         # Modern path handling
-        log_dir = Path.cwd() / "Logs"
+        log_dir = Path.cwd() / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
         fileName = f"{fileName}.log"
         self.log_path = log_dir / fileName

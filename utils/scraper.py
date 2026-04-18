@@ -24,7 +24,7 @@ class Scraper:
 
         if response.status_code == 200:
             LOG.info(f"Data fetched successfully from: {self.url}")
-            return response.json()
+            return response
         else:
             LOG.error(f"Error fetching data: {response.status_code}")
             return None
@@ -41,12 +41,13 @@ class Scraper:
         content = self.browser.get_content(self.url, tag)
 
         if content:
-            return self.BeautifulSoup_Parse(content, "html.parser")
+            return Scraper.BeautifulSoup_Parse(content, "html.parser")
         else:
             LOG.error("Failed to fetch content with Playwright.")
             return None
-
-    def BeautifulSoup_Parse(self, content, parser: str):
+        
+    @classmethod
+    def BeautifulSoup_Parse(cls, content, parser: str):
         from bs4 import BeautifulSoup
 
         try:
