@@ -6,6 +6,7 @@ from utils.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 LOG = Logger("Fpl_scraper")
 
 def api_fetch()-> dict:
+    LOG.info("api_fetch() running.")
     
     data = Scraper(FPL_BOOTSTRAP, False).fetch_request().json()
     
@@ -18,11 +19,16 @@ def api_fetch()-> dict:
     
 
 def fpl_data_to_db():
-    teams, players = api_fetch()
+    LOG.info("Starting fpl_data_to_db()")
     
+    teams, players = api_fetch()
     for team in teams: Team(team)
+    
+    LOG.info("Finished fpl_data_to_db()")
 
 def testing():
+    LOG.info("Finished testing()")
+    
     data = Scraper(YAHOO_SPORTS, False).fetch_request()
     soup = Scraper.BeautifulSoup_Parse(data.text,  "html.parser")
     table_row = soup.find_all("tr")
@@ -42,3 +48,5 @@ def testing():
     
     for t in teams:
         print(t)
+        
+    LOG.info("Finished testing()")

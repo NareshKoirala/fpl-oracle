@@ -15,6 +15,7 @@ LOG = Logger("Fotmob_scraper")
 
 def team_stats_scrap():
     LOG.info("Started team_stats_scrap")
+    
     s = Scraper(FOTMOB_TEAM_STATS, True)
     data = s.fetch_playwright(f".{TEAM_STATS_CLASS}")
     section = data.find_all("div", class_=TEAM_STATS_CLASS)
@@ -46,7 +47,8 @@ def team_stats_scrap():
 
 
 def table_scrap():
-    LOG.info("Started table_scrap")
+    LOG.info("Started table_scrap()")
+    
     s = Scraper(FOTMOB_TABLE, True)
     data = s.fetch_playwright(f".{TABLE_CLASS}")
     table = data.find_all("div", class_=TABLE_CLASS)
@@ -74,4 +76,4 @@ def table_scrap():
         for key, value in team["data"].items():
             Team.update_raw_data(key, value, name)
 
-    LOG.info("Finished table_scrap")
+    LOG.info("Finished table_scrap()")
