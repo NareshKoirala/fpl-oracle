@@ -1,4 +1,4 @@
-from utils.settings import NAME_MAP, TEAMS_KEYS
+from utils.data_struct import FOTMOB_NAME_MAP, TEAMS_KEYS
 from utils.log import Logger
 
 LOG = Logger("Teams_DB")
@@ -26,8 +26,8 @@ class Team:
     def validate_name(self):
         if "name" in self.data and isinstance(self.data["name"], str):
             name = self.data["name"]
-            if name in NAME_MAP:
-                name = NAME_MAP[name]
+            if name in FOTMOB_NAME_MAP:
+                name = FOTMOB_NAME_MAP[name]
             return name
         else:
             LOG.error("Invalid or missing 'name' field in team data.")
