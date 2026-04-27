@@ -4,7 +4,7 @@ from utils.settings import HEAD, BROWSER_WAIT_TIME, AGENT
 LOG = Logger("PlayWright_Browser")
 
 
-class PlayWright_Browser:
+class PlayWright_sync_Browser:
     # --- Shared across ALL instances ---
     _playwright_manager = None
     _shared_browser = None
