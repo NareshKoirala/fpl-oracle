@@ -1,5 +1,5 @@
 from utils.log import Logger
-from utils.settings import HEAD, BROWSER_WAIT_TIME, AGENT
+from config.settings import HEAD, BROWSER_WAIT_TIME, AGENT
 
 LOG = Logger("PlayWright_Browser")
 

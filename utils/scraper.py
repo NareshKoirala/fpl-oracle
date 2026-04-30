@@ -1,6 +1,7 @@
 import requests
+import asyncio
 from utils.log import Logger
-from utils.pw_browser import PlayWright_Browser
+from utils.pw_browser_async import PlayWright_async_Browser
 
 LOG = Logger("Scraper")
 
@@ -9,10 +10,8 @@ class Scraper:
     def __init__(self, url: str, enablePW: bool):
         self.url = url
         self.enablePW = enablePW
+        self.browser = None
         
-        if enablePW:
-            self.browser = PlayWright_Browser()  # Initialize the browser instance
-            
         LOG.info(f"Scraper initialized with URL: {self.url}, with PlayWright enabled: {enablePW}")
 
     def fetch_request(self, url: str = None) -> dict:
@@ -29,16 +28,18 @@ class Scraper:
             LOG.error(f"Error fetching data: {response.status_code}")
             return None
 
-    def fetch_playwright(self, tag: str, url: str = None):
+    async def fetch_playwright(self, tag: str, url: str = None, label: str = None, click: bool = False):
         if not self.enablePW:
             LOG.error("This instancee doesnt have PlayWright enabled")
             return None
+        
+        self.browser = await PlayWright_async_Browser.create()  # Ensure the browser is initialized before fetching content
         
         if url:
             LOG.info(f"Updating URL from: {self.url} to: {url}")
             self.url = url  # Update URL if provided
 
-        content = self.browser.get_content(self.url, tag)
+        content = await self.browser.get_content(self.url, tag, label, click)
 
         if content:
             return Scraper.BeautifulSoup_Parse(content, "html.parser")
@@ -57,13 +58,16 @@ class Scraper:
             LOG.error(f"Error parsing content: {e}")
             return None
 
-    def close(self):
+    async def close(self):
         if not self.enablePW:
-            LOG.info("This instancee with no PlayWright is closed")
+            LOG.info("This instancee does not have PlayWright enabled")
             return None
         LOG.info("Closing Scraper instance.")
-        self.browser.close_instance()  # Close the browser instance when done
+        await self.browser.shutdown_engine()  # Close the browser instance when done
 
-    def __del__(self):
-        LOG.info("Scraper instance destroyed.")
-        self.close()  # Ensure browser is closed when the Scraper instance is destroyed
+    async def close_page(self):
+        if not self.enablePW:
+            LOG.info("This instancee does not have PlayWright enabled")
+            return None
+        LOG.info("Closing Scraper page.")
+        await self.browser.close_page()  # Close the page when done

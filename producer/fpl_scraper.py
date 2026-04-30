@@ -1,7 +1,7 @@
 from utils.log import Logger
 from utils.scraper import Scraper
 from db.teams import Team
-from utils.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
+from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 
 LOG = Logger("Fpl_scraper")
 
@@ -26,8 +26,8 @@ def fpl_data_to_db():
     
     LOG.info("Finished fpl_data_to_db()")
 
-def testing():
-    LOG.info("Finished testing()")
+def yahoo_data_to_db():
+    LOG.info("Starting yahoo_data_to_db()")
     
     data = Scraper(YAHOO_SPORTS, False).fetch_request()
     soup = Scraper.BeautifulSoup_Parse(data.text,  "html.parser")
@@ -49,4 +49,4 @@ def testing():
     for t in teams:
         print(t)
         
-    LOG.info("Finished testing()")
+    LOG.info("Finished yahoo_data_to_db()")

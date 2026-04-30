@@ -1,4 +1,4 @@
-from utils.data_struct import FOTMOB_NAME_MAP, TEAMS_KEYS
+from config.data_struct import FOTMOB_NAME_MAP, TEAMS_KEYS
 from utils.log import Logger
 
 LOG = Logger("Teams_DB")
@@ -21,6 +21,7 @@ class Team:
                 check = True
 
         if not check:
+            LOG.info(f"Creating team: {self.name} with tid: {self.tid}")
             self.add_team(self)  # Add the team instance to the class variable list
 
     def validate_name(self):
@@ -56,6 +57,7 @@ class Team:
             if team.name == team_name:
                 if team.raw_data[key] != data:
                     cls.teams[index].raw_data[key] = data
+                    LOG.info(f"{team_name} : {key} updated with {data}")
                 return
             
         LOG.error(f"{team_name} : {key} in raw_data was not updated with {data} value")
