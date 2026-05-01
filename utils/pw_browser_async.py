@@ -1,9 +1,9 @@
 import asyncio
 import random as rand
-import time
 import os
+from time import time
 from utils.log import Logger
-from config.settings import HEAD, BROWSER_WAIT_TIME, AGENT
+from config.settings import HEAD, BROWSER_WAIT_TIME, SLOW_MOTION
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
@@ -40,17 +40,17 @@ class PlayWright_async_Browser:
 
             if not os.path.exists(cls._user_data_dir):
                 os.makedirs(cls._user_data_dir)
-
+                
             # Persistent context = BrowserContext
             context = await cls._playwright_manager.chromium.launch_persistent_context(
                 user_data_dir=cls._user_data_dir,
                 headless=HEAD,
                 args=["--disable-blink-features=AutomationControlled"],
             )
-
-            cls._shared_browser = context
             # Apply stealth to the shared context ONCE
-            await Stealth().apply_stealth_async(cls._shared_browser)
+            await Stealth().apply_stealth_async(context)
+            cls._shared_browser = context
+            LOG.info("Shared browser engine started successfully.")
 
     @classmethod
     async def create(cls):
@@ -70,16 +70,15 @@ class PlayWright_async_Browser:
 
     async def _init_tab(self):
         """Opens a unique tab for this specific instance."""
-        # Use the shared persistent context
-        self.context = self.__class__._shared_browser
-
+        
+        self.context = self._shared_browser  # Use shared context if not creating a new one
+        
         # Each worker gets its own page
         self.page = await self.context.new_page()
         self.width, self.height = (
             self.page.viewport_size["width"],
             self.page.viewport_size["height"],
         )
-
         LOG.info("New Page with viewport size: {}x{}".format(self.width, self.height))
 
     async def random_mouse_movement(self):
@@ -88,42 +87,63 @@ class PlayWright_async_Browser:
             self.page.viewport_size["width"],
             self.page.viewport_size["height"],
         )
-        for _ in range(rand.randint(1, 4)):
-            x = rand.randint((-self.width // 4), self.width // 4)
-            y = rand.randint((-self.height // 4), self.height // 4)
+        for _ in range(rand.randint(2, 4)):
+            x = rand.randint((-self.width // 3), self.width // 3)
+            y = rand.randint((-self.height // 3), self.height // 3)
             # Move mouse with 'steps' to avoid teleportation
 
-            self.width = self.width // 2 + x
-            self.height = self.height // 2 + y
+            self.width = self.width // 3 + x
+            self.height = self.height // 3 + y
 
             await self.page.mouse.move(
                 self.width, self.height, steps=rand.randint(10, 20)
             )
-            await asyncio.sleep(rand.uniform(0.1, 0.5))
+            await asyncio.sleep(SLOW_MOTION)  # Random sleep between movements
 
-    async def get_content(self, url, tag: str, label: str = None, click: bool = False):
+    async def page_load(self, url: str):
+        """Utility method to load a new page."""
         try:
             await self.page.goto(url)
+            LOG.info(f"Page loaded successfully. URL: {url if url else 'Current URL'}")
+        except Exception as e:
+            LOG.error(f"Failed to load page {url}: {e}")
+
+    async def get_content(self, tag: str):
+        try:
             await self.page.wait_for_selector(
                 tag, timeout=BROWSER_WAIT_TIME
             )  # Wait for the specific tag to load
 
-            if label:
-                await self.page.get_by_label(
-                    label
-                ).click()  # Click the label if provided
-                LOG.info(f"Content loaded for {label} at URL: {url}")
+            await asyncio.sleep(SLOW_MOTION)  # Simulate human-like mouse movement
 
-            if click and not label:
-                await self.page.click(
-                    'button svg use[href$="icn-chevron-right"]'
-                )  # Click the tag if click is True and no label
-                LOG.info(f"Content loaded and clicked for tag: {tag} at URL: {url}")
-            
-            await asyncio.sleep(rand.uniform(3, 5))  # Random sleep after click
             return await self.page.content()
         except Exception as e:
             LOG.error(f"Scrape failed: {e}")
             return None
 
+    async def click_element(self, selector: str):
+        """Utility method to click an element by selector."""
+        try:
+            await self.page.click(selector)
+            LOG.info(f"Clicked element with selector: {selector}")
+        except Exception as e:
+            LOG.error(f"Failed to click element {selector}: {e}")
 
+    async def get_element(self, selector: str):
+        """Utility method to get an element by selector."""
+        try:
+            await self.page.wait_for_selector(selector, timeout=BROWSER_WAIT_TIME)
+            element = await self.page.query_selector(selector)
+            LOG.info(f"Element found with selector: {selector}")
+            return element
+        except Exception as e:
+            LOG.error(f"Failed to get element {selector}: {e}")
+            return None
+
+    async def page_reload(self):
+        """Utility method to reload the current page."""
+        try:
+            await self.page.reload(wait_until="networkidle")
+            LOG.info("Page reloaded successfully.")
+        except Exception as e:
+            LOG.error(f"Failed to reload page: {e}")

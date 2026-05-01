@@ -8,7 +8,7 @@ LOG = Logger("Fpl_scraper")
 def api_fetch()-> dict:
     LOG.info("api_fetch() running.")
     
-    data = Scraper(FPL_BOOTSTRAP, False).fetch_request().json()
+    data = Scraper().fetch_request(FPL_BOOTSTRAP).json()
     
     if data:
         LOG.info("API data fetched successfully.")
@@ -29,7 +29,7 @@ def fpl_data_to_db():
 def yahoo_data_to_db():
     LOG.info("Starting yahoo_data_to_db()")
     
-    data = Scraper(YAHOO_SPORTS, False).fetch_request()
+    data = Scraper().fetch_request(YAHOO_SPORTS)
     soup = Scraper.BeautifulSoup_Parse(data.text,  "html.parser")
     table_row = soup.find_all("tr")
     

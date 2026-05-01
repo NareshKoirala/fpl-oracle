@@ -18,7 +18,9 @@ team_stats_dic = {}
 async def team_stats_links_scrap():
     LOG.info("Started team_stats_links_scrap()")
 
-    s = Scraper(FOTMOB_TEAM_STATS, True)
+    s = Scraper()
+    await s.enable_playwright()
+    await s.page_load(FOTMOB_TEAM_STATS)
 
     for key, value in team_stats_dic.items():
 
@@ -52,7 +54,9 @@ async def team_stats_links_scrap():
 async def team_stats_links():
     LOG.info("Started team_stats_links()")
 
-    s = Scraper(FOTMOB_TEAM_STATS, True)
+    s = Scraper()
+    await s.enable_playwright()
+    await s.page_load(FOTMOB_TEAM_STATS)
     data = await s.fetch_playwright(f".{TEAM_STATS_SECTION_CLASS}")
     section = data.find("section", class_=TEAM_STATS_SECTION_CLASS)
     div = section.find_all("div", class_=TEAM_STATS_DIV_CLASS)
@@ -79,7 +83,9 @@ async def team_stats_links():
 async def table_scrap():
     LOG.info("Started table_scrap()")
 
-    s = Scraper(FOTMOB_TABLE, True)
+    s = Scraper()
+    await s.enable_playwright()  # Ensure Playwright is enabled for this scraper instance
+    await s.page_load(FOTMOB_TABLE)
     data = await s.fetch_playwright(f".{TABLE_CLASS}")
     table = data.find_all("div", class_=TABLE_CLASS)
 
@@ -104,7 +110,9 @@ async def table_scrap():
 async def xg_scrap():
     LOG.info("Started xg_scrap()")
 
-    s = Scraper(FOTMOB_xG, True)
+    s = Scraper()
+    await s.enable_playwright()
+    await s.page_load(FOTMOB_xG)
     data = await s.fetch_playwright(f".{TABLE_CLASS}")
     table = data.find_all("div", class_=TABLE_CLASS)
     
