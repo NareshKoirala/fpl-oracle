@@ -97,7 +97,7 @@ async def scrap_url(key, url):
         if span[0] in EPL_NAME_MAP:
             team_name = EPL_NAME_MAP[span[0]]
 
-        Team.update_raw_data(key, span[1], team_name)
+        Team.update_raw_data(key, span[1] if len(span[1]) != 0 else 0.0, team_name)
 
     await s.click_element('button:has(svg use[href$="icn-chevron-right"])')
     raw_data = await s.fetch_playwright(f".{EPL_FILTER_CLASS}")
@@ -111,6 +111,6 @@ async def scrap_url(key, url):
         if span[0] in EPL_NAME_MAP:
             team_name = EPL_NAME_MAP[span[0]]
 
-        Team.update_raw_data(key, span[1], team_name)
+        Team.update_raw_data(key, span[1] if len(span[1]) != 0 else 0.0, team_name)
 
     await s.close_page()

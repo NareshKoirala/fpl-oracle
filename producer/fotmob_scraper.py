@@ -118,18 +118,16 @@ async def xg_scrap():
     
     for row in table[1:]:
         x_data = [d.text.strip() for d in row.find_all("span")[2:] if d.text.strip()]
-        x_diff_data = [d.text.strip() for d in row.find_all("sup") if d.text.strip()]
         name = x_data[0]
-        print(len(row.find_all("td")))
-        print(x_diff_data)
+        data = [d.text.strip().replace('+', ' ').replace('-', ' ').split(' ') for d in row.find_all("td")[-3:]]
         
-        Team.update_raw_data("xg", x_data[1], name)
-        Team.update_raw_data("xga", x_data[2], name)
-        Team.update_raw_data("xpts", x_data[3], name)
-        
-        #Team.update_raw_data("xg_difference", x_diff_data[0] if x_diff_data[0] else 0, name)
-        #Team.update_raw_data("xga_difference", x_diff_data[1] if x_diff_data[1] else 0, name)
-        #Team.update_raw_data("xpts_difference", x_diff_data[2] if x_diff_data[2] else 0, name)
+        Team.update_raw_data("xg", data[0][0], name)
+        Team.update_raw_data("xga", data[1][0], name)
+        Team.update_raw_data("xpts", data[2][0], name)
+
+        Team.update_raw_data("xg_difference", data[0][1] if len(data[0]) != 1 else 0.0, name)
+        Team.update_raw_data("xga_difference", data[1][1] if len(data[1]) != 1 else 0.0, name)
+        Team.update_raw_data("xpts_difference", data[2][1] if len(data[2]) != 1 else 0.0, name)
 
     await s.close_page()  # Close the Playwright page after scraping is done
 
