@@ -120,13 +120,16 @@ async def xg_scrap():
         x_data = [d.text.strip() for d in row.find_all("span")[2:] if d.text.strip()]
         x_diff_data = [d.text.strip() for d in row.find_all("sup") if d.text.strip()]
         name = x_data[0]
+        print(len(row.find_all("td")))
+        print(x_diff_data)
         
         Team.update_raw_data("xg", x_data[1], name)
         Team.update_raw_data("xga", x_data[2], name)
         Team.update_raw_data("xpts", x_data[3], name)
-        Team.update_raw_data("xg_difference", x_diff_data[0], name)
-        Team.update_raw_data("xga_difference", x_diff_data[1], name)
-        Team.update_raw_data("xpts_difference", x_diff_data[2], name)
+        
+        #Team.update_raw_data("xg_difference", x_diff_data[0] if x_diff_data[0] else 0, name)
+        #Team.update_raw_data("xga_difference", x_diff_data[1] if x_diff_data[1] else 0, name)
+        #Team.update_raw_data("xpts_difference", x_diff_data[2] if x_diff_data[2] else 0, name)
 
     await s.close_page()  # Close the Playwright page after scraping is done
 
