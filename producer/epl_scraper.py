@@ -79,13 +79,13 @@ async def team_stats_scrap():
 
 
 async def scrap_url(key, url):
-
     s = Scraper()
     await s.enable_playwright()
 
     LOG.info(f"Scraping team stats for: {key} from URL: {url}")
 
     await s.page_load(url)
+
     raw_data = await s.fetch_playwright(f".{EPL_FILTER_CLASS}")
     table = raw_data.find("table")
     tr = table.find_all("tr")[3:]
@@ -113,4 +113,3 @@ async def scrap_url(key, url):
 
         Team.update_raw_data(key, span[1] if len(span[1]) != 0 else 0.0, team_name)
 
-    await s.close_page()

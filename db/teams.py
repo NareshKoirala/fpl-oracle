@@ -1,4 +1,4 @@
-from config.data_struct import FOTMOB_NAME_MAP, TEAMS_KEYS
+from config.data_struct import FOTMOB_NAME_MAP, TEAMS
 from utils.log import Logger
 
 LOG = Logger("Teams_DB")
@@ -56,10 +56,12 @@ class Team:
         for index, team in enumerate(cls.teams):
             if team.name == team_name:
                 if team.raw_data[key] != data:
-                    LOG.info(f"{team_name} : {key} updated with {data} for {team.raw_data[key]}")
+                    LOG.info(
+                        f"{team_name} : {key} updated with {data} for {team.raw_data[key]}"
+                    )
                     cls.teams[index].raw_data[key] = data
                 return
-            
+
         LOG.error(f"{team_name} : {key} in raw_data was not updated with {data} value")
 
     @classmethod

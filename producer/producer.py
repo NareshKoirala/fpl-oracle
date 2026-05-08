@@ -12,10 +12,11 @@ async def run_scrapers():
     while True:
         LOG.info("Starting scrapers...")
         fpl_data_to_db()
-        await table_scrap()
-        await xg_scrap()
-        await team_stats_scrap()
-        print(Team.teams)
+        #await table_scrap()
+        #await xg_scrap()
+        #await team_stats_scrap()
+        for team in Team.teams:
+            print(team)
         print("Waiting")
         LOG.info("Finished scrapers.")
         LOG.info("Sleeping for 1 min...")
