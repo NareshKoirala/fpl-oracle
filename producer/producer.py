@@ -15,6 +15,7 @@ async def run_scrapers():
         await table_scrap()
         await xg_scrap()
         await team_stats_scrap()
+        print(Team.teams)
         print("Waiting")
         LOG.info("Finished scrapers.")
         LOG.info("Sleeping for 1 min...")
