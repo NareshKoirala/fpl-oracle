@@ -44,8 +44,8 @@ TEAMS = {
     },
     "expected": {
         "xg": 0,
-        "xga": 0,
         "xg_difference": 0,
+        "xga": 0,
         "xga_difference": 0,
         "xpts": 0,
         "xpts_difference": 0,

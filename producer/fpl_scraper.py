@@ -1,6 +1,7 @@
 from utils.log import Logger
 from utils.scraper import Scraper
 from db.teams import Team
+from db.players import Player
 from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 
 LOG = Logger("Fpl_scraper")
@@ -23,6 +24,7 @@ def fpl_data_to_db():
     
     teams, players = api_fetch()
     for team in teams: Team(team)
+    for player in players: Player(player)
     
     LOG.info("Finished fpl_data_to_db()")
 

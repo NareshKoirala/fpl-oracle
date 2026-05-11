@@ -12,9 +12,10 @@ class Logger:
     def log(self, level, message):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_entry = f"{timestamp} - {level}: {message}"
-        
-        with open(self.log_path, 'a') as f:
+       
+        with open(self.log_path, 'a', encoding='utf-8') as f:
             f.write(log_entry + '\n')
+
 
     def info(self, message):
         self.log('INFO', message)
