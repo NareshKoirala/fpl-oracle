@@ -9,11 +9,11 @@ class Player:
     def __init__(self, data: dict):
         self.raw_data = data
         
-        self.id = data["id"]
-        self.team_code = data["team_code"]
-        self.now_cost = data["now_cost"]
+        self.id = int(data["id"])
+        self.team_code = int(data["team_code"])
+        self.now_cost = float(data["now_cost"])
         self.web_name = data["web_name"]
-        self.total_points = data["total_points"]
+        self.total_points = float(data["total_points"])
         self.status = data["status"]
         self.form = data["form"]
         self.element_type = data["element_type"]
@@ -38,7 +38,8 @@ class Player:
 
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
+                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
+                dict_copy[key] = data if isinstance(data, str) else float(data)
 
         return dict_copy
     
@@ -47,8 +48,8 @@ class Player:
 
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
-
+                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
+                dict_copy[key] = data if isinstance(data, str) else float(data)
         return dict_copy
     
     def validate_rank(self):
@@ -56,8 +57,8 @@ class Player:
         
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
-
+                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
+                dict_copy[key] = data if isinstance(data, str) else float(data)
         return dict_copy
     
     def validate_expected(self):
@@ -65,8 +66,8 @@ class Player:
 
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
-
+                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
+                dict_copy[key] = data if isinstance(data, str) else float(data)
         return dict_copy
     
     def validate_stats_per_90(self):
@@ -74,8 +75,8 @@ class Player:
 
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
-
+                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
+                dict_copy[key] = data if isinstance(data, str) else float(data)
         return dict_copy
     
     @classmethod

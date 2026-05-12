@@ -13,7 +13,7 @@ class Team:
 
         self.name = self.validate_name()
         self.short_name = self.validate_short_name()
-        self.tid = data["code"]
+        self.tid = int(data["code"])
         self.table = self.validate_table()
         self.expected = self.validate_expected()
         self.strength = self.validate_strength()
@@ -40,7 +40,7 @@ class Team:
 
         for key in dict_copy:
             if key in self.raw_data:
-                dict_copy[key] = self.raw_data[key]
+                dict_copy[key] = float(self.raw_data[key])
 
         return dict_copy
 
@@ -69,7 +69,7 @@ class Team:
         for team in cls.teams:
             if team.name == team_name:
                 if key in team.expected:
-                    team.expected[key] = data
+                    team.expected[key] = data or '' if  isinstance(data, str) else float(0)
                     LOG.info(
                         f"Updated {team_name} : {key} in expected with value {data}"
                     )
@@ -91,7 +91,7 @@ class Team:
         for team in cls.teams:
             if team.name == team_name:
                 if key in team.table:
-                    team.table[key] = data
+                    team.table[key] = data if isinstance(data, str) or isinstance(data, list) else float(data)
                     LOG.info(f"Updated {team_name} : {key} in table with value {data}")
                 else:
                     LOG.error(
