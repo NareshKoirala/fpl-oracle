@@ -95,7 +95,8 @@ class Team:
                 if key in team.table:
                     if data == None or data == "":
                         data = 0
-                    team.table[key] = data if isinstance(data, str) or isinstance(data, list) else float(data)
+                    
+                    team.table[key] = float(data) if isinstance(team.table[key], int) else data
                     LOG.info(f"Updated {team_name} : {key} in table with value {data}")
                 else:
                     LOG.error(

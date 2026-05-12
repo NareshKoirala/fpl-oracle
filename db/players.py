@@ -34,50 +34,32 @@ class Player:
             self.add_player(self)  # Add the player instance to the class variable list
             
     def validate_stats(self):
-        dict_copy = PLAYERS["stats"].copy()
+        return self.valid_check(PLAYERS["stats"].copy())
 
-        for key in dict_copy:
+
+    def valid_check(self, dict_copy):
+
+        for key, value in dict_copy.items():
             if key in self.raw_data:
-                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
-                dict_copy[key] = data if isinstance(data, str) else float(data)
+                data = self.raw_data[key]
+                if data == "" or data == None:
+                    data = 0
+                dict_copy[key] = float(data) if isinstance(value, int) else data
 
         return dict_copy
     
     def validate_fpl_stats(self):
-        dict_copy = PLAYERS["fpl_stats"].copy()
+        return self.valid_check(PLAYERS["fpl_stats"].copy())
 
-        for key in dict_copy:
-            if key in self.raw_data:
-                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
-                dict_copy[key] = data if isinstance(data, str) else float(data)
-        return dict_copy
     
     def validate_rank(self):
-        dict_copy = PLAYERS["rank"].copy()
-        
-        for key in dict_copy:
-            if key in self.raw_data:
-                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
-                dict_copy[key] = data if isinstance(data, str) else float(data)
-        return dict_copy
+        return self.valid_check(PLAYERS["rank"].copy())
     
     def validate_expected(self):
-        dict_copy = PLAYERS["expected"].copy()
-
-        for key in dict_copy:
-            if key in self.raw_data:
-                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
-                dict_copy[key] = data if isinstance(data, str) else float(data)
-        return dict_copy
+        return self.valid_check(PLAYERS["expected"].copy())
     
     def validate_stats_per_90(self):
-        dict_copy = PLAYERS["stats_per_90"].copy()
-
-        for key in dict_copy:
-            if key in self.raw_data:
-                data = self.raw_data[key] or '' if isinstance(self.raw_data[key], str) else 0
-                dict_copy[key] = data if isinstance(data, str) else float(data)
-        return dict_copy
+        return self.valid_check(PLAYERS["stats_per_90"].copy())
     
     @classmethod
     def add_player(cls, player):
