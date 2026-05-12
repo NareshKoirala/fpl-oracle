@@ -69,7 +69,9 @@ class Team:
         for team in cls.teams:
             if team.name == team_name:
                 if key in team.expected:
-                    team.expected[key] = data or '' if  isinstance(data, str) else float(0)
+                    if data == None or data.strip() == "":
+                        data = 0
+                    team.expected[key] = float(data)
                     LOG.info(
                         f"Updated {team_name} : {key} in expected with value {data}"
                     )
@@ -91,6 +93,8 @@ class Team:
         for team in cls.teams:
             if team.name == team_name:
                 if key in team.table:
+                    if data == None or data == "":
+                        data = 0
                     team.table[key] = data if isinstance(data, str) or isinstance(data, list) else float(data)
                     LOG.info(f"Updated {team_name} : {key} in table with value {data}")
                 else:
