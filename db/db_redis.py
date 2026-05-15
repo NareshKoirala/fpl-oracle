@@ -7,13 +7,13 @@ class RedisDB:
     def __init__(self, host='localhost', port=6379, db=0):
         self.client = redis.Redis(host=host, port=port, db=db)
 
-    def set(self, key: str, value: str):
-        self.client.set(key, value)
+    def hset_one(self, db, key, value):
+        self.client.hset(f"{db}", key, value)
 
-    def get(self, key: str) -> str:
-        return self.client.get(key).decode('utf-8') if self.client.get(key) else None
+    def hset_all(self, db, data):
+        self.client.hset(f"{db}", mapping=data)
 
-    def delete(self, key: str):
-        self.client.delete(key)
-        
+    def hget_all(self, db):
+        byte_data = self.client.hgetall(f"{db}")
+        return {k.decode(): v.decode() for k,v in byte_data.items()}
     

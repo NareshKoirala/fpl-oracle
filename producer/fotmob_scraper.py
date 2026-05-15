@@ -20,7 +20,7 @@ async def table_scrap():
 
     for row in table[1:]:
         div_data = [d.text.strip() for d in row.find_all("div")[1:-8] if d.text.strip()]
-        form = [3 if c == "W" else 1 if c == "D" else 0 for c in div_data[10]]
+        form = ["3" if c == "W" else "1" if c == "D" else "0" for c in div_data[10]]
         name = row.find(class_="TeamShortname").text.strip()
         goal = div_data[7].split("-")
 
@@ -32,7 +32,7 @@ async def table_scrap():
         Team.update_table("draw", div_data[5], name)
         Team.update_table("loss", div_data[6], name)
         Team.update_table("points", div_data[9], name)
-        Team.update_table("form", form, name)
+        Team.update_table("form", "".join(form), name)
 
     await s.close_page()  # Close the Playwright page after scraping is done
 

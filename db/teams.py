@@ -1,7 +1,10 @@
-from config.data_struct import FOTMOB_NAME_MAP, TEAMS
+from config.data_struct import TEAMS
+from config.data_maps import FOTMOB_NAME_MAP
 from utils.log import Logger
+from db.db_redis import RedisDB
 
 LOG = Logger("Teams_DB")
+DB = RedisDB()
 
 
 class Team:
@@ -18,7 +21,6 @@ class Team:
         self.expected = self.validate_expected()
         self.strength = self.validate_strength()
 
-
         check = False
         for team in Team.teams:
             if self.name == team.name:
@@ -27,6 +29,9 @@ class Team:
         if not check:
             LOG.info(f"Creating team: {self.name} with tid: {self.tid}")
             self.add_team(self)  # Add the team instance to the class variable list
+            DB.hset_one(f"teams:{self.tid}", "name", self.name)
+            DB.hset_one(f"teams:{self.tid}", "short_name", self.short_name)
+
 
     def validate_table(self):
         return TEAMS["table"].copy()
@@ -41,6 +46,7 @@ class Team:
         for key in dict_copy:
             if key in self.raw_data:
                 dict_copy[key] = float(self.raw_data[key])
+                DB.hset_one(f"teams:{self.tid}", f"strength.{key}", float(self.raw_data[key]))
 
         return dict_copy
 
@@ -72,6 +78,7 @@ class Team:
                     if data == None or data.strip() == "":
                         data = 0
                     team.expected[key] = float(data)
+                    DB.hset_one(f"teams:{self.tid}", f"expected.{key}", float(data))
                     LOG.info(
                         f"Updated {team_name} : {key} in expected with value {data}"
                     )
@@ -96,7 +103,8 @@ class Team:
                     if data == None or data == "":
                         data = 0
                     
-                    team.table[key] = float(data) if isinstance(team.table[key], int) else data
+                    team.table[key] = data
+                    DB.hset_one(f"teams:{self.tid}", f"table.{key}", data)
                     LOG.info(f"Updated {team_name} : {key} in table with value {data}")
                 else:
                     LOG.error(
