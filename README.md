@@ -1,35 +1,113 @@
-# 🔮 FPL Oracle: Distributed Prediction Engine
+# 🔮 FPL‑Oracle: Distributed FPL Prediction Engine
 
-A high-performance, asynchronous data pipeline designed to predict Fantasy Premier League (FPL) player performance using distributed scrapers, real-time data storage, and modular analytical workers.
+A high‑performance, asynchronous prediction system designed to forecast Fantasy Premier League (FPL) player performance using distributed scrapers, real‑time Redis storage, and modular analytical workers (“Cooks”).  
+Built for speed, resilience, and extensibility.
 
-## 🏗️ System Architecture
+---
 
-The project follows a **Producer-Consumer** pattern mediated by **Redis**, ensuring total independence between data ingestion and statistical analysis.
+## 🧠 System Overview
 
-![System Architecture](./fpl_orcale_system.png)
+FPL‑Oracle follows a **Producer → Pantry → Cook → Aggregator → Manager → API** pipeline.  
+Each layer is isolated, fault‑tolerant, and independently deployable.
 
-### 1. The Producers (Data Ingestors)
-Three independent scripts fetch raw data and push it into the Redis "Pantry" using static Player IDs as keys:
-* **FPL API Worker (`fpl_api.py`)**: Fetches official prices, ownership, and current point tallies.
-* **FotMob Scraper (`fotmob_scrapper.py`)**: Uses BeautifulSoup to extract advanced metrics like xG (Expected Goals) and xA (Expected Assists) from FotMob HTML.
-* **News Scout (`news_scrapper.py`)**: Scrapes Reddit and X (Twitter) for injury news, "leaked" lineups, and tactical rumors.
+---
 
-### 2. The Shared Hub (Redis Store)
-Acts as the **State Store**. Data is organized by static keys (e.g., `player:305`), allowing producers to update "ingredients" independently.
-* **Atomic Updates**: If the FPL Worker updates a price, it doesn't overwrite the xG data previously sent by FotMob.
-* **Persistence**: Data remains available for the Cooks even if a Producer goes offline.
+## 🏗️ Architecture Breakdown
 
-### 3. The Analysts (The Cooks)
-Modular workers (`cook_a.py` to `cook_d.py`) subscribe to Redis updates to calculate specific probability coefficients:
-* **Worker 1 (The Physio)**: Calculates injury and fitness probability ($P_{injury}$).
-* **Worker 2 (The Manager)**: Calculates rotation risk based on recent high-intensity minutes.
-* **Worker 3 (The Tactician)**: Evaluates match strength and fixture difficulty.
-* **Worker 4 (The Statistician)**: Computes weighted form using STAT 151 principles.
+### **1. Producers — Data Ingestors**
+Located in: `producer/`
 
-### 4. The Orchestration (Manager & Waiter)
-* **The Manager**: Aggregates all coefficients from the Cooks to calculate the final **Expected Points (xP)**.
-* **The Waiter (Internal API)**: An API layer that serves the final "dishes" to the dashboard.
-* **Dashboard**: A NextJS/Streamlit UI providing real-time visualizations for the end-user.
+These workers fetch raw data from multiple sources and push structured fields into Redis using static player/team IDs.
+
+- **FPL API Scraper (`fpl_scraper.py`)**  
+  Official FPL data: prices, minutes, ICT, points, status.
+
+- **FotMob Scraper (`fotmob_scrapper.py`)**  
+  Advanced stats: xG, xA, xGI, shots, key passes.
+
+- **Reddit/X Scout (`reddit_scraper.py`)**  
+  Injury rumors, leaked lineups, tactical news.
+
+- **Producer Orchestrator (`producer.py`)**  
+  Coordinates async scraping cycles.
+
+Producers never talk to each other — they only write to Redis.
+
+---
+
+### **2. Pantry — Redis State Store**
+Located in: `db/`
+
+Redis acts as the **single source of truth** for all player/team data.
+
+- **`db_redis.py`** — Redis client + helper methods  
+- **`players.py`** — Player schema, getters/setters  
+- **`teams.py`** — Team schema, getters/setters  
+
+Redis keys follow a clean pattern:
+
+player:{id}
+team:{id}
+fixture:{gw}:{team_id}
+
+Each producer updates only its own fields, ensuring **atomic, non‑destructive writes**.
+
+---
+
+### **3. Cooks — Analytical Workers**
+Located in: `cook/`
+
+Cooks read from Redis, compute a single coefficient, and write the result back.
+
+- **`minute_cook.py`** — Minutes probability  
+- **`form_cook.py`** — Weighted form score  
+- **`fixture_cook.py`** — Fixture difficulty  
+- **`cook.py`** — Base class for all workers  
+
+Each Cook is intentionally narrow in scope — this makes the system modular and debuggable.
+
+---
+
+### **4. Aggregator — Expected Points Engine**
+(Coming soon)
+
+This worker combines all Cook coefficients into a final **xP (Expected Points)** value.
+
+Formula (simplified):
+
+xP = P_minutes × P_form × P_fixture × role_weight × team_strength
+
+
+---
+
+### **5. Manager — Best XI Selector**
+(Coming soon)
+
+Applies:
+
+- Formation rules  
+- Budget constraints  
+- Position limits  
+- Fixture weighting  
+- xP ranking  
+
+Outputs:
+
+- Best XI  
+- Captain pick  
+- Bench order  
+
+---
+
+### **6. Waiter — API Layer**
+(Coming soon)
+
+A lightweight API that exposes:
+
+- `/player/{id}/xp`  
+- `/bestxi`  
+- `/captain`  
+- `/fixtures`  
 
 ---
 
@@ -37,9 +115,33 @@ Modular workers (`cook_a.py` to `cook_d.py`) subscribe to Redis updates to calcu
 
 ```text
 fpl_oracle/
-├── common/                # Shared logic, Redis client, and Schemas
-├── producers/             # Raw data extractors (Workers A, B, C)
-├── analysts/              # Probability and Math Workers (Cooks)
-├── brain/                 # Manager/Aggregator logic
-├── dashboard/             # NextJS/Streamlit frontend
-└── docker-compose.yml     # Orchestration for Redis and Workers
+│
+├── config/                 # Global settings & data schemas
+│   ├── data_maps.py
+│   ├── data_struct.py
+│   └── settings.py
+│
+├── cook/                   # Analytical workers (Cooks)
+│   ├── cook.py
+│   ├── fixture_cook.py
+│   ├── form_cook.py
+│   └── minute_cook.py
+│
+├── db/                     # Redis abstraction layer
+│   ├── db_redis.py
+│   ├── players.py
+│   └── teams.py
+│
+├── producer/               # Distributed scrapers
+│   ├── producer.py
+│   ├── fotmob_scrapper.py
+│   ├── fpl_scraper.py
+│   └── reddit_scraper.py
+│
+├── utils/                  # Shared utilities
+│   ├── data_to_txt.py
+│   ├── log.py
+│   ├── pw_browser_async.py
+│   └── scraper.py
+│
+└── main.py                 # Entry point for orchestrating the pipeline
