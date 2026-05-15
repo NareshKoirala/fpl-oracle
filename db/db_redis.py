@@ -8,12 +8,20 @@ class RedisDB:
         self.client = redis.Redis(host=host, port=port, db=db)
 
     def hset_one(self, db, key, value):
-        self.client.hset(f"{db}", key, value)
+        self.client.hset(db, key, value)
 
     def hset_all(self, db, data):
-        self.client.hset(f"{db}", mapping=data)
+        self.client.hset(db, mapping=data)
 
     def hget_all(self, db):
-        byte_data = self.client.hgetall(f"{db}")
+        byte_data = self.client.hgetall(db)
         return {k.decode(): v.decode() for k,v in byte_data.items()}
+
+    def hscan_section(self, db, section):
+        cursor, byte_data = self.client.hscan(db, match=f"{section}.*")
+        return {k.decode(): v.decode() for k,v in byte_data.items()}
+
+    def db_size(self):
+        return self.client.dbsize()
+
     

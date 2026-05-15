@@ -78,7 +78,7 @@ class Team:
                     if data == None or data.strip() == "":
                         data = 0
                     team.expected[key] = float(data)
-                    DB.hset_one(f"teams:{self.tid}", f"expected.{key}", float(data))
+                    DB.hset_one(f"teams:{team.tid}", f"expected.{key}", float(data))
                     LOG.info(
                         f"Updated {team_name} : {key} in expected with value {data}"
                     )
@@ -104,7 +104,7 @@ class Team:
                         data = 0
                     
                     team.table[key] = data
-                    DB.hset_one(f"teams:{self.tid}", f"table.{key}", data)
+                    DB.hset_one(f"teams:{team.tid}", f"table.{key}", data)
                     LOG.info(f"Updated {team_name} : {key} in table with value {data}")
                 else:
                     LOG.error(

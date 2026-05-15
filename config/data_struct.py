@@ -81,7 +81,6 @@ PLAYERS = {
         "transfers_in_event": 0,
         "transfers_out": 0,
         "transfers_out_event": 0,
-        "scout_risks": "",
     },
     "rank": {
         "selected_rank": 0,
