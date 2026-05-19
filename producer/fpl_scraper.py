@@ -13,7 +13,7 @@ def api_fetch()-> dict:
     
     if data:
         LOG.info("API data fetched successfully.")
-        return data["teams"], data["elements"]
+        return data["teams"], data["elements"], ["events"]
     else:
         LOG.error("Failed to fetch API data.")
         return None
@@ -27,28 +27,3 @@ def fpl_data_to_db():
     for player in players: Player(player)
     
     LOG.info("Finished fpl_data_to_db()")
-
-def yahoo_data_to_db():
-    LOG.info("Starting yahoo_data_to_db()")
-    
-    data = Scraper().fetch_request(YAHOO_SPORTS)
-    soup = Scraper.BeautifulSoup_Parse(data.text,  "html.parser")
-    table_row = soup.find_all("tr")
-    
-    teams = []
-    title = []
-    
-    for row in table_row:
-        team = []
-        for cell in row.find_all("th"):
-            title.append(cell.text)
-        for cell in row.find_all("td"):
-            team.append(cell.text)
-        teams.append(team)
-        
-    print(title)
-    
-    for t in teams:
-        print(t)
-        
-    LOG.info("Finished yahoo_data_to_db()")

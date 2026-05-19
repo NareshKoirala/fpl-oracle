@@ -1,4 +1,83 @@
-# Teams & Players keys
+# Teams, Players and Fixtures keys
+FPL_FIXTURES = {
+    "id": 0,
+    "name": "",
+    "deadline_time": "",
+    "is_current": "bool",
+    "is_previous": "bool",
+    "is_next": "bool",
+    "finished": "bool",
+    "data_checked": "bool",
+    "highest_score": 0,
+    "most_selected": 0,
+    "most_transferred_in": 0,
+    "top_element": 0,
+    "top_element_info": {
+        "id": 0,
+        "points": 0,
+    },
+    "most_captained": 0,
+    "most_vice_captained": 0,
+}
+
+FIXTURES = {
+    "event": 0,
+    "finished": "bool",
+    "id": 0,
+    "kickoff_time": "2025-08-15T19:00:00Z",
+    "started": "true",
+    "team_a": "4",
+    "team_a_score": "2",
+    "team_h": "12",
+    "team_h_score": "4",
+    "stats": {
+        "goals_scored": {
+            "a": [],
+            "h": [],
+        },
+        "assists": {
+            "a": [],
+            "h": [],
+        },
+        "own_goals": {
+            "a": [],
+            "h": [],
+        },
+        "penalties_saved": {
+            "a": [],
+            "h": [],
+        },
+        "penalties_missed": {
+            "a": [],
+            "h": [],
+        },
+        "yellow_cards": {
+            "a": [],
+            "h": [],
+        },
+        "red_cards": {
+            "a": [],
+            "h": [],
+        },
+        "saves": {
+            "a": [],
+            "h": [],
+        },
+        "bonus": {
+            "a": [],
+            "h": [],
+        },
+        "bps": {
+            "a": [],
+            "h": [],
+        },
+        "defensive_contribution": {
+            "a": [],
+            "h": [],
+        },
+    },
+}
+
 TEAMS = {
     "name": "",
     "short_name": "",

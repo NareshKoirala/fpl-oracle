@@ -25,6 +25,7 @@ class Team:
         for team in Team.teams:
             if self.name == team.name:
                 check = True
+                break
 
         if not check:
             LOG.info(f"Creating team: {self.name} with tid: {self.tid}")
