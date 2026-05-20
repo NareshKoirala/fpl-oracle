@@ -1,0 +1,22 @@
+Team Stats for successful_long_passes in EPL Season 2025-26
+
+Team: Brentford, Stat: successful_long_passes, Value: 807
+Team: Man United, Stat: successful_long_passes, Value: 767
+Team: Nottm Forest, Stat: successful_long_passes, Value: 763
+Team: Fulham, Stat: successful_long_passes, Value: 751
+Team: Everton, Stat: successful_long_passes, Value: 741
+Team: Wolves, Stat: successful_long_passes, Value: 732
+Team: Liverpool, Stat: successful_long_passes, Value: 727
+Team: Burnley, Stat: successful_long_passes, Value: 724
+Team: Newcastle, Stat: successful_long_passes, Value: 715
+Team: Chelsea, Stat: successful_long_passes, Value: 714
+Team: Leeds, Stat: successful_long_passes, Value: 697
+Team: Brighton, Stat: successful_long_passes, Value: 692
+Team: Tottenham, Stat: successful_long_passes, Value: 689
+Team: West Ham, Stat: successful_long_passes, Value: 689
+Team: Bournemouth, Stat: successful_long_passes, Value: 687
+Team: Aston Villa, Stat: successful_long_passes, Value: 685
+Team: Sunderland, Stat: successful_long_passes, Value: 675
+Team: Crystal Palace, Stat: successful_long_passes, Value: 661
+Team: Man City, Stat: successful_long_passes, Value: 640
+Team: Arsenal, Stat: successful_long_passes, Value: 629

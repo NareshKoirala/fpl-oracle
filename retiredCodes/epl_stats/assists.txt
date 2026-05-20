@@ -1,0 +1,22 @@
+Team Stats for assists in EPL Season 2025-26
+
+Team: Man City, Stat: assists, Value: 50
+Team: Arsenal, Stat: assists, Value: 44
+Team: Man United, Stat: assists, Value: 42
+Team: Liverpool, Stat: assists, Value: 39
+Team: Chelsea, Stat: assists, Value: 35
+Team: Tottenham, Stat: assists, Value: 34
+Team: Aston Villa, Stat: assists, Value: 33
+Team: Brentford, Stat: assists, Value: 31
+Team: Bournemouth, Stat: assists, Value: 31
+Team: Everton, Stat: assists, Value: 31
+Team: Brighton, Stat: assists, Value: 30
+Team: Nottm Forest, Stat: assists, Value: 28
+Team: West Ham, Stat: assists, Value: 27
+Team: Newcastle, Stat: assists, Value: 26
+Team: Fulham, Stat: assists, Value: 25
+Team: Burnley, Stat: assists, Value: 24
+Team: Leeds, Stat: assists, Value: 22
+Team: Sunderland, Stat: assists, Value: 21
+Team: Crystal Palace, Stat: assists, Value: 21
+Team: Wolves, Stat: assists, Value: 16

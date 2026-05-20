@@ -1,0 +1,18 @@
+Team Stats for own_goals_conceded in EPL Season 2025-26
+
+Team: Burnley, Stat: own_goals_conceded, Value: 4
+Team: Wolves, Stat: own_goals_conceded, Value: 4
+Team: Brighton, Stat: own_goals_conceded, Value: 4
+Team: Brentford, Stat: own_goals_conceded, Value: 3
+Team: Bournemouth, Stat: own_goals_conceded, Value: 3
+Team: Fulham, Stat: own_goals_conceded, Value: 3
+Team: Nottm Forest, Stat: own_goals_conceded, Value: 3
+Team: Sunderland, Stat: own_goals_conceded, Value: 2
+Team: Newcastle, Stat: own_goals_conceded, Value: 2
+Team: West Ham, Stat: own_goals_conceded, Value: 2
+Team: Man United, Stat: own_goals_conceded, Value: 2
+Team: Aston Villa, Stat: own_goals_conceded, Value: 1
+Team: Crystal Palace, Stat: own_goals_conceded, Value: 1
+Team: Arsenal, Stat: own_goals_conceded, Value: 1
+Team: Leeds, Stat: own_goals_conceded, Value: 1
+Team: Everton, Stat: own_goals_conceded, Value: 1

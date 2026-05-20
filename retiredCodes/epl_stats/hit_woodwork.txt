@@ -1,0 +1,22 @@
+Team Stats for hit_woodwork in EPL Season 2025-26
+
+Team: Newcastle, Stat: hit_woodwork, Value: 18
+Team: Man United, Stat: hit_woodwork, Value: 18
+Team: Man City, Stat: hit_woodwork, Value: 17
+Team: Chelsea, Stat: hit_woodwork, Value: 16
+Team: Everton, Stat: hit_woodwork, Value: 16
+Team: Bournemouth, Stat: hit_woodwork, Value: 15
+Team: Brentford, Stat: hit_woodwork, Value: 14
+Team: Crystal Palace, Stat: hit_woodwork, Value: 14
+Team: Liverpool, Stat: hit_woodwork, Value: 14
+Team: Aston Villa, Stat: hit_woodwork, Value: 13
+Team: Wolves, Stat: hit_woodwork, Value: 11
+Team: Brighton, Stat: hit_woodwork, Value: 11
+Team: Leeds, Stat: hit_woodwork, Value: 11
+Team: Sunderland, Stat: hit_woodwork, Value: 10
+Team: Arsenal, Stat: hit_woodwork, Value: 10
+Team: Burnley, Stat: hit_woodwork, Value: 9
+Team: Tottenham, Stat: hit_woodwork, Value: 8
+Team: Fulham, Stat: hit_woodwork, Value: 7
+Team: Nottm Forest, Stat: hit_woodwork, Value: 6
+Team: West Ham, Stat: hit_woodwork, Value: 4

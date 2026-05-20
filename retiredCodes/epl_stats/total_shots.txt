@@ -1,0 +1,22 @@
+Team Stats for total_shots in EPL Season 2025-26
+
+Team: Man United, Stat: total_shots, Value: 387
+Team: Man City, Stat: total_shots, Value: 361
+Team: Liverpool, Stat: total_shots, Value: 352
+Team: Arsenal, Stat: total_shots, Value: 340
+Team: Bournemouth, Stat: total_shots, Value: 338
+Team: Brighton, Stat: total_shots, Value: 320
+Team: Chelsea, Stat: total_shots, Value: 312
+Team: Newcastle, Stat: total_shots, Value: 310
+Team: Aston Villa, Stat: total_shots, Value: 306
+Team: Leeds, Stat: total_shots, Value: 305
+Team: Fulham, Stat: total_shots, Value: 290
+Team: Nottm Forest, Stat: total_shots, Value: 290
+Team: Brentford, Stat: total_shots, Value: 276
+Team: Tottenham, Stat: total_shots, Value: 272
+Team: Crystal Palace, Stat: total_shots, Value: 269
+Team: Everton, Stat: total_shots, Value: 260
+Team: West Ham, Stat: total_shots, Value: 246
+Team: Sunderland, Stat: total_shots, Value: 245
+Team: Wolves, Stat: total_shots, Value: 237
+Team: Burnley, Stat: total_shots, Value: 209

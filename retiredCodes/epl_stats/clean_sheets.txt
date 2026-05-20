@@ -1,0 +1,22 @@
+Team Stats for clean_sheets in EPL Season 2025-26
+
+Team: Arsenal, Stat: clean_sheets, Value: 16
+Team: Man City, Stat: clean_sheets, Value: 14
+Team: Crystal Palace, Stat: clean_sheets, Value: 12
+Team: Everton, Stat: clean_sheets, Value: 11
+Team: Sunderland, Stat: clean_sheets, Value: 10
+Team: Liverpool, Stat: clean_sheets, Value: 10
+Team: Brentford, Stat: clean_sheets, Value: 9
+Team: Bournemouth, Stat: clean_sheets, Value: 9
+Team: Chelsea, Stat: clean_sheets, Value: 9
+Team: Aston Villa, Stat: clean_sheets, Value: 9
+Team: Brighton, Stat: clean_sheets, Value: 9
+Team: Nottm Forest, Stat: clean_sheets, Value: 9
+Team: Tottenham, Stat: clean_sheets, Value: 8
+Team: Fulham, Stat: clean_sheets, Value: 8
+Team: Newcastle, Stat: clean_sheets, Value: 8
+Team: Leeds, Stat: clean_sheets, Value: 7
+Team: West Ham, Stat: clean_sheets, Value: 6
+Team: Man United, Stat: clean_sheets, Value: 6
+Team: Burnley, Stat: clean_sheets, Value: 4
+Team: Wolves, Stat: clean_sheets, Value: 4

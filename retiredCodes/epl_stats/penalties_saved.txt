@@ -1,0 +1,22 @@
+Team Stats for penalties_saved in EPL Season 2025-26
+
+Team: Brentford, Stat: penalties_saved, Value: 3
+Team: Aston Villa, Stat: penalties_saved, Value: 1
+Team: Sunderland, Stat: penalties_saved, Value: 1
+Team: Man City, Stat: penalties_saved, Value: 1
+Team: Brighton, Stat: penalties_saved, Value: 1
+Team: Crystal Palace, Stat: penalties_saved, Value: 1
+Team: Liverpool, Stat: penalties_saved, Value: 1
+Team: Everton, Stat: penalties_saved, Value: 1
+Team: Bournemouth, Stat: penalties_saved, Value: 
+Team: Burnley, Stat: penalties_saved, Value: 
+Team: Chelsea, Stat: penalties_saved, Value: 
+Team: Tottenham, Stat: penalties_saved, Value: 
+Team: Fulham, Stat: penalties_saved, Value: 
+Team: Newcastle, Stat: penalties_saved, Value: 
+Team: Wolves, Stat: penalties_saved, Value: 
+Team: Arsenal, Stat: penalties_saved, Value: 
+Team: West Ham, Stat: penalties_saved, Value: 
+Team: Leeds, Stat: penalties_saved, Value: 
+Team: Nottm Forest, Stat: penalties_saved, Value: 
+Team: Man United, Stat: penalties_saved, Value: 

@@ -1,0 +1,22 @@
+Team Stats for successful_short_passes in EPL Season 2025-26
+
+Team: Man City, Stat: successful_short_passes, Value: 16607
+Team: Chelsea, Stat: successful_short_passes, Value: 15412
+Team: Liverpool, Stat: successful_short_passes, Value: 14817
+Team: Brighton, Stat: successful_short_passes, Value: 12711
+Team: Fulham, Stat: successful_short_passes, Value: 12693
+Team: Arsenal, Stat: successful_short_passes, Value: 12674
+Team: Aston Villa, Stat: successful_short_passes, Value: 12465
+Team: Man United, Stat: successful_short_passes, Value: 12458
+Team: Newcastle, Stat: successful_short_passes, Value: 12065
+Team: Nottm Forest, Stat: successful_short_passes, Value: 10661
+Team: Tottenham, Stat: successful_short_passes, Value: 10595
+Team: Bournemouth, Stat: successful_short_passes, Value: 10510
+Team: Leeds, Stat: successful_short_passes, Value: 10074
+Team: Brentford, Stat: successful_short_passes, Value: 9938
+Team: Everton, Stat: successful_short_passes, Value: 9762
+Team: Crystal Palace, Stat: successful_short_passes, Value: 9595
+Team: Burnley, Stat: successful_short_passes, Value: 9467
+Team: Wolves, Stat: successful_short_passes, Value: 9375
+Team: Sunderland, Stat: successful_short_passes, Value: 9298
+Team: West Ham, Stat: successful_short_passes, Value: 9292

@@ -1,0 +1,22 @@
+Team Stats for yellow_cards in EPL Season 2025-26
+
+Team: Tottenham, Stat: yellow_cards, Value: 85
+Team: Brighton, Stat: yellow_cards, Value: 82
+Team: Bournemouth, Stat: yellow_cards, Value: 81
+Team: Chelsea, Stat: yellow_cards, Value: 76
+Team: Sunderland, Stat: yellow_cards, Value: 73
+Team: Wolves, Stat: yellow_cards, Value: 72
+Team: Fulham, Stat: yellow_cards, Value: 68
+Team: Crystal Palace, Stat: yellow_cards, Value: 67
+Team: Brentford, Stat: yellow_cards, Value: 62
+Team: Everton, Stat: yellow_cards, Value: 61
+Team: Man City, Stat: yellow_cards, Value: 59
+Team: West Ham, Stat: yellow_cards, Value: 59
+Team: Newcastle, Stat: yellow_cards, Value: 57
+Team: Burnley, Stat: yellow_cards, Value: 55
+Team: Nottm Forest, Stat: yellow_cards, Value: 55
+Team: Man United, Stat: yellow_cards, Value: 54
+Team: Leeds, Stat: yellow_cards, Value: 53
+Team: Aston Villa, Stat: yellow_cards, Value: 52
+Team: Liverpool, Stat: yellow_cards, Value: 50
+Team: Arsenal, Stat: yellow_cards, Value: 45

@@ -1,0 +1,22 @@
+Team Stats for blocks in EPL Season 2025-26
+
+Team: Burnley, Stat: blocks, Value: 164
+Team: West Ham, Stat: blocks, Value: 149
+Team: Everton, Stat: blocks, Value: 146
+Team: Sunderland, Stat: blocks, Value: 145
+Team: Brentford, Stat: blocks, Value: 141
+Team: Bournemouth, Stat: blocks, Value: 138
+Team: Nottm Forest, Stat: blocks, Value: 137
+Team: Aston Villa, Stat: blocks, Value: 134
+Team: Wolves, Stat: blocks, Value: 125
+Team: Leeds, Stat: blocks, Value: 123
+Team: Fulham, Stat: blocks, Value: 121
+Team: Man United, Stat: blocks, Value: 121
+Team: Tottenham, Stat: blocks, Value: 117
+Team: Newcastle, Stat: blocks, Value: 114
+Team: Brighton, Stat: blocks, Value: 103
+Team: Liverpool, Stat: blocks, Value: 102
+Team: Chelsea, Stat: blocks, Value: 97
+Team: Man City, Stat: blocks, Value: 92
+Team: Arsenal, Stat: blocks, Value: 92
+Team: Crystal Palace, Stat: blocks, Value: 90

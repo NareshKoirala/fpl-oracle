@@ -1,0 +1,22 @@
+Team Stats for tackles_won in EPL Season 2025-26
+
+Team: Tottenham, Stat: tackles_won, Value: 404
+Team: Wolves, Stat: tackles_won, Value: 392
+Team: Brighton, Stat: tackles_won, Value: 377
+Team: Crystal Palace, Stat: tackles_won, Value: 367
+Team: Man United, Stat: tackles_won, Value: 367
+Team: Everton, Stat: tackles_won, Value: 364
+Team: West Ham, Stat: tackles_won, Value: 359
+Team: Leeds, Stat: tackles_won, Value: 348
+Team: Nottm Forest, Stat: tackles_won, Value: 346
+Team: Bournemouth, Stat: tackles_won, Value: 345
+Team: Fulham, Stat: tackles_won, Value: 337
+Team: Burnley, Stat: tackles_won, Value: 327
+Team: Sunderland, Stat: tackles_won, Value: 319
+Team: Arsenal, Stat: tackles_won, Value: 318
+Team: Newcastle, Stat: tackles_won, Value: 307
+Team: Chelsea, Stat: tackles_won, Value: 305
+Team: Aston Villa, Stat: tackles_won, Value: 301
+Team: Man City, Stat: tackles_won, Value: 299
+Team: Brentford, Stat: tackles_won, Value: 284
+Team: Liverpool, Stat: tackles_won, Value: 283

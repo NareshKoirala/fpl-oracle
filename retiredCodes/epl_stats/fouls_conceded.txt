@@ -1,0 +1,22 @@
+Team Stats for fouls_conceded in EPL Season 2025-26
+
+Team: Wolves, Stat: fouls_conceded, Value: 441
+Team: Brighton, Stat: fouls_conceded, Value: 414
+Team: Tottenham, Stat: fouls_conceded, Value: 405
+Team: Bournemouth, Stat: fouls_conceded, Value: 403
+Team: West Ham, Stat: fouls_conceded, Value: 373
+Team: Fulham, Stat: fouls_conceded, Value: 370
+Team: Chelsea, Stat: fouls_conceded, Value: 368
+Team: Nottm Forest, Stat: fouls_conceded, Value: 365
+Team: Crystal Palace, Stat: fouls_conceded, Value: 361
+Team: Sunderland, Stat: fouls_conceded, Value: 360
+Team: Leeds, Stat: fouls_conceded, Value: 356
+Team: Arsenal, Stat: fouls_conceded, Value: 353
+Team: Brentford, Stat: fouls_conceded, Value: 352
+Team: Newcastle, Stat: fouls_conceded, Value: 351
+Team: Everton, Stat: fouls_conceded, Value: 351
+Team: Man United, Stat: fouls_conceded, Value: 348
+Team: Aston Villa, Stat: fouls_conceded, Value: 343
+Team: Burnley, Stat: fouls_conceded, Value: 339
+Team: Liverpool, Stat: fouls_conceded, Value: 337
+Team: Man City, Stat: fouls_conceded, Value: 330

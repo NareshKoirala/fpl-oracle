@@ -18,7 +18,7 @@ FPL_FIXTURES = {
     },
     "most_captained": 0,
     "most_vice_captained": 0,
-    "fixtures": [FIXTURES], 
+    #"fixtures": [FIXTURES], 
 }
 
 FIXTURES = {
@@ -92,7 +92,7 @@ TEAMS = {
         "position": 0,
         "goals": 0,
         "conceded": 0,
-        "form": [],
+        "form": "",
         "next": "name",
     },
     "expected": {
@@ -200,8 +200,8 @@ PLAYERS = {
         "goals_conceded_per_90": 0,
         "points_per_game": 0,
     },
-    "history": [PLAYER_FIXTURES],
-    "past_years": [PLAYER_HISTORY],
+    #"history": [PLAYER_FIXTURES],
+    #"past_years": [PLAYER_HISTORY],
 }
 PLAYER_HISTORY = {
     "season_name": "0",

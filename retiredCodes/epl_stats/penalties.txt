@@ -1,0 +1,20 @@
+Team Stats for penalties in EPL Season 2025-26
+
+Team: Brentford, Stat: penalties, Value: 7
+Team: Chelsea, Stat: penalties, Value: 7
+Team: Crystal Palace, Stat: penalties, Value: 7
+Team: Newcastle, Stat: penalties, Value: 6
+Team: Leeds, Stat: penalties, Value: 5
+Team: Bournemouth, Stat: penalties, Value: 4
+Team: Sunderland, Stat: penalties, Value: 4
+Team: Fulham, Stat: penalties, Value: 4
+Team: Arsenal, Stat: penalties, Value: 4
+Team: Man United, Stat: penalties, Value: 4
+Team: Man City, Stat: penalties, Value: 3
+Team: Brighton, Stat: penalties, Value: 3
+Team: West Ham, Stat: penalties, Value: 3
+Team: Burnley, Stat: penalties, Value: 2
+Team: Wolves, Stat: penalties, Value: 2
+Team: Nottm Forest, Stat: penalties, Value: 2
+Team: Everton, Stat: penalties, Value: 2
+Team: Liverpool, Stat: penalties, Value: 1

@@ -1,0 +1,22 @@
+Team Stats for duels_won in EPL Season 2025-26
+
+Team: Everton, Stat: duels_won, Value: 1956
+Team: Tottenham, Stat: duels_won, Value: 1825
+Team: Leeds, Stat: duels_won, Value: 1786
+Team: Man United, Stat: duels_won, Value: 1774
+Team: Wolves, Stat: duels_won, Value: 1772
+Team: Bournemouth, Stat: duels_won, Value: 1760
+Team: Newcastle, Stat: duels_won, Value: 1708
+Team: Arsenal, Stat: duels_won, Value: 1708
+Team: Brighton, Stat: duels_won, Value: 1705
+Team: Nottm Forest, Stat: duels_won, Value: 1695
+Team: West Ham, Stat: duels_won, Value: 1684
+Team: Crystal Palace, Stat: duels_won, Value: 1678
+Team: Brentford, Stat: duels_won, Value: 1668
+Team: Sunderland, Stat: duels_won, Value: 1666
+Team: Chelsea, Stat: duels_won, Value: 1619
+Team: Man City, Stat: duels_won, Value: 1619
+Team: Liverpool, Stat: duels_won, Value: 1590
+Team: Fulham, Stat: duels_won, Value: 1580
+Team: Aston Villa, Stat: duels_won, Value: 1573
+Team: Burnley, Stat: duels_won, Value: 1552

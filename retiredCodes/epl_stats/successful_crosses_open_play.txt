@@ -1,0 +1,22 @@
+Team Stats for successful_crosses_open_play in EPL Season 2025-26
+
+Team: Wolves, Stat: successful_crosses_open_play, Value: 125
+Team: Nottm Forest, Stat: successful_crosses_open_play, Value: 120
+Team: Newcastle, Stat: successful_crosses_open_play, Value: 115
+Team: Fulham, Stat: successful_crosses_open_play, Value: 113
+Team: Brighton, Stat: successful_crosses_open_play, Value: 112
+Team: Tottenham, Stat: successful_crosses_open_play, Value: 109
+Team: Man United, Stat: successful_crosses_open_play, Value: 103
+Team: Brentford, Stat: successful_crosses_open_play, Value: 101
+Team: Bournemouth, Stat: successful_crosses_open_play, Value: 92
+Team: Leeds, Stat: successful_crosses_open_play, Value: 90
+Team: Arsenal, Stat: successful_crosses_open_play, Value: 89
+Team: Everton, Stat: successful_crosses_open_play, Value: 88
+Team: Chelsea, Stat: successful_crosses_open_play, Value: 86
+Team: Man City, Stat: successful_crosses_open_play, Value: 83
+Team: Liverpool, Stat: successful_crosses_open_play, Value: 78
+Team: West Ham, Stat: successful_crosses_open_play, Value: 74
+Team: Aston Villa, Stat: successful_crosses_open_play, Value: 73
+Team: Crystal Palace, Stat: successful_crosses_open_play, Value: 73
+Team: Sunderland, Stat: successful_crosses_open_play, Value: 72
+Team: Burnley, Stat: successful_crosses_open_play, Value: 60

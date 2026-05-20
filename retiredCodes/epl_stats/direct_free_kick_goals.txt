@@ -1,0 +1,22 @@
+Team Stats for direct_free_kick_goals in EPL Season 2025-26
+
+Team: Liverpool, Stat: direct_free_kick_goals, Value: 4
+Team: Leeds, Stat: direct_free_kick_goals, Value: 3
+Team: Bournemouth, Stat: direct_free_kick_goals, Value: 2
+Team: Chelsea, Stat: direct_free_kick_goals, Value: 2
+Team: Aston Villa, Stat: direct_free_kick_goals, Value: 2
+Team: Fulham, Stat: direct_free_kick_goals, Value: 1
+Team: Brighton, Stat: direct_free_kick_goals, Value: 1
+Team: Man United, Stat: direct_free_kick_goals, Value: 1
+Team: Brentford, Stat: direct_free_kick_goals, Value: 
+Team: Burnley, Stat: direct_free_kick_goals, Value: 
+Team: Tottenham, Stat: direct_free_kick_goals, Value: 
+Team: Sunderland, Stat: direct_free_kick_goals, Value: 
+Team: Man City, Stat: direct_free_kick_goals, Value: 
+Team: Newcastle, Stat: direct_free_kick_goals, Value: 
+Team: Wolves, Stat: direct_free_kick_goals, Value: 
+Team: Crystal Palace, Stat: direct_free_kick_goals, Value: 
+Team: Arsenal, Stat: direct_free_kick_goals, Value: 
+Team: West Ham, Stat: direct_free_kick_goals, Value: 
+Team: Nottm Forest, Stat: direct_free_kick_goals, Value: 
+Team: Everton, Stat: direct_free_kick_goals, Value: 

@@ -4,4 +4,3 @@ playwright_pantry_session
 __pycache__/
 *.pyc
 logs
-epl_stats

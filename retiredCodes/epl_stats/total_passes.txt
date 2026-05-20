@@ -1,0 +1,22 @@
+Team Stats for total_passes in EPL Season 2025-26
+
+Team: Man City, Stat: total_passes, Value: 19479
+Team: Chelsea, Stat: total_passes, Value: 18477
+Team: Liverpool, Stat: total_passes, Value: 18151
+Team: Fulham, Stat: total_passes, Value: 16054
+Team: Brighton, Stat: total_passes, Value: 16004
+Team: Man United, Stat: total_passes, Value: 15962
+Team: Arsenal, Stat: total_passes, Value: 15855
+Team: Aston Villa, Stat: total_passes, Value: 15423
+Team: Newcastle, Stat: total_passes, Value: 15355
+Team: Bournemouth, Stat: total_passes, Value: 14046
+Team: Nottm Forest, Stat: total_passes, Value: 13897
+Team: Tottenham, Stat: total_passes, Value: 13891
+Team: Brentford, Stat: total_passes, Value: 13554
+Team: Leeds, Stat: total_passes, Value: 13518
+Team: Everton, Stat: total_passes, Value: 13167
+Team: Crystal Palace, Stat: total_passes, Value: 13095
+Team: Burnley, Stat: total_passes, Value: 12953
+Team: Wolves, Stat: total_passes, Value: 12672
+Team: Sunderland, Stat: total_passes, Value: 12635
+Team: West Ham, Stat: total_passes, Value: 12621

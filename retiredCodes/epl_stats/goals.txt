@@ -1,0 +1,22 @@
+Team Stats for goals in EPL Season 2025-26
+
+Team: Man City, Stat: goals, Value: 66
+Team: Arsenal, Stat: goals, Value: 64
+Team: Man United, Stat: goals, Value: 60
+Team: Liverpool, Stat: goals, Value: 57
+Team: Chelsea, Stat: goals, Value: 53
+Team: Bournemouth, Stat: goals, Value: 52
+Team: Brentford, Stat: goals, Value: 49
+Team: Brighton, Stat: goals, Value: 48
+Team: Aston Villa, Stat: goals, Value: 47
+Team: Newcastle, Stat: goals, Value: 46
+Team: Fulham, Stat: goals, Value: 44
+Team: Leeds, Stat: goals, Value: 44
+Team: Tottenham, Stat: goals, Value: 43
+Team: West Ham, Stat: goals, Value: 42
+Team: Nottm Forest, Stat: goals, Value: 41
+Team: Everton, Stat: goals, Value: 41
+Team: Sunderland, Stat: goals, Value: 36
+Team: Crystal Palace, Stat: goals, Value: 36
+Team: Burnley, Stat: goals, Value: 34
+Team: Wolves, Stat: goals, Value: 24

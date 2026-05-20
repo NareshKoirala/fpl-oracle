@@ -1,0 +1,22 @@
+Team Stats for red_cards in EPL Season 2025-26
+
+Team: Chelsea, Stat: red_cards, Value: 7
+Team: Tottenham, Stat: red_cards, Value: 4
+Team: Everton, Stat: red_cards, Value: 4
+Team: Burnley, Stat: red_cards, Value: 3
+Team: Newcastle, Stat: red_cards, Value: 3
+Team: Wolves, Stat: red_cards, Value: 3
+Team: West Ham, Stat: red_cards, Value: 3
+Team: Man United, Stat: red_cards, Value: 3
+Team: Sunderland, Stat: red_cards, Value: 2
+Team: Crystal Palace, Stat: red_cards, Value: 2
+Team: Brentford, Stat: red_cards, Value: 1
+Team: Bournemouth, Stat: red_cards, Value: 1
+Team: Aston Villa, Stat: red_cards, Value: 1
+Team: Leeds, Stat: red_cards, Value: 1
+Team: Nottm Forest, Stat: red_cards, Value: 1
+Team: Liverpool, Stat: red_cards, Value: 1
+Team: Fulham, Stat: red_cards, Value: 0
+Team: Man City, Stat: red_cards, Value: 0
+Team: Brighton, Stat: red_cards, Value: 0
+Team: Arsenal, Stat: red_cards, Value: 0

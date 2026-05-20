@@ -1,0 +1,22 @@
+Team Stats for expected_goals in EPL Season 2025-26
+
+Team: Chelsea, Stat: expected_goals, Value: 62.37
+Team: Man City, Stat: expected_goals, Value: 62.32
+Team: Arsenal, Stat: expected_goals, Value: 57.37
+Team: Man United, Stat: expected_goals, Value: 56.3
+Team: Bournemouth, Stat: expected_goals, Value: 55.81
+Team: Liverpool, Stat: expected_goals, Value: 55.44
+Team: Brentford, Stat: expected_goals, Value: 54.46
+Team: Crystal Palace, Stat: expected_goals, Value: 51.3
+Team: Brighton, Stat: expected_goals, Value: 50.9
+Team: Newcastle, Stat: expected_goals, Value: 50.45
+Team: Leeds, Stat: expected_goals, Value: 49.27
+Team: Fulham, Stat: expected_goals, Value: 43.25
+Team: Aston Villa, Stat: expected_goals, Value: 42.83
+Team: Everton, Stat: expected_goals, Value: 40.93
+Team: West Ham, Stat: expected_goals, Value: 40.5
+Team: Nottm Forest, Stat: expected_goals, Value: 39.23
+Team: Tottenham, Stat: expected_goals, Value: 35.41
+Team: Sunderland, Stat: expected_goals, Value: 34.38
+Team: Wolves, Stat: expected_goals, Value: 29.82
+Team: Burnley, Stat: expected_goals, Value: 28.98

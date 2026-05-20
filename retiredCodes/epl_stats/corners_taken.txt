@@ -1,0 +1,22 @@
+Team Stats for corners_taken in EPL Season 2025-26
+
+Team: Newcastle, Stat: corners_taken, Value: 213
+Team: Chelsea, Stat: corners_taken, Value: 209
+Team: Man City, Stat: corners_taken, Value: 204
+Team: Arsenal, Stat: corners_taken, Value: 203
+Team: Liverpool, Stat: corners_taken, Value: 202
+Team: Bournemouth, Stat: corners_taken, Value: 193
+Team: Nottm Forest, Stat: corners_taken, Value: 184
+Team: Tottenham, Stat: corners_taken, Value: 179
+Team: Aston Villa, Stat: corners_taken, Value: 178
+Team: West Ham, Stat: corners_taken, Value: 170
+Team: Brentford, Stat: corners_taken, Value: 167
+Team: Fulham, Stat: corners_taken, Value: 161
+Team: Man United, Stat: corners_taken, Value: 161
+Team: Brighton, Stat: corners_taken, Value: 160
+Team: Leeds, Stat: corners_taken, Value: 150
+Team: Crystal Palace, Stat: corners_taken, Value: 143
+Team: Everton, Stat: corners_taken, Value: 143
+Team: Burnley, Stat: corners_taken, Value: 126
+Team: Sunderland, Stat: corners_taken, Value: 122
+Team: Wolves, Stat: corners_taken, Value: 113

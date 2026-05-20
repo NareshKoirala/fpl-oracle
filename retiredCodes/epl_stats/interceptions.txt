@@ -1,0 +1,22 @@
+Team Stats for interceptions in EPL Season 2025-26
+
+Team: Bournemouth, Stat: interceptions, Value: 332
+Team: Chelsea, Stat: interceptions, Value: 331
+Team: West Ham, Stat: interceptions, Value: 318
+Team: Burnley, Stat: interceptions, Value: 312
+Team: Leeds, Stat: interceptions, Value: 309
+Team: Brentford, Stat: interceptions, Value: 305
+Team: Brighton, Stat: interceptions, Value: 295
+Team: Fulham, Stat: interceptions, Value: 294
+Team: Everton, Stat: interceptions, Value: 287
+Team: Wolves, Stat: interceptions, Value: 284
+Team: Crystal Palace, Stat: interceptions, Value: 278
+Team: Man United, Stat: interceptions, Value: 278
+Team: Tottenham, Stat: interceptions, Value: 277
+Team: Man City, Stat: interceptions, Value: 275
+Team: Sunderland, Stat: interceptions, Value: 266
+Team: Nottm Forest, Stat: interceptions, Value: 265
+Team: Arsenal, Stat: interceptions, Value: 248
+Team: Newcastle, Stat: interceptions, Value: 244
+Team: Liverpool, Stat: interceptions, Value: 233
+Team: Aston Villa, Stat: interceptions, Value: 212

@@ -1,0 +1,22 @@
+Team Stats for clearances in EPL Season 2025-26
+
+Team: Crystal Palace, Stat: clearances, Value: 1111
+Team: Sunderland, Stat: clearances, Value: 1065
+Team: Bournemouth, Stat: clearances, Value: 1060
+Team: Burnley, Stat: clearances, Value: 1041
+Team: Leeds, Stat: clearances, Value: 1035
+Team: Everton, Stat: clearances, Value: 1023
+Team: West Ham, Stat: clearances, Value: 1018
+Team: Brentford, Stat: clearances, Value: 994
+Team: Wolves, Stat: clearances, Value: 990
+Team: Fulham, Stat: clearances, Value: 944
+Team: Tottenham, Stat: clearances, Value: 924
+Team: Liverpool, Stat: clearances, Value: 902
+Team: Newcastle, Stat: clearances, Value: 897
+Team: Nottm Forest, Stat: clearances, Value: 876
+Team: Man United, Stat: clearances, Value: 857
+Team: Brighton, Stat: clearances, Value: 824
+Team: Arsenal, Stat: clearances, Value: 819
+Team: Chelsea, Stat: clearances, Value: 777
+Team: Man City, Stat: clearances, Value: 731
+Team: Aston Villa, Stat: clearances, Value: 710

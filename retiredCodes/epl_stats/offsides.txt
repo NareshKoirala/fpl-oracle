@@ -1,0 +1,22 @@
+Team Stats for offsides in EPL Season 2025-26
+
+Team: Liverpool, Stat: offsides, Value: 67
+Team: Bournemouth, Stat: offsides, Value: 64
+Team: Crystal Palace, Stat: offsides, Value: 64
+Team: West Ham, Stat: offsides, Value: 63
+Team: Fulham, Stat: offsides, Value: 61
+Team: Brighton, Stat: offsides, Value: 59
+Team: Burnley, Stat: offsides, Value: 55
+Team: Brentford, Stat: offsides, Value: 54
+Team: Nottm Forest, Stat: offsides, Value: 54
+Team: Chelsea, Stat: offsides, Value: 53
+Team: Arsenal, Stat: offsides, Value: 53
+Team: Leeds, Stat: offsides, Value: 53
+Team: Tottenham, Stat: offsides, Value: 52
+Team: Sunderland, Stat: offsides, Value: 51
+Team: Man United, Stat: offsides, Value: 49
+Team: Everton, Stat: offsides, Value: 46
+Team: Newcastle, Stat: offsides, Value: 45
+Team: Wolves, Stat: offsides, Value: 45
+Team: Man City, Stat: offsides, Value: 41
+Team: Aston Villa, Stat: offsides, Value: 36
