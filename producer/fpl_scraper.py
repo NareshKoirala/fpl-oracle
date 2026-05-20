@@ -2,7 +2,7 @@ from utils.log import Logger
 from utils.scraper import Scraper
 from db.teams import Team
 from db.players import Player
-from db.fpl_fixtures import FFixtures
+from db.gw_fixtures import FFixtures
 from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 import asyncio
 

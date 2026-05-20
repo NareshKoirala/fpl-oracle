@@ -29,26 +29,25 @@ class FFixtures:
         self.top_element_info = self.validate_top_element_info()
         
 
-        if not DB.hget_all(self.db):
-            LOG.info(f"Creating fpl_fixtures: {self.name} with tid: {self.id}")
+        LOG.info(f"Creating fpl_fixtures: {self.name} with tid: {self.id}")
 
-            place_json = {
-                "name": str(self.name),
-                "deadline_time": str(self.deadline_time),
-                "is_current": str(self.is_current),
-                "is_previous": str(self.is_previous),
-                "is_next": str(self.is_next),
-                "finished": str(self.finished),
-                "data_checked": str(self.data_checked),
-                "most_selected": str(self.most_selected),
-                "highest_score": str(self.highest_score),
-                "most_transferred_in": str(self.most_transferred_in),
-                "top_element": str(self.top_element),
-                "most_captained": str(self.most_captained),
-                "most_vice_captained": str(self.most_vice_captained),
-            }
+        place_json = {
+            "name": str(self.name),
+            "deadline_time": str(self.deadline_time),
+            "is_current": str(self.is_current),
+            "is_previous": str(self.is_previous),
+            "is_next": str(self.is_next),
+            "finished": str(self.finished),
+            "data_checked": str(self.data_checked),
+            "most_selected": str(self.most_selected),
+            "highest_score": str(self.highest_score),
+            "most_transferred_in": str(self.most_transferred_in),
+            "top_element": str(self.top_element),
+            "most_captained": str(self.most_captained),
+            "most_vice_captained": str(self.most_vice_captained),
+        }
 
-            DB.hset_dict(self.db, place_json)
+        DB.hset_dict(self.db, place_json)
 
     def validate_top_element_info(self):
         temp_dict = {}

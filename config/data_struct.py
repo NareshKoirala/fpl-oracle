@@ -18,7 +18,6 @@ FPL_FIXTURES = {
     },
     "most_captained": 0,
     "most_vice_captained": 0,
-    #"fixtures": [FIXTURES], 
 }
 
 FIXTURES = {

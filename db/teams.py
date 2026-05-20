@@ -22,17 +22,16 @@ class Team:
         self.db = f"teams:{self.tid}"
 
 
-        if not DB.hget_all(self.db):
-            LOG.info(f"Creating team: {self.name} with tid: {self.tid}")
-            place_json = {
-                "name": self.name,
-                "short_name": self.short_name
-            }
-            DB.hset_one(f"team_name:{self.name}", "tid", self.tid)
-            DB.hset_dict(self.db, place_json)
-            DB.hset_dict(self.db, self.table, "table")
-            DB.hset_dict(self.db, self.strength, "strength")
-            DB.hset_dict(self.db, self.expected, "expected")
+        LOG.info(f"Creating team: {self.name} with tid: {self.tid}")
+        place_json = {
+            "name": self.name,
+            "short_name": self.short_name
+        }
+        DB.hset_one(f"team_name:{self.name}", "tid", self.tid)
+        DB.hset_dict(self.db, place_json)
+        DB.hset_dict(self.db, self.table, "table")
+        DB.hset_dict(self.db, self.strength, "strength")
+        DB.hset_dict(self.db, self.expected, "expected")
 
 
     def validate_table(self):

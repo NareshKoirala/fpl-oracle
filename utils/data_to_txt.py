@@ -1,7 +1,7 @@
 import os
 from db.teams import Team
 from db.players import Player
-from db.fpl_fixtures import FFixtures
+from db.gw_fixtures import FFixtures
 
 
 def write_data_to_txt(data, filename):

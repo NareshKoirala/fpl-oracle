@@ -16,6 +16,7 @@ class Player:
         self.team_code = int(data["team_code"])
         self.now_cost = float(data["now_cost"])
         self.web_name = data["web_name"]
+        self.second_name = data["second_name"]
         self.total_points = float(data["total_points"])
         self.status = data["status"]
         self.form = data["form"]
@@ -26,22 +27,23 @@ class Player:
         self.expected = self.validate_expected()
         self.stats_per_90 = self.validate_stats_per_90()
         
+        LOG.info(f"Creating player: {self.web_name} with id: {self.id}")
 
-        if not DB.hget_all(self.db):
-            LOG.info(f"Creating player: {self.web_name} with id: {self.id}")
-
-            place_json = {
-                "team_code": self.team_code,
-                "now_cost": self.now_cost,
-                "web_name": self.web_name,
-                "total_points": self.total_points,
-                "status": self.status,
-                "form": self.form,
-                "element_type": self.element_type,
-            }
-            DB.hset_one(f'player_name:{self.web_name}', "id", self.id)
-            DB.hset_one(f'player_name:{self.web_name}', "club", self.team_code)
-            DB.hset_dict(self.db, place_json)
+        place_json = {
+            "team_code": self.team_code,
+            "now_cost": self.now_cost,
+            "web_name": self.web_name,
+            "total_points": self.total_points,
+            "status": self.status,
+            "form": self.form,
+            "element_type": self.element_type,
+        }
+        DB.hset_dict(self.db, place_json)
+        place_json = {
+            "name": self.web_name,
+            "tid": self.team_code
+        }
+        DB.hset_dict(f'player_name:{self.id}', place_json)
 
     def validate_stats(self):
         return self.valid_check(PLAYERS["stats"].copy(), "stats")
