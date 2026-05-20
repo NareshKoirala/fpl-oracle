@@ -57,6 +57,7 @@ class FFixtures:
             temp_dict[k] = v
             DB.hset_one(f"fpl_fixtures:{self.id}", f"top_element_info.{k}", str(v))
         return temp_dict
+        
     @classmethod
     def add_ffixtures(cls, fpl_fixtures):
         if isinstance(fpl_fixtures, FFixtures) and fpl_fixtures not in cls.fpl_fixtures:

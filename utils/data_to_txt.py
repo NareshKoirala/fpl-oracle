@@ -40,3 +40,6 @@ Expext: {player.expected}
 SP90:   {player.stats_per_90}
 """
         write_data_to_txt(holder, "Players")
+
+
+def getffixture
