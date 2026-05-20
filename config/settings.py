@@ -2,6 +2,9 @@
 YAHOO_SPORTS = "https://sports.yahoo.com/soccer/premier-league/stats/team/?_rsc=k9461"
 
 FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
+FIXTURES = "https://fantasy.premierleague.com/api/fixtures/"
+PLAYER = 1 # RAYA
+PLAYER_FIXTURES = f"https://fantasy.premierleague.com/api/element-summary/{PLAYER}/"
 
 FOTMOB_BASE = "https://www.fotmob.com"
 FOTMOB_TABLE = f"{FOTMOB_BASE}/leagues/47/table/premier-league/teams"
@@ -22,6 +25,6 @@ EPL_FILTER_CLASS = "filters"
 
 # Scraper Settings
 AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
-HEAD = False  # Set to False for headless mode
+HEAD = True  # Set to False for headless mode
 BROWSER_WAIT_TIME = 8000  # Time to wait for page elements to load (in milliseconds)
 SLOW_MOTION = 3  # Slow down Playwright actions for more human-like

@@ -1,6 +1,7 @@
 import os
 from db.teams import Team
 from db.players import Player
+from db.fpl_fixtures import FFixtures
 
 
 def write_data_to_txt(data, filename):
@@ -42,4 +43,17 @@ SP90:   {player.stats_per_90}
         write_data_to_txt(holder, "Players")
 
 
-def getffixture
+def get_ffixture():
+    for fix in FFixtures.fpl_fixtures:
+        holder = f"""{fix.id}) {fix.name} - {fix.deadline_time}
+{fix.is_current}, {fix.is_previous}, {fix.is_next}, {fix.finished}
+Data Checked: {fix.data_checked}
+Most Selected: {fix.most_selected}
+Highest Score: {fix.highest_score}
+Most Transferred in: {fix.most_transferred_in}
+Top Element: {fix.top_element}
+Most Captained: {fix.most_captained}
+Most Vice Captained: {fix.most_vice_captained}
+Top element info: {fix.top_element_info}
+"""
+        write_data_to_txt(holder, "Fpl-Fixtures")
