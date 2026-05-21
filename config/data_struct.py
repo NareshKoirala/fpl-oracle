@@ -22,14 +22,14 @@ FPL_FIXTURES = {
 
 FIXTURES = {
     "event": 0,
-    "finished": "bool",
+    "finished": "",
     "id": 0,
-    "kickoff_time": "2025-08-15T19:00:00Z",
-    "started": "true",
-    "team_a": "4",
-    "team_a_score": "2",
-    "team_h": "12",
-    "team_h_score": "4",
+    "kickoff_time": "",
+    "started": "",
+    "team_a": "",
+    "team_a_score": "",
+    "team_h": "",
+    "team_h_score": "",
     "stats": {
         "goals_scored": {
             "a": [],
@@ -199,9 +199,8 @@ PLAYERS = {
         "goals_conceded_per_90": 0,
         "points_per_game": 0,
     },
-    #"history": [PLAYER_FIXTURES],
-    #"past_years": [PLAYER_HISTORY],
 }
+
 PLAYER_HISTORY = {
     "season_name": "0",
     "element_code": "0",

@@ -12,7 +12,7 @@ class FFixtures:
         self.raw_data = raw_data
 
         self.id = raw_data["id"]
-        self.db = f"fpl_fixtures:{self.id}"
+        self.db = f"gw:{self.id}"
         self.name = raw_data["name"]
         self.deadline_time = raw_data["deadline_time"]
         self.is_current = raw_data["is_current"]

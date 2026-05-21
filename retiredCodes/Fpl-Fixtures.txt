@@ -1,0 +1,418 @@
+1) Gameweek 1 - 2025-08-15T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 235
+Highest Score: 127
+Most Transferred in: 1
+Top Element: 531
+Most Captained: 381
+Most Vice Captained: 235
+Top element info: {'id': 531, 'points': 17}
+
+2) Gameweek 2 - 2025-08-22T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 235
+Highest Score: 140
+Most Transferred in: 427
+Top Element: 8
+Most Captained: 381
+Most Vice Captained: 235
+Top element info: {'id': 8, 'points': 24}
+
+3) Gameweek 3 - 2025-08-30T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 118
+Most Transferred in: 82
+Top Element: 260
+Most Captained: 430
+Most Vice Captained: 381
+Top element info: {'id': 260, 'points': 15}
+
+4) Gameweek 4 - 2025-09-13T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 139
+Most Transferred in: 419
+Top Element: 26
+Most Captained: 381
+Most Vice Captained: 249
+Top element info: {'id': 26, 'points': 16}
+
+5) Gameweek 5 - 2025-09-20T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 112
+Most Transferred in: 82
+Top Element: 660
+Most Captained: 381
+Most Vice Captained: 249
+Top element info: {'id': 660, 'points': 15}
+
+6) Gameweek 6 - 2025-09-27T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 124
+Most Transferred in: 430
+Top Element: 683
+Most Captained: 430
+Most Vice Captained: 249
+Top element info: {'id': 683, 'points': 17}
+
+7) Gameweek 7 - 2025-10-03T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 135
+Most Transferred in: 430
+Top Element: 82
+Most Captained: 430
+Most Vice Captained: 381
+Top element info: {'id': 82, 'points': 18}
+
+8) Gameweek 8 - 2025-10-18T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 138
+Most Transferred in: 714
+Top Element: 225
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 225, 'points': 18}
+
+9) Gameweek 9 - 2025-10-24T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 124
+Most Transferred in: 714
+Top Element: 575
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 575, 'points': 23}
+
+10) Gameweek 10 - 2025-11-01T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 135
+Most Transferred in: 119
+Top Element: 169
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 169, 'points': 16}
+
+11) Gameweek 11 - 2025-11-08T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 120
+Most Transferred in: 283
+Top Element: 228
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 228, 'points': 15}
+
+12) Gameweek 12 - 2025-11-22T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 134
+Most Transferred in: 119
+Top Element: 266
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 266, 'points': 20}
+
+13) Gameweek 13 - 2025-11-29T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 123
+Most Transferred in: 136
+Top Element: 684
+Most Captained: 430
+Most Vice Captained: 381
+Top element info: {'id': 684, 'points': 16}
+
+14) Gameweek 14 - 2025-12-02T18:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 138
+Most Transferred in: 136
+Top Element: 414
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 414, 'points': 17}
+
+15) Gameweek 15 - 2025-12-06T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 133
+Most Transferred in: 414
+Top Element: 449
+Most Captained: 430
+Most Vice Captained: 1
+Top element info: {'id': 449, 'points': 18}
+
+16) Gameweek 16 - 2025-12-13T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 149
+Most Transferred in: 414
+Top Element: 516
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 516, 'points': 19}
+
+17) Gameweek 17 - 2025-12-20T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 148
+Most Transferred in: 329
+Top Element: 107
+Most Captained: 430
+Most Vice Captained: 414
+Top element info: {'id': 107, 'points': 21}
+
+18) Gameweek 18 - 2025-12-26T18:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 118
+Most Transferred in: 661
+Top Element: 120
+Most Captained: 430
+Most Vice Captained: 414
+Top element info: {'id': 120, 'points': 20}
+
+19) Gameweek 19 - 2025-12-30T18:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 112
+Most Transferred in: 450
+Top Element: 303
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 303, 'points': 16}
+
+20) Gameweek 20 - 2026-01-03T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 117
+Most Transferred in: 5
+Top Element: 136
+Most Captained: 430
+Most Vice Captained: 661
+Top element info: {'id': 136, 'points': 17}
+
+21) Gameweek 21 - 2026-01-06T18:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 118
+Most Transferred in: 5
+Top Element: 487
+Most Captained: 430
+Most Vice Captained: 414
+Top element info: {'id': 487, 'points': 15}
+
+22) Gameweek 22 - 2026-01-17T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 111
+Most Transferred in: 5
+Top Element: 441
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 441, 'points': 15}
+
+23) Gameweek 23 - 2026-01-24T11:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 115
+Most Transferred in: 449
+Top Element: 387
+Most Captained: 430
+Most Vice Captained: 136
+Top element info: {'id': 387, 'points': 13}
+
+24) Gameweek 24 - 2026-01-31T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 126
+Most Transferred in: 449
+Top Element: 18
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 18, 'points': 14}
+
+25) Gameweek 25 - 2026-02-06T18:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 147
+Most Transferred in: 249
+Top Element: 235
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 235, 'points': 20}
+
+26) Gameweek 26 - 2026-02-10T18:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 138
+Most Transferred in: 666
+Top Element: 373
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 373, 'points': 17}
+
+27) Gameweek 27 - 2026-02-21T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 117
+Most Transferred in: 249
+Top Element: 411
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 411, 'points': 17}
+
+28) Gameweek 28 - 2026-02-27T18:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 125
+Most Transferred in: 373
+Top Element: 121
+Most Captained: 430
+Most Vice Captained: 449
+Top element info: {'id': 121, 'points': 18}
+
+29) Gameweek 29 - 2026-03-03T18:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 143
+Most Transferred in: 661
+Top Element: 249
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 249, 'points': 19}
+
+30) Gameweek 30 - 2026-03-14T13:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 110
+Most Transferred in: 249
+Top Element: 55
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 55, 'points': 12}
+
+31) Gameweek 31 - 2026-03-20T18:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 249
+Highest Score: 109
+Most Transferred in: 684
+Top Element: 311
+Most Captained: 430
+Most Vice Captained: 249
+Top element info: {'id': 311, 'points': 16}
+
+32) Gameweek 32 - 2026-04-10T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 132
+Most Transferred in: 151
+Top Element: 606
+Most Captained: 430
+Most Vice Captained: 430
+Top element info: {'id': 606, 'points': 21}
+
+33) Gameweek 33 - 2026-04-18T10:00:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 177
+Most Transferred in: 691
+Top Element: 515
+Most Captained: 430
+Most Vice Captained: 82
+Top element info: {'id': 515, 'points': 20}
+
+34) Gameweek 34 - 2026-04-24T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 114
+Most Transferred in: 64
+Top Element: 526
+Most Captained: 430
+Most Vice Captained: 449
+Top element info: {'id': 526, 'points': 14}
+
+35) Gameweek 35 - 2026-05-01T17:30:00Z
+False, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 129
+Most Transferred in: 417
+Top Element: 527
+Most Captained: 430
+Most Vice Captained: 449
+Top element info: {'id': 527, 'points': 16}
+
+36) Gameweek 36 - 2026-05-09T10:00:00Z
+False, True, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 145
+Most Transferred in: 417
+Top Element: 145
+Most Captained: 430
+Most Vice Captained: 449
+Top element info: {'id': 145, 'points': 15}
+
+37) Gameweek 37 - 2026-05-15T17:30:00Z
+True, False, False, True
+Data Checked: True
+Most Selected: 430
+Highest Score: 131
+Most Transferred in: 666
+Top Element: 64
+Most Captained: 430
+Most Vice Captained: 449
+Top element info: {'id': 64, 'points': 15}
+
+38) Gameweek 38 - 2026-05-24T13:30:00Z
+False, False, True, False
+Data Checked: False
+Most Selected: None
+Highest Score: None
+Most Transferred in: None
+Top Element: None
+Most Captained: None
+Most Vice Captained: None
+Top element info: {}
+

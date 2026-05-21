@@ -1,0 +1,100 @@
+3: Arsenal (ARS)
+Table:  {'win': '25', 'draw': '7', 'loss': '5', 'played': '37', 'points': '82', 'position': '1', 'goals': '69', 'conceded': '26', 'form': '03333', 'next': 'name'},
+Expect: {'xg': 63.1, 'xg_difference': 5.9, 'xga': 27.3, 'xga_difference': -1.3, 'xpts': 75.0, 'xpts_difference': 7.0},
+Streng: {'strength': 5.0, 'strength_overall_home': 1305.0, 'strength_overall_away': 1355.0, 'strength_attack_home': 1340.0, 'strength_attack_away': 1390.0, 'strength_defence_home': 1270.0, 'strength_defence_away': 1320.0},
+
+7: Aston Villa (AVL)
+Table:  {'win': '18', 'draw': '8', 'loss': '11', 'played': '37', 'points': '62', 'position': '4', 'goals': '54', 'conceded': '48', 'form': '30013', 'next': 'name'},
+Expect: {'xg': 46.4, 'xg_difference': 7.6, 'xga': 52.5, 'xga_difference': -4.5, 'xpts': 47.0, 'xpts_difference': 15.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1135.0, 'strength_overall_away': 1230.0, 'strength_attack_home': 1120.0, 'strength_attack_away': 1210.0, 'strength_defence_home': 1150.0, 'strength_defence_away': 1250.0},
+
+90: Burnley (BUR)
+Table:  {'win': '4', 'draw': '9', 'loss': '24', 'played': '37', 'points': '21', 'position': '19', 'goals': '37', 'conceded': '74', 'form': '00010', 'next': 'name'},
+Expect: {'xg': 31.5, 'xg_difference': 5.5, 'xga': 73.3, 'xga_difference': 0.7, 'xpts': 25.0, 'xpts_difference': -4.0},
+Streng: {'strength': 2.0, 'strength_overall_home': 975.0, 'strength_overall_away': 1045.0, 'strength_attack_home': 910.0, 'strength_attack_away': 1050.0, 'strength_defence_home': 1040.0, 'strength_defence_away': 1040.0},
+
+91: Bournemouth (BOU)
+Table:  {'win': '13', 'draw': '17', 'loss': '7', 'played': '37', 'points': '56', 'position': '6', 'goals': '57', 'conceded': '53', 'form': '31331', 'next': 'name'},
+Expect: {'xg': 61.0, 'xg_difference': -4.0, 'xga': 55.0, 'xga_difference': -2.0, 'xpts': 56.0, 'xpts_difference': 0.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1150.0, 'strength_overall_away': 1235.0, 'strength_attack_home': 1060.0, 'strength_attack_away': 1230.0, 'strength_defence_home': 1240.0, 'strength_defence_away': 1240.0},
+
+94: Brentford (BRE)
+Table:  {'win': '14', 'draw': '10', 'loss': '13', 'played': '37', 'points': '52', 'position': '9', 'goals': '54', 'conceded': '51', 'form': '10301', 'next': 'name'},
+Expect: {'xg': 58.7, 'xg_difference': -4.7, 'xga': 51.4, 'xga_difference': -0.4, 'xpts': 56.0, 'xpts_difference': -4.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1135.0, 'strength_overall_away': 1215.0, 'strength_attack_home': 1120.0, 'strength_attack_away': 1160.0, 'strength_defence_home': 1150.0, 'strength_defence_away': 1270.0},
+
+36: Brighton (BHA)
+Table:  {'win': '14', 'draw': '11', 'loss': '12', 'played': '37', 'points': '53', 'position': '7', 'goals': '52', 'conceded': '43', 'form': '13030', 'next': 'name'},
+Expect: {'xg': 57.1, 'xg_difference': -5.1, 'xga': 47.5, 'xga_difference': -4.5, 'xpts': 58.0, 'xpts_difference': -5.0},
+Streng: {'strength': 4.0, 'strength_overall_home': 1170.0, 'strength_overall_away': 1250.0, 'strength_attack_home': 1140.0, 'strength_attack_away': 1220.0, 'strength_defence_home': 1200.0, 'strength_defence_away': 1280.0},
+
+8: Chelsea (CHE)
+Table:  {'win': '14', 'draw': '10', 'loss': '13', 'played': '37', 'points': '52', 'position': '8', 'goals': '57', 'conceded': '50', 'form': '00013', 'next': 'name'},
+Expect: {'xg': 65.6, 'xg_difference': -8.6, 'xga': 50.4, 'xga_difference': -0.4, 'xpts': 59.0, 'xpts_difference': -7.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1190.0, 'strength_overall_away': 1195.0, 'strength_attack_home': 1130.0, 'strength_attack_away': 1140.0, 'strength_defence_home': 1250.0, 'strength_defence_away': 1250.0},
+
+31: Crystal Palace (CRY)
+Table:  {'win': '11', 'draw': '12', 'loss': '14', 'played': '37', 'points': '45', 'position': '15', 'goals': '40', 'conceded': '49', 'form': '00101', 'next': 'name'},
+Expect: {'xg': 57.2, 'xg_difference': -17.2, 'xga': 49.4, 'xga_difference': -0.4, 'xpts': 56.0, 'xpts_difference': -11.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1160.0, 'strength_overall_away': 1185.0, 'strength_attack_home': 1150.0, 'strength_attack_away': 1200.0, 'strength_defence_home': 1170.0, 'strength_defence_away': 1170.0},
+
+11: Everton (EVE)
+Table:  {'win': '13', 'draw': '10', 'loss': '14', 'played': '37', 'points': '49', 'position': '12', 'goals': '47', 'conceded': '49', 'form': '00110', 'next': 'name'},
+Expect: {'xg': 46.3, 'xg_difference': 0.7, 'xga': 55.4, 'xga_difference': -6.4, 'xpts': 45.0, 'xpts_difference': 4.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1135.0, 'strength_overall_away': 1160.0, 'strength_attack_home': 1130.0, 'strength_attack_away': 1150.0, 'strength_defence_home': 1140.0, 'strength_defence_away': 1170.0},
+
+54: Fulham (FUL)
+Table:  {'win': '14', 'draw': '7', 'loss': '16', 'played': '37', 'points': '49', 'position': '13', 'goals': '45', 'conceded': '51', 'form': '13001', 'next': 'name'},
+Expect: {'xg': 46.5, 'xg_difference': -1.5, 'xga': 53.0, 'xga_difference': -2.0, 'xpts': 46.0, 'xpts_difference': 3.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1105.0, 'strength_overall_away': 1200.0, 'strength_attack_home': 1090.0, 'strength_attack_away': 1170.0, 'strength_defence_home': 1120.0, 'strength_defence_away': 1230.0},
+
+2: Leeds (LEE)
+Table:  {'win': '11', 'draw': '14', 'loss': '12', 'played': '37', 'points': '47', 'position': '14', 'goals': '49', 'conceded': '53', 'form': '31313', 'next': 'name'},
+Expect: {'xg': 52.6, 'xg_difference': -3.6, 'xga': 53.1, 'xga_difference': -0.1, 'xpts': 53.0, 'xpts_difference': -6.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1100.0, 'strength_overall_away': 1205.0, 'strength_attack_home': 1050.0, 'strength_attack_away': 1160.0, 'strength_defence_home': 1150.0, 'strength_defence_away': 1250.0},
+
+14: Liverpool (LIV)
+Table:  {'win': '17', 'draw': '8', 'loss': '12', 'played': '37', 'points': '59', 'position': '5', 'goals': '62', 'conceded': '52', 'form': '33010', 'next': 'name'},
+Expect: {'xg': 58.3, 'xg_difference': 3.7, 'xga': 45.9, 'xga_difference': 6.1, 'xpts': 59.0, 'xpts_difference': 0.0},
+Streng: {'strength': 4.0, 'strength_overall_home': 1180.0, 'strength_overall_away': 1250.0, 'strength_attack_home': 1120.0, 'strength_attack_away': 1200.0, 'strength_defence_home': 1240.0, 'strength_defence_away': 1300.0},
+
+43: Man City (MCI)
+Table:  {'win': '23', 'draw': '9', 'loss': '5', 'played': '37', 'points': '78', 'position': '2', 'goals': '76', 'conceded': '33', 'form': '31331', 'next': 'name'},
+Expect: {'xg': 70.0, 'xg_difference': 6.0, 'xga': 42.4, 'xga_difference': -9.4, 'xpts': 70.0, 'xpts_difference': 8.0},
+Streng: {'strength': 4.0, 'strength_overall_home': 1265.0, 'strength_overall_away': 1355.0, 'strength_attack_home': 1220.0, 'strength_attack_away': 1310.0, 'strength_defence_home': 1310.0, 'strength_defence_away': 1400.0},
+
+1: Man United (MUN)
+Table:  {'win': '19', 'draw': '11', 'loss': '7', 'played': '37', 'points': '68', 'position': '3', 'goals': '66', 'conceded': '50', 'form': '33313', 'next': 'name'},
+Expect: {'xg': 63.8, 'xg_difference': 2.2, 'xga': 47.8, 'xga_difference': 2.2, 'xpts': 60.0, 'xpts_difference': 8.0},
+Streng: {'strength': 4.0, 'strength_overall_home': 1180.0, 'strength_overall_away': 1250.0, 'strength_attack_home': 1120.0, 'strength_attack_away': 1190.0, 'strength_defence_home': 1240.0, 'strength_defence_away': 1310.0},
+
+4: Newcastle (NEW)
+Table:  {'win': '14', 'draw': '7', 'loss': '16', 'played': '37', 'points': '49', 'position': '11', 'goals': '53', 'conceded': '53', 'form': '00313', 'next': 'name'},
+Expect: {'xg': 56.8, 'xg_difference': -3.8, 'xga': 49.5, 'xga_difference': 3.5, 'xpts': 56.0, 'xpts_difference': -7.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1120.0, 'strength_overall_away': 1205.0, 'strength_attack_home': 1130.0, 'strength_attack_away': 1120.0, 'strength_defence_home': 1110.0, 'strength_defence_away': 1290.0},
+
+17: Nottm Forest (NFO)
+Table:  {'win': '11', 'draw': '10', 'loss': '16', 'played': '37', 'points': '43', 'position': '16', 'goals': '47', 'conceded': '50', 'form': '33310', 'next': 'name'},
+Expect: {'xg': 44.3, 'xg_difference': 2.7, 'xga': 56.4, 'xga_difference': -6.4, 'xpts': 43.0, 'xpts_difference': 0.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1125.0, 'strength_overall_away': 1165.0, 'strength_attack_home': 1130.0, 'strength_attack_away': 1160.0, 'strength_defence_home': 1120.0, 'strength_defence_away': 1170.0},
+
+56: Sunderland (SUN)
+Table:  {'win': '13', 'draw': '12', 'loss': '12', 'played': '37', 'points': '51', 'position': '10', 'goals': '40', 'conceded': '47', 'form': '00113', 'next': 'name'},
+Expect: {'xg': 37.1, 'xg_difference': 2.9, 'xga': 53.6, 'xga_difference': -6.6, 'xpts': 39.0, 'xpts_difference': 12.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1055.0, 'strength_overall_away': 1150.0, 'strength_attack_home': 1070.0, 'strength_attack_away': 1170.0, 'strength_defence_home': 1040.0, 'strength_defence_away': 1130.0},
+
+6: Tottenham (TOT)
+Table:  {'win': '9', 'draw': '11', 'loss': '17', 'played': '37', 'points': '38', 'position': '17', 'goals': '47', 'conceded': '57', 'form': '13310', 'next': 'name'},
+Expect: {'xg': 38.9, 'xg_difference': 8.1, 'xga': 51.9, 'xga_difference': 5.1, 'xpts': 43.0, 'xpts_difference': -5.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1120.0, 'strength_overall_away': 1120.0, 'strength_attack_home': 1090.0, 'strength_attack_away': 1090.0, 'strength_defence_home': 1150.0, 'strength_defence_away': 1150.0},
+
+21: West Ham (WHU)
+Table:  {'win': '9', 'draw': '9', 'loss': '19', 'played': '37', 'points': '36', 'position': '18', 'goals': '43', 'conceded': '65', 'form': '13000', 'next': 'name'},
+Expect: {'xg': 43.5, 'xg_difference': -0.5, 'xga': 58.1, 'xga_difference': 6.9, 'xpts': 42.0, 'xpts_difference': -6.0},
+Streng: {'strength': 3.0, 'strength_overall_home': 1095.0, 'strength_overall_away': 1130.0, 'strength_attack_home': 1060.0, 'strength_attack_away': 1080.0, 'strength_defence_home': 1130.0, 'strength_defence_away': 1180.0},
+
+39: Wolves (WOL)
+Table:  {'win': '3', 'draw': '10', 'loss': '24', 'played': '37', 'points': '19', 'position': '20', 'goals': '26', 'conceded': '67', 'form': '00101', 'next': 'name'},
+Expect: {'xg': 33.4, 'xg_difference': -7.4, 'xga': 58.5, 'xga_difference': 8.5, 'xpts': 36.0, 'xpts_difference': -17.0},
+Streng: {'strength': 2.0, 'strength_overall_home': 975.0, 'strength_overall_away': 1060.0, 'strength_attack_home': 950.0, 'strength_attack_away': 1050.0, 'strength_defence_home': 1000.0, 'strength_defence_away': 1070.0},
+
