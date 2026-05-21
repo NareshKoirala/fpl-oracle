@@ -6,68 +6,38 @@ LOG = Logger("Players_DB")
 DB = RedisDB()
 
 
-class Player:
+async def get_players(raw_data):
+    place_json = {}
+    db = f"players:{raw_data['id']}"
+    sep_lst = ["stats", "fpl_stats", "rank", "expected", "stats_per_90"]
 
-    def __init__(self, data: dict):
-        self.raw_data = data
+    for key in PLAYERS.keys():
+        if key in sep_lst:
+            await validate(db, raw_data, key)
+        else:
+            place_json[key] = key
 
-        self.id = int(data["id"])
-        self.db = f"Players:{self.id}"
-        self.team_code = int(data["team_code"])
-        self.now_cost = float(data["now_cost"])
-        self.web_name = data["web_name"]
-        self.second_name = data["second_name"]
-        self.total_points = float(data["total_points"])
-        self.status = data["status"]
-        self.form = data["form"]
-        self.element_type = data["element_type"]
-        self.stats = self.validate_stats()
-        self.fpl_stats = self.validate_fpl_stats()
-        self.rank = self.validate_rank()
-        self.expected = self.validate_expected()
-        self.stats_per_90 = self.validate_stats_per_90()
-        
-        LOG.info(f"Creating player: {self.web_name} with id: {self.id}")
+    await DB.hset_dict(db, place_json)
+    place_json = {
+        "id": raw_data["id"],
+        "name": raw_data["web_name"],
+        "tid": raw_data["team_code"],
+    }
+    await DB.hset_dict(f'player_name:{raw_data["id"]}', place_json)
 
-        place_json = {
-            "team_code": self.team_code,
-            "now_cost": self.now_cost,
-            "web_name": self.web_name,
-            "total_points": self.total_points,
-            "status": self.status,
-            "form": self.form,
-            "element_type": self.element_type,
-        }
-        DB.hset_dict(self.db, place_json)
-        place_json = {
-            "name": self.web_name,
-            "tid": self.team_code
-        }
-        DB.hset_dict(f'player_name:{self.id}', place_json)
 
-    def validate_stats(self):
-        return self.valid_check(PLAYERS["stats"].copy(), "stats")
+async def valid_check(db, dict_copy, section, raw_data):
 
-    def valid_check(self, dict_copy, section):
+    for key, value in dict_copy.items():
+        if key in raw_data:
+            data = raw_data[key]
+            if data == "" or data == None:
+                data = 0
+            dict_copy[key] = float(data) if isinstance(value, int) else data
+            await DB.hset_one(db, f"{section}.{key}", dict_copy[key])
 
-        for key, value in dict_copy.items():
-            if key in self.raw_data:
-                data = self.raw_data[key]
-                if data == "" or data == None:
-                    data = 0
-                dict_copy[key] = float(data) if isinstance(value, int) else data
-                DB.hset_one(self.db, f"{section}.{key}", dict_copy[key])
+    return dict_copy
 
-        return dict_copy
 
-    def validate_fpl_stats(self):
-        return self.valid_check(PLAYERS["fpl_stats"].copy(), "fpl_stats")
-
-    def validate_rank(self):
-        return self.valid_check(PLAYERS["rank"].copy(), "rank")
-
-    def validate_expected(self):
-        return self.valid_check(PLAYERS["expected"].copy(), "expected")
-
-    def validate_stats_per_90(self):
-        return self.valid_check(PLAYERS["stats_per_90"].copy(), "stats_per_90")
+async def validate(db, raw_data, key):
+    return await valid_check(db, PLAYERS[key].copy(), key, raw_data)

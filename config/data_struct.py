@@ -118,6 +118,7 @@ PLAYERS = {
     "team_code": "",
     "now_cost": 0,
     "web_name": "",
+    "second_name": "",
     "total_points": 0,
     "status": "",
     "form": "",

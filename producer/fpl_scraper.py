@@ -1,17 +1,17 @@
 from utils.log import Logger
 from utils.scraper import Scraper
-from db.teams import Team
-from db.players import Player
-from db.gw_fixtures import FFixtures
+from db.teams import get_teams
+from db.players import get_players
+from db.gw_fixtures import get_fixtures
 from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 import asyncio
 
 LOG = Logger("Fpl_scraper")
 
-def api_fetch()-> dict:
+async def api_fetch()-> dict:
     LOG.info("api_fetch() running.")
     
-    data = Scraper().fetch_request(FPL_BOOTSTRAP).json()
+    data = await Scraper().fetch_request(FPL_BOOTSTRAP)
     
     if data:
         LOG.info("API data fetched successfully.")
@@ -21,13 +21,13 @@ def api_fetch()-> dict:
         return None
     
 
-def fpl_data_to_db():
+async def fpl_data_to_db():
     LOG.info("Starting fpl_data_to_db()")
     
-    teams, players, fixtures = api_fetch()
+    teams, players, fixtures = await api_fetch()
 
-    for team in teams: Team(team)
-    for player in players: Player(player)
-    for fixtures in fixtures: FFixtures(fixtures)
+    for team in teams: await get_teams(team)
+    for player in players: await get_players(player)
+    for fixtures in fixtures: await get_fixtures(fixtures)
     
     LOG.info("Finished fpl_data_to_db()")

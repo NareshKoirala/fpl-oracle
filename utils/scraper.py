@@ -1,6 +1,7 @@
 import requests
 from utils.log import Logger
 from utils.pw_browser_async import PlayWright_async_Browser
+import httpx
 
 LOG = Logger("Scraper")
 
@@ -16,31 +17,36 @@ class Scraper:
         if not self.enablePW:
             LOG.info("Enabling Playwright for this Scraper instance.")
             self.enablePW = True
-            self.browser = await PlayWright_async_Browser.create()  # Initialize the browser when enabling
+            self.browser = (
+                await PlayWright_async_Browser.create()
+            )  # Initialize the browser when enabling
         else:
             LOG.info("Playwright is already enabled for this Scraper instance.")
-            
-    def fetch_request(self, url: str = None) -> dict:
-        """Fetches data using requests library."""
+
+    # 1. Change to 'async def'
+    async def fetch_request(self, url: str) -> dict:
+        """Fetches data using httpx library (non-blocking)."""
+
         if url:
             LOG.info(f"Updating URL from: {self.url} to: {url}")
             self.url = url  # Update URL if provided
 
-        response = requests.get(self.url)
+        async with httpx.AsyncClient() as client:
+            response = await client.get(url)  # 3. 'await' the network call
 
-        if response.status_code == 200:
-            LOG.info(f"Data fetched successfully from: {self.url}")
-            return response
-        else:
-            LOG.error(f"Error fetching data: {response.status_code}")
-            return None
+            if response.status_code == 200:
+                LOG.info(f"Data fetched successfully from: {self.url}")
+                return response.json()  # Return the data directly
+            else:
+                LOG.error(f"Error fetching data: {response.status_code}")
+                return None
 
     async def fetch_playwright(self, tag: str, url: str = None):
         """Fetches data using Playwright."""
         if not self.enablePW:
             LOG.error("This instancee doesnt have PlayWright enabled")
             return None
-        
+
         content = await self.browser.get_content(tag)
 
         if content:
@@ -100,7 +106,7 @@ class Scraper:
             return None
         LOG.info(f"Getting element with selector: {selector}")
         return await self.browser.get_element(selector)  # Get the element when needed
-    
+
     async def page_reload(self):
         """Utility method to reload the current page."""
         if not self.enablePW:
@@ -108,4 +114,3 @@ class Scraper:
             return None
         LOG.info("Reloading page.")
         await self.browser.page_reload()  # Reload the page when needed
-        

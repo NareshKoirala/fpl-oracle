@@ -3,7 +3,7 @@ YAHOO_SPORTS = "https://sports.yahoo.com/soccer/premier-league/stats/team/?_rsc=
 
 FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
 FIXTURES = "https://fantasy.premierleague.com/api/fixtures/"
-PLAYER_FIXTURES = f"https://fantasy.premierleague.com/api/element-summary/"
+PLAYER_HISTORY = f"https://fantasy.premierleague.com/api/element-summary/"
 
 FOTMOB_BASE = "https://www.fotmob.com"
 FOTMOB_TABLE = f"{FOTMOB_BASE}/leagues/47/table/premier-league/teams"
