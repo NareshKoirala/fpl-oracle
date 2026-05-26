@@ -10,6 +10,7 @@ DB = RedisDB()
 
 
 async def get_fixtures():
+    await init_fixture_indexes()
     data = await Scraper().fetch_request(url)
 
     if data:
@@ -27,9 +28,24 @@ async def fixture_to_db(raw_data):
             if key != "stats":
                 place_json[key] = str(data[key])
             else:
-                await fix_stats_to_db(key, data[key], f"fixtures:{data["id"]}")
+                await fix_stats_to_db(key, data[key], f"raw_fixtures:{data["id"]}")
 
-        await DB.hset_dict(f"fixtures:{data["id"]}", place_json)
+        await DB.rpush(f"index:fixtures:{data["team_h"]}:home", data["id"])
+        await DB.rpush(f"index:fixtures:{data["team_a"]}:away", data["id"])
+
+        await DB.hset_dict(f"raw_fixtures:{data["id"]}", place_json)
+
+
+async def init_fixture_indexes():
+    tid_keys = await DB.get_keys(f"index:team:*")
+    tids = []
+    for key in tid_keys:
+        tids.append(await DB.hget_one(key, "tid"))
+
+    for tid in tids:  # EPL teams 1–20
+        await DB.delete(f"index:fixtures:{tid}:home")
+        await DB.delete(f"index:fixtures:{tid}:away")
+
 
 
 async def fix_stats_to_db(field, value, db):
@@ -39,7 +55,7 @@ async def fix_stats_to_db(field, value, db):
         key = data["identifier"]
 
         for val in data["a"]:
-            await DB.hset_one(db, f"{key}.a.{val['element']}", val["value"])
+            await DB.hset_one(db + ":stats", f"{key}.a.{val['element']}", val["value"])
 
         for val in data["h"]:
-            await DB.hset_one(db, f"{key}.h.{val['element']}", val["value"])
+            await DB.hset_one(db + ":stats", f"{key}.h.{val['element']}", val["value"])

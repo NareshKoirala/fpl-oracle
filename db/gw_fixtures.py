@@ -8,7 +8,7 @@ DB = RedisDB()
 
 async def get_fixtures(raw_data):
     place_json = {}
-    db = f"gw:{raw_data["id"]}"
+    db = f"raw_gw:{raw_data["id"]}"
     for key in FPL_FIXTURES.keys():
         if key == "top_element_info":
             await validate_top_element_info(db, raw_data)
@@ -23,5 +23,5 @@ async def validate_top_element_info(db, raw_data):
         return
 
     for k, v in raw_data["top_element_info"].items():
-        await DB.hset_one(db, f"top_element_info.{k}", str(v))
+        await DB.hset_one(db+":top_element_info", f"{k}", str(v))
 

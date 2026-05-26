@@ -17,15 +17,19 @@ async def fetch_and_save(client, semaphore, pid):
             data = response.json()
             history = data["history"]
             history_past = data["history_past"]
-            gw = 1
             for fixture in history:
-                await DB.hset_dict(f"player_fixtures:{pid}", fixture, f"game_{gw}")
-                gw += 1
-
-            season = 1
+                await DB.hset_dict(
+                    f"raw_player_fixtures:{pid}:{fixture["fixture"]}", fixture
+                )
             for past in history_past:
-                await DB.hset_dict(f"player_past_season:{pid}", past, f"season_{season}")
-                season += 1
+                await DB.hset_dict(
+                    f"raw_player_past_season:{pid}:{past["season_name"]}", past
+                )
+        else:
+            LOG.error(f"Status: {response.status_code}, For: {url}")
+        
+        await asyncio.sleep(0.05)
+
 
 
 async def fetch_history(pids):
@@ -39,12 +43,13 @@ async def fetch_history(pids):
 async def get_player_history():
     cursor = 0
     pids = []
+    LOG.info("Started to get the pids.")
     while True:
-        cursor, data = await DB.scan("player_name:*", cursor=cursor)
+        cursor, data = await DB.scan("index:player:*", cursor=cursor)
         for key in data:
             pids.append(await DB.hget_one(key, "id"))
 
         if cursor == 0:
             break
-
+    LOG.info(f"Total pids got: {len(pids)}")
     await fetch_history(pids)

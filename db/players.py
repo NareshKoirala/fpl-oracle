@@ -8,14 +8,14 @@ DB = RedisDB()
 
 async def get_players(raw_data):
     place_json = {}
-    db = f"players:{raw_data['id']}"
+    db = f"raw_players:{raw_data['id']}"
     sep_lst = ["stats", "fpl_stats", "rank", "expected", "stats_per_90"]
 
     for key in PLAYERS.keys():
         if key in sep_lst:
             await validate(db, raw_data, key)
         else:
-            place_json[key] = key
+            place_json[key] = raw_data[key]
 
     await DB.hset_dict(db, place_json)
     place_json = {
@@ -23,7 +23,7 @@ async def get_players(raw_data):
         "name": raw_data["web_name"],
         "tid": raw_data["team_code"],
     }
-    await DB.hset_dict(f'player_name:{raw_data["id"]}', place_json)
+    await DB.hset_dict(f'index:player:{raw_data["id"]}', place_json)
 
 
 async def valid_check(db, dict_copy, section, raw_data):
@@ -34,7 +34,7 @@ async def valid_check(db, dict_copy, section, raw_data):
             if data == "" or data == None:
                 data = 0
             dict_copy[key] = float(data) if isinstance(value, int) else data
-            await DB.hset_one(db, f"{section}.{key}", dict_copy[key])
+            await DB.hset_one(db + f":{section}", f"{key}", dict_copy[key])
 
     return dict_copy
 

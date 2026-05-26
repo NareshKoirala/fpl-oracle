@@ -44,8 +44,8 @@ def validate_short_name(raw_data):
 
 
 async def get_teams(raw_data):
-    tid = raw_data["code"]
-    db = f"teams:{tid}"
+    tid = raw_data["id"]
+    db = f"raw_teams:{tid}"
     table = validate_table()
     expected = validate_expected()
     strength = validate_strength(raw_data)
@@ -54,8 +54,8 @@ async def get_teams(raw_data):
 
     LOG.info(f"Creating team: {name} with tid: {tid}")
     place_json = {"tid": tid, "name": name, "short_name": short_name}
-    await DB.hset_one(f"team_name:{name}", "tid", tid)
+    await DB.hset_one(f"index:team:{name}", "tid", tid)
     await DB.hset_dict(db, place_json)
-    await DB.hset_dict(db, table, "table")
-    await DB.hset_dict(db, strength, "strength")
-    await DB.hset_dict(db, expected, "expected")
+    await DB.hset_dict(db + ":table", table)
+    await DB.hset_dict(db + ":strength", strength)
+    await DB.hset_dict(db + ":expected", expected)

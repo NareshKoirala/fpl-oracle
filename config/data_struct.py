@@ -92,7 +92,6 @@ TEAMS = {
         "goals": 0,
         "conceded": 0,
         "form": "",
-        "next": "name",
     },
     "expected": {
         "xg": 0,
