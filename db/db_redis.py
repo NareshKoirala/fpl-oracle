@@ -1,5 +1,6 @@
 import redis.asyncio as redis  # Note: Use redis.asyncio
 from utils.log import Logger
+from pathlib import Path
 
 LOG = Logger("RedisDB", "db")
 
@@ -8,6 +9,11 @@ class RedisDB:
     def __init__(self, host="localhost", port=6379, db=0):
         # Redis.from_url is preferred for async clients
         self.client = redis.Redis(host=host, port=port, db=db)
+        self.dump_path = str(Path.cwd() / "db/redis_dump")
+
+    async def save(self):
+        await self.client.config_set("dir", self.dump_path)
+        await self.client.save()
 
     async def delete(self, db):
         await self.client.delete(db)

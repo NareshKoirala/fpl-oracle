@@ -1,7 +1,7 @@
 from db.db_redis import RedisDB
 from utils.log import Logger
 
-LOG = Logger("Fixture_Diff", "cook/team_math")
+LOG = Logger("Fixture_Diff", "cook/fixture_math")
 DB = RedisDB()
 
 
