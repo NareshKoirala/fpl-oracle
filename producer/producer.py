@@ -18,7 +18,7 @@ DB = RedisDB()
 
 
 async def run_producer():
-    if not await DB.db_size():
+    if not await DB.db_size("raw"):
         LOG.info("Starting scrapers...")
         start = time.perf_counter()
         await fpl_data_to_db()

@@ -1,65 +1,75 @@
-import redis.asyncio as redis  # Note: Use redis.asyncio
+import redis.asyncio as redis
 from utils.log import Logger
-from pathlib import Path
 
 LOG = Logger("RedisDB", "db")
 
 
 class RedisDB:
-    def __init__(self, host="localhost", port=6379, db=0):
-        # Redis.from_url is preferred for async clients
-        self.client = redis.Redis(host=host, port=port, db=db)
-        self.dump_path = str(Path.cwd() / "db/redis_dump")
+    def __init__(self):
+        self.client_raw = redis.Redis(host="localhost", port=6379, db=0)
+        self.client_proc = redis.Redis(host="localhost", port=6379, db=1)
 
-    async def save(self):
-        await self.client.config_set("dir", self.dump_path)
-        await self.client.save()
+    def _select(self, db: str):
+        return self.client_proc if db[0] == "p" else self.client_raw
+
+    async def flush_raw(self):
+        await self.client_raw.flushdb()
+
+    async def flush_proc(self):
+        await self.client_proc.flushdb()
 
     async def delete(self, db):
-        await self.client.delete(db)
+        client = self._select(db)
+        await client.delete(db)
 
     async def hset_one(self, db, key, value):
-        await self.client.hset(db, key, value)
+        client = self._select(db)
+        await client.hset(db, key, value)
 
     async def hset_dict(self, db, dicts, subDB=None):
-
-        # Use async pipeline
-        async with self.client.pipeline(transaction=True) as pipe:
+        client = self._select(db)
+        async with client.pipeline(transaction=True) as pipe:
             for k, v in dicts.items():
-                if subDB:
-                    key = f"{subDB}.{k}"
-                else:
-                    key = f"{k}"
-                pipe.hset(db, key, str(v))
+                field = f"{subDB}.{k}" if subDB else k
+                pipe.hset(db, field, str(v))
             await pipe.execute()
 
     async def hset_all(self, db, data):
-        await self.client.hset(db, mapping=data)
+        client = self._select(db)
+        await client.hset(db, mapping=data)
 
     async def hget_all(self, db):
-        byte_data = await self.client.hgetall(db)
-        # Decoding remains synchronous/CPU-bound, which is fine
+        client = self._select(db)
+        byte_data = await client.hgetall(db)
         return {k.decode(): v.decode() for k, v in byte_data.items()}
 
     async def hget_one(self, db, field):
-        result = await self.client.hget(db, field)
+        client = self._select(db)
+        result = await client.hget(db, field)
         return result.decode() if result else None
 
-    async def scan(self, prefix, cursor):
-        return await self.client.scan(cursor, match=prefix)
-
     async def hscan_section(self, db, section):
-        cursor, byte_data = await self.client.hscan(db, match=f"{section}.*")
+        client = self._select(db)
+        cursor, byte_data = await client.hscan(db, match=f"{section}.*")
         return {k.decode(): v.decode() for k, v in byte_data.items()}
 
-    async def db_size(self):
-        return await self.client.dbsize()
+    async def scan(self, prefix, cursor):
+        client = self._select(prefix)
+        return await client.scan(cursor, match=prefix)
+
+
+    async def db_size(self, db):
+        client = self._select(db)
+        return await client.dbsize()
 
     async def rpush(self, db, data):
-        await self.client.rpush(db, data)
+        client = self._select(db)
+        await client.rpush(db, data)
 
     async def get_keys(self, pattern):
-        return await self.client.keys(pattern)
+        client = self._select(pattern)
+        return await client.keys(pattern)
 
     async def lrange(self, db, start, stop):
-        return await self.client.lrange(db, start, stop)
+        client = self._select(db)
+        return await client.lrange(db, start, stop)

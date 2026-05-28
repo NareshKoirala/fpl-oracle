@@ -108,7 +108,7 @@ async def cal_teams_strength():
         # 4. Save to Redis
         # -------------------------------
         await DB.hset_dict(
-            f"proc_strength:{tid}",
+            f"proc_teams_strength:{tid}",
             {
                 **overall,
                 "attack_home": f"{home_attack:.2f}",

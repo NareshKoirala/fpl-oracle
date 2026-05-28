@@ -1,4 +1,3 @@
-import requests
 from utils.log import Logger
 from utils.pw_browser_async import PlayWright_async_Browser
 import httpx

@@ -13,7 +13,7 @@ LOG = Logger("PlayWright_Browser_Async", "utils")
 class PlayWright_async_Browser:
     _playwright_manager = None
     _shared_browser = None
-    _user_data_dir = "./playwright_pantry_session"
+    _user_data_dir = "./pw_session"
 
     def __init__(self):
         # Every 'bot' gets its own private variables

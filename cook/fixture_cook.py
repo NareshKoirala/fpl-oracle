@@ -1,15 +1,20 @@
 from db.db_redis import RedisDB
 from utils.log import Logger
-from cook.fixture_math.fixture_diff import fixture_difficulty
-from cook.fixture_math.fixture_xg import cal_fix_xg
+from cook.fixture_math.fixture_diff_t import fixture_difficulty
+from cook.fixture_math.fixture_xg_t import cal_fix_xg
+from utils.export_redis import export_db1_to_json
 
 
-LOG = Logger("Team_Cook", "cook")
+LOG = Logger("Fixture_cook", "cook")
 DB = RedisDB()
 
 
-async def fixture_cook(gw):
+async def teams_fixture_cook(gw=None):
     LOG.info("Started fixture_cook()")
+
+    if not gw:
+        gw = await DB.hget_one(f"current_gw", "current")
+        LOG.info(f"Current gw found: {gw}")
 
     fix_dict = await DB.hget_all(f"index:gw_fixture:{gw}")
 
@@ -18,3 +23,4 @@ async def fixture_cook(gw):
         await fixture_difficulty(h, a, gw, fx_id)
         await cal_fix_xg(gw, fx_id)
 
+    await export_db1_to_json(DB, gw, "fixture")

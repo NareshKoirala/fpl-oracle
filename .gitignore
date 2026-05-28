@@ -1,6 +1,6 @@
 fpl_oracle/venv/
 **/venv/
-playwright_pantry_session
+pw_session
 __pycache__/
 *.pyc
 logs
