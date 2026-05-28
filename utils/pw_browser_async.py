@@ -7,7 +7,7 @@ from config.settings import HEAD, BROWSER_WAIT_TIME, SLOW_MOTION
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
-LOG = Logger("PlayWright_Browser_Async")
+LOG = Logger("PlayWright_Browser_Async", "utils")
 
 
 class PlayWright_async_Browser:

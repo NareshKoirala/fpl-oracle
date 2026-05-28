@@ -13,11 +13,11 @@ from db.players_history import get_player_history
 import asyncio
 import time
 
-LOG = Logger("Producer")
+LOG = Logger("Producer", "producer")
 DB = RedisDB()
 
 
-async def run_scrapers():
+async def run_producer():
     if not await DB.db_size():
         LOG.info("Starting scrapers...")
         start = time.perf_counter()

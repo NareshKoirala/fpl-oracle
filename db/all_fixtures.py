@@ -5,7 +5,7 @@ from config.settings import FIXTURES as url
 from utils.scraper import Scraper
 
 
-LOG = Logger("All Fixtures")
+LOG = Logger("All Fixtures", "db")
 DB = RedisDB()
 
 
@@ -33,6 +33,11 @@ async def fixture_to_db(raw_data):
         await DB.rpush(f"index:fixtures:{data["team_h"]}:home", data["id"])
         await DB.rpush(f"index:fixtures:{data["team_a"]}:away", data["id"])
 
+        await DB.hset_dict(
+            f"index:gw_fixture:{data["event"]}",
+            {data["id"]: f"{data["team_h"]}:{data["team_a"]}"},
+        )
+
         await DB.hset_dict(f"raw_fixtures:{data["id"]}", place_json)
 
 
@@ -45,7 +50,6 @@ async def init_fixture_indexes():
     for tid in tids:  # EPL teams 1–20
         await DB.delete(f"index:fixtures:{tid}:home")
         await DB.delete(f"index:fixtures:{tid}:away")
-
 
 
 async def fix_stats_to_db(field, value, db):

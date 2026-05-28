@@ -1,7 +1,7 @@
 import redis.asyncio as redis  # Note: Use redis.asyncio
 from utils.log import Logger
 
-LOG = Logger("RedisDB")
+LOG = Logger("RedisDB", "db")
 
 
 class RedisDB:

@@ -2,7 +2,7 @@ from config.data_struct import PLAYERS
 from utils.log import Logger
 from db.db_redis import RedisDB
 
-LOG = Logger("Players_DB")
+LOG = Logger("Players_DB", "db")
 DB = RedisDB()
 
 

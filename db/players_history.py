@@ -4,7 +4,7 @@ from db.db_redis import RedisDB
 import asyncio
 import httpx
 
-LOG = Logger("Player_History")
+LOG = Logger("Player_History", "db")
 DB = RedisDB()
 
 

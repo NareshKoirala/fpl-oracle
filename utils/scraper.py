@@ -3,7 +3,7 @@ from utils.log import Logger
 from utils.pw_browser_async import PlayWright_async_Browser
 import httpx
 
-LOG = Logger("Scraper")
+LOG = Logger("Scraper", "utils")
 
 
 class Scraper:

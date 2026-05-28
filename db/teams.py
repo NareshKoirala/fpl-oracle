@@ -3,7 +3,7 @@ from config.data_maps import FOTMOB_NAME_MAP
 from utils.log import Logger
 from db.db_redis import RedisDB
 
-LOG = Logger("Teams_DB")
+LOG = Logger("Teams_DB", "db")
 DB = RedisDB()
 
 
@@ -21,7 +21,8 @@ def validate_strength(raw_data):
 
     for key in dict_copy:
         if key in raw_data:
-            dict_copy[key] = float(raw_data[key])
+            value = float(raw_data[key])
+            dict_copy[key] = value if value <= 5 else value / 1000
 
     return dict_copy
 
@@ -53,9 +54,7 @@ async def get_teams(raw_data):
     short_name = validate_short_name(raw_data)
 
     LOG.info(f"Creating team: {name} with tid: {tid}")
-    place_json = {"tid": tid, "name": name, "short_name": short_name}
     await DB.hset_one(f"index:team:{name}", "tid", tid)
-    await DB.hset_dict(db, place_json)
     await DB.hset_dict(db + ":table", table)
     await DB.hset_dict(db + ":strength", strength)
     await DB.hset_dict(db + ":expected", expected)

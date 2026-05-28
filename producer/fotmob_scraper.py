@@ -10,7 +10,7 @@ from config.settings import (
 )
 from db.db_redis import RedisDB
 
-LOG = Logger("Fotmob_Scraper")
+LOG = Logger("Fotmob_Scraper", "producer")
 DB = RedisDB()
 
 

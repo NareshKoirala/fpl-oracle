@@ -2,7 +2,7 @@ from utils.log import Logger
 from config.data_struct import FPL_FIXTURES
 from db.db_redis import RedisDB
 
-LOG = Logger("FPL_Fixtures")
+LOG = Logger("FPL_Fixtures", "db")
 DB = RedisDB()
 
 

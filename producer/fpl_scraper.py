@@ -6,7 +6,7 @@ from db.gw_fixtures import get_fixtures
 from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 import asyncio
 
-LOG = Logger("Fpl_Scraper")
+LOG = Logger("Fpl_Scraper", "producer")
 
 async def api_fetch()-> dict:
     LOG.info("api_fetch() running.")
