@@ -1,9 +1,0 @@
-producer (total time takes ~53 sec, with ~60 MB data saved)
-    -> all teams expected (xg, xga, xgdiff, xgadiff, xpts, xptsdiff) using PlayWright and BeautifulSoup
-    -> all player season stat in fpl and in season stats
-    -> all previous season overall stats of all players 
-    -> all teams table data with (played, wins, draw, loss, goaldiff, pts, form) using PlayWright and BeautifulSoup
-    -> all teams fpl stats like strenght sep with atk, def, on home and away
-    -> all players played games in current season with there in game stats
-
-~500,000 Redis hash fields total data for teams and players to predict a high-end fpl-lineup prediction
