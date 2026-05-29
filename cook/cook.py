@@ -1,5 +1,7 @@
 from cook.team_cook import teams_cook
 from cook.fixture_cook import fixture_cook
+from cook.playing_cook import playing_cook
+
 from utils.log import Logger
 from db.db_redis import RedisDB
 import asyncio
@@ -22,6 +24,7 @@ async def run_cook():
         LOG.info("Cook Started...")
         await teams_cook()
         await fixture_cook()
+        await playing_cook()
         LOG.info("Cooking Finished...")
     else:
         LOG.error("Deadline has already started")

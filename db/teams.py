@@ -51,11 +51,9 @@ async def get_teams(raw_data):
     expected = validate_expected()
     strength = validate_strength(raw_data)
     name = validate_name(raw_data)
-    short_name = validate_short_name(raw_data)
 
     LOG.info(f"Creating team: {name} with tid: {tid}")
     await DB.hset_one(f"index:team:{name}", "tid", tid)
-    await DB.hset_one(f"index:p_team", f"{raw_data["code"]}", tid)
     await DB.hset_dict(db + ":table", table)
     await DB.hset_dict(db + ":strength", strength)
     await DB.hset_dict(db + ":expected", expected)

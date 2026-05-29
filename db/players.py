@@ -27,9 +27,15 @@ async def valid_check(db, dict_copy, section, raw_data):
     for key, value in dict_copy.items():
         if key in raw_data:
             data = raw_data[key]
+
+            if key == "chance_of_playing_this_round":
+                if data == None:
+                    data = 100
+
             if data == "" or data == None:
                 data = 0
-            dict_copy[key] = float(data) if isinstance(value, int) else str(data)
+
+            dict_copy[key] = str(data)
             await DB.hset_one(db + f":{section}", f"{key}", dict_copy[key])
 
     return dict_copy
