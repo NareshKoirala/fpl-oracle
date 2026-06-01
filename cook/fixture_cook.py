@@ -23,4 +23,4 @@ async def fixture_cook(gw=None):
         await fixture_difficulty(h, a, gw, fx_id)
         await cal_fix_xg(gw, fx_id)
 
-    await export_db1_to_json(DB, gw, "fixture")
+    await export_db1_to_json(DB, "fixture")

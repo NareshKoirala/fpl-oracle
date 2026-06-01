@@ -16,6 +16,8 @@ async def playing_cook():
         pids = await fetch_pids(DB, element_t)
         await save_player(pids, element_t)
 
+    await export_db1_to_json(DB, "dream_team")
+
 
 def valid(can_t, status, can_s, rm):
     return can_t and status in ["a", "d"] and not can_s and not rm
@@ -45,5 +47,4 @@ async def save_player(pids, element_t):
                 {"playing": data["chance_of_playing_this_round"]},
             )
 
-    gw = await DB.hget_one(f"current_gw", "current")
-    await export_db1_to_json(DB, gw, "player")
+    await export_db1_to_json(DB, "player")
