@@ -29,6 +29,7 @@ async def run_producer():
         await away_table_scrap()
         await form_table_scrap()
         await get_player_history()
+        await DB.dump_raw()
         end = time.perf_counter()
         total = end - start
         LOG.info(f"Finished scrapers in {total:.3f} seconds")

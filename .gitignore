@@ -4,5 +4,3 @@ pw_session
 __pycache__/
 *.pyc
 logs
-**/snapshots/
-snapshots

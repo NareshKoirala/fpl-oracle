@@ -30,3 +30,6 @@ AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, li
 HEAD = True  # Set to False for headless mode
 BROWSER_WAIT_TIME = 8000  # Time to wait for page elements to load (in milliseconds)
 SLOW_MOTION = 3  # Slow down Playwright actions for more human-like
+
+# Redis
+LIVE_HOST = "localhost"

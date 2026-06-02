@@ -1,5 +1,7 @@
 import redis.asyncio as redis
 from utils.log import Logger
+import os
+import shutil
 
 LOG = Logger("RedisDB", "db")
 
@@ -8,6 +10,30 @@ class RedisDB:
     def __init__(self):
         self.client_raw = redis.Redis(host="localhost", port=6379, db=0)
         self.client_proc = redis.Redis(host="localhost", port=6379, db=1)
+
+        self.d_path = None
+        self.c_path = None
+
+    async def dump_raw(self):
+        await self.client_raw.save()
+
+        dir_config = await self.client_raw.config_get("dir")
+        file_config = await self.client_raw.config_get("dbfilename")
+
+        season = await self.hget_one(f"current_gw", "season")
+        gw = await self.hget_one(f"current_gw", "current")
+
+        d_path = os.path.join(dir_config["dir"], file_config["dbfilename"])
+        c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
+
+        os.makedirs(c_path, exist_ok=True)
+
+
+        shutil.copy(d_path, c_path)
+
+        self.d_path = dir_config["dir"]
+        self.c_path = c_path
+
 
     def _select(self, db: str):
         return self.client_proc if db[0] == "p" else self.client_raw
@@ -56,7 +82,6 @@ class RedisDB:
     async def scan(self, prefix, cursor):
         client = self._select(prefix)
         return await client.scan(cursor, match=prefix)
-
 
     async def db_size(self, db):
         client = self._select(db)

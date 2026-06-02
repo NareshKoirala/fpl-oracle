@@ -36,6 +36,7 @@ async def get_fixtures(raw_data):
         await DB.hset_dict(f"current_gw", {"last": raw_data["id"], "last_in": date})
 
     await DB.hset_dict(db, place_json)
+    await DB.hset_dict(f"current_gw", {"last_fetch": str(datetime.now())})
 
 
 async def validate_top_element_info(db, raw_data):
