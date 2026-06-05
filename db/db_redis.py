@@ -24,11 +24,13 @@ class RedisDB:
         gw = await self.hget_one(f"current_gw", "current")
 
         d_path = os.path.join(dir_config["dir"], file_config["dbfilename"])
+        n_path = os.path.join(os.getcwd(), f"snapshots/")
         c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
 
         os.makedirs(c_path, exist_ok=True)
+        os.makedirs(n_path, exist_ok=True)
 
-
+        shutil.copy(d_path, n_path)
         shutil.copy(d_path, c_path)
 
         self.d_path = dir_config["dir"]

@@ -48,7 +48,7 @@ class PlayWright_async_Browser:
                 args=["--disable-blink-features=AutomationControlled"],
             )
             # Apply stealth to the shared context ONCE
-            await Stealth().apply_stealth_async(context)
+            # await Stealth().apply_stealth_async(context)
             cls._shared_browser = context
             LOG.info("Shared browser engine started successfully.")
 
