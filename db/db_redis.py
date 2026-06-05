@@ -2,14 +2,15 @@ import redis.asyncio as redis
 from utils.log import Logger
 import os
 import shutil
+from config.settings import LIVE_HOST, LIVE_PORT
 
 LOG = Logger("RedisDB", "db")
 
 
 class RedisDB:
     def __init__(self):
-        self.client_raw = redis.Redis(host="localhost", port=6379, db=0)
-        self.client_proc = redis.Redis(host="localhost", port=6379, db=1)
+        self.client_raw = redis.Redis(host=LIVE_HOST, port=LIVE_PORT, db=0)
+        self.client_proc = redis.Redis(host=LIVE_HOST, port=LIVE_PORT, db=1)
 
         self.d_path = None
         self.c_path = None
@@ -17,25 +18,17 @@ class RedisDB:
     async def dump_raw(self):
         await self.client_raw.save()
 
-        dir_config = await self.client_raw.config_get("dir")
         file_config = await self.client_raw.config_get("dbfilename")
 
         season = await self.hget_one(f"current_gw", "season")
         gw = await self.hget_one(f"current_gw", "current")
 
-        d_path = os.path.join(dir_config["dir"], file_config["dbfilename"])
-        n_path = os.path.join(os.getcwd(), f"snapshots/")
+        n_path = os.path.join(os.getcwd(), f"snapshots/{file_config["dbfilename"]}")
         c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
 
         os.makedirs(c_path, exist_ok=True)
-        os.makedirs(n_path, exist_ok=True)
 
-        shutil.copy(d_path, n_path)
-        shutil.copy(d_path, c_path)
-
-        self.d_path = dir_config["dir"]
-        self.c_path = c_path
-
+        shutil.copy(n_path, c_path)
 
     def _select(self, db: str):
         return self.client_proc if db[0] == "p" else self.client_raw

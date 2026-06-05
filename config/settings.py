@@ -1,4 +1,4 @@
- # API Endpoints
+# API Endpoints
 YAHOO_SPORTS = "https://sports.yahoo.com/soccer/premier-league/stats/team/?_rsc=k9461"
 
 FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
@@ -13,9 +13,6 @@ FOTMOB_AWAY = f"{FOTMOB_TABLE}?filter=away"
 FOTMOB_FORM = f"{FOTMOB_TABLE}?filter=form"
 FOTMOB_TEAM_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/teams"
 FOTMOB_PLAYER_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/players"
-
-EPL_STATS = "https://www.premierleague.com/en/stats/top/goals/2025-26"
-EPL_SEASON = "2025-26"
 
 # Key Classes for FotMob
 TABLE_CLASS = "flipmove"
@@ -33,3 +30,7 @@ SLOW_MOTION = 3  # Slow down Playwright actions for more human-like
 
 # Redis
 LIVE_HOST = "localhost"
+LIVE_PORT = 6379
+
+PAST_HOST = "localhost"
+PAST_PORT = 6380
