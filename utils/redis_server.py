@@ -7,6 +7,23 @@ from utils.log import Logger
 LOG = Logger("Redis Server", "utils")
 
 
+def start_past_server(season, gw):
+    c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
+    os.makedirs(c_path, exist_ok=True)
+
+    cmd = [
+        "redis-server",
+        "--port",
+        str(PAST_PORT),
+        "--dir",
+        c_path,
+        "--dbfilename",
+        "raw.rdb",
+    ]
+
+    subprocess.Popen(cmd)
+
+
 def start_live_server():
     download_req()
     download_chrome()
@@ -47,23 +64,6 @@ def enable_redis():
         f"{LIVE_PORT}",
         "--dir",
         n_path,
-        "--dbfilename",
-        "raw.rdb",
-    ]
-
-    subprocess.Popen(cmd)
-
-
-def start_past_server(season, gw):
-    c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
-    os.makedirs(c_path, exist_ok=True)
-
-    cmd = [
-        "redis-server",
-        "--port",
-        f"{PAST_PORT}",
-        "--dir",
-        c_path,
         "--dbfilename",
         "raw.rdb",
     ]

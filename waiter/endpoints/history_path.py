@@ -1,6 +1,6 @@
 import os
 from fastapi import APIRouter, Depends
-from models.history_path import Season, HistorySeasonResponse
+from waiter.models.history_path import Season, HistorySeasonResponse
 from utils.redis_server import start_past_server
 
 router = APIRouter(prefix="/history-path", tags=["history_path"])
@@ -36,8 +36,9 @@ async def get_history_paths():
     return HistorySeasonResponse(data=seasons)
 
 
-@router.post("/cold-start?path")
+@router.post("/cold-start/{path}")
 async def check_redis(path):
+    print(path)
     if path != "current":
         s, w = path.split(":")
         start_past_server(s, w)

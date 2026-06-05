@@ -8,6 +8,8 @@ from db.db_redis import RedisDB
 import asyncio
 from datetime import datetime
 
+from utils.export_redis import export_db1_to_json
+
 
 LOG = Logger("Cook", "cook")
 DB = RedisDB()
@@ -26,7 +28,8 @@ async def run_cook():
         await teams_cook()
         await fixture_cook()
         await playing_cook()
-        await DB.dump_raw() # Test process only delete this line on prod
+        await DB.dump_raw()  # Test process only delete this line on prod
+        await export_db1_to_json(DB)
         LOG.info("Cooking Finished...")
     else:
         LOG.error("Deadline has already started")

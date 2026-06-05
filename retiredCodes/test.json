@@ -1,0 +1,13 @@
+{
+    "project": "JsonExample",
+    "version": "1.0.0",
+    "user_id": "1058",
+    "user_name": "Jane Doe",
+    "user_location": "Edmonton, Canada",
+    "is_active": "true",
+    "theme_preference": "dark",
+    "email_notifications": "true",
+    "sms_notifications": "false",
+    "last_login_time": "2026-06-04T23:15:00Z",
+    "last_login_status": "success"
+}

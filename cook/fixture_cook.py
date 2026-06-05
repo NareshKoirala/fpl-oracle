@@ -2,7 +2,6 @@ from db.db_redis import RedisDB
 from utils.log import Logger
 from cook.fixture_math.fixture_diff import fixture_difficulty
 from cook.fixture_math.fixture_xg import cal_fix_xg
-from utils.export_redis import export_db1_to_json
 
 
 LOG = Logger("Fixture_cook", "cook")
@@ -22,5 +21,3 @@ async def fixture_cook(gw=None):
         h, a = fix.split(":")
         await fixture_difficulty(h, a, gw, fx_id)
         await cal_fix_xg(gw, fx_id)
-
-    await export_db1_to_json(DB, "fixture")

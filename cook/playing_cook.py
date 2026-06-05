@@ -1,6 +1,5 @@
 from utils.log import Logger
 from db.db_redis import RedisDB
-from utils.export_redis import export_db1_to_json
 
 LOG = Logger("Playing_Cook", "cook")
 DB = RedisDB()
@@ -15,8 +14,6 @@ async def playing_cook():
     for element_t in range(1, 5):
         pids = await fetch_pids(DB, element_t)
         await save_player(pids, element_t)
-
-    await export_db1_to_json(DB, "dream_team")
 
 
 def valid(can_t, status, can_s, rm):
@@ -46,5 +43,3 @@ async def save_player(pids, element_t):
                 f"proc_player:{element_t}:{pid}",
                 {"playing": data["chance_of_playing_this_round"]},
             )
-
-    await export_db1_to_json(DB, "player")
