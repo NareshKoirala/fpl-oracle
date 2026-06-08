@@ -21,11 +21,49 @@ TOPICS = [
 ]
 
 
+async def export_fixture(db):
+    r_key = "fixture"
+    path = await create_folders(db) / f"{r_key}.json"
+
+    f_keys = await db.get_keys("proc_fixture:*")
+    rt_keys = await db.get_keys("index:team:*")
+
+    td_name = {}
+
+    for key in rt_keys:
+        t_name = key.decode().split(":")[-1]
+        tid = await db.hget_one(key, "tid")
+
+        td_name[tid] = t_name
+
+    data = {}
+    for key in f_keys:
+        rk_data = await db.hget_all(key)
+        
+        print(rk_data)
+
+        if key.decode().count(":") == 1:
+            fid = key.decode().split(":")[-1]
+            data[fid] = {
+                **data.get(fid, {}),
+                "fixture": fid,
+                "home_name": td_name[rk_data["home"]],
+                "away_name": td_name[rk_data["away"]],
+                **rk_data
+            }
+        else:
+            fid = key.decode().split(":")[-2]
+        
+
+
+
 async def export_dream_team(db):
     r_data = await db.hget_all("proc_dream_team:")
+    rp_keys = await db.get_keys("index:player:*")
 
     for k, v in r_data.items():
-        LOG(f"{k}: {v}")
+        LOG.info(f"{k}: {v}")
+        LOG.info(f"")
 
 
 async def export_teams_strength(DB):
@@ -88,4 +126,6 @@ async def export_db1_to_json(DB):
 
     await export_teams_strength(DB)
 
-    await export_dream_team(DB)
+    # await export_dream_team(DB)
+
+    await export_fixture(DB)

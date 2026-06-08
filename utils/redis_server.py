@@ -15,9 +15,7 @@ def start_uvicorn():
         "--reload",
     ]
 
-    process = subprocess.Popen(cmd)
-
-    process.wait()
+    subprocess.Popen(cmd)
 
 
 def start_past_server(season, gw):
