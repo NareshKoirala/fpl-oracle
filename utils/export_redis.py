@@ -1,5 +1,9 @@
 from pathlib import Path
 from datetime import datetime
+from utils.log import Logger
+
+
+LOG = Logger("Export Redis", "utils")
 
 
 async def create_folders(db):
@@ -15,6 +19,13 @@ TOPICS = [
     "fixture",
     "player",
 ]
+
+
+async def export_dream_team(db):
+    r_data = await db.hget_all("proc_dream_team:")
+
+    for k, v in r_data.items():
+        LOG(f"{k}: {v}")
 
 
 async def export_teams_strength(DB):
@@ -76,3 +87,5 @@ def write(url, data):
 async def export_db1_to_json(DB):
 
     await export_teams_strength(DB)
+
+    await export_dream_team(DB)
