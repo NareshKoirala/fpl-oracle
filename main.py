@@ -2,7 +2,7 @@ import asyncio
 from utils.log import Logger
 from producer.producer import run_producer
 from cook.cook import run_cook
-from utils.redis_server import start_live_server
+from utils.start_server import start_live_server
 
 LOG = Logger("Main")
 

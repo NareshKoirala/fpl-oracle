@@ -7,6 +7,19 @@ from utils.log import Logger
 LOG = Logger("Redis Server", "utils")
 
 
+def start_uvicorn():
+
+    cmd = [
+        "uvicorn",
+        "waiter.waiter:app",
+        "--reload",
+    ]
+
+    process = subprocess.Popen(cmd)
+
+    process.wait()
+
+
 def start_past_server(season, gw):
     c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
     os.makedirs(c_path, exist_ok=True)
@@ -28,6 +41,7 @@ def start_live_server():
     download_req()
     download_chrome()
     enable_redis()
+    start_uvicorn()
 
 
 def download_chrome():
