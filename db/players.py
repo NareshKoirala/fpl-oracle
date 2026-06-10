@@ -23,13 +23,9 @@ async def get_players(raw_data):
 
 
 async def valid_check(db, dict_copy, section, raw_data):
-
     for key, value in dict_copy.items():
         if key in raw_data:
             data = raw_data[key]
-
-            if key == "in_dreamteam" and data:
-                await DB.hset_one("proc_dream_team:", f"{raw_data["id"]}", f"{raw_data["dreamteam_count"]}")
 
             if key == "chance_of_playing_this_round":
                 if data == None:

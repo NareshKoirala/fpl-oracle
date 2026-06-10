@@ -1,5 +1,6 @@
 from utils.log import Logger
 from producer.fpl_scraper import fpl_data_to_db
+from producer.team_week import get_team_of_week
 from producer.fotmob_scraper import (
     table_scrap,
     xg_scrap,
@@ -22,6 +23,7 @@ async def run_producer():
         LOG.info("Starting scrapers...")
         start = time.perf_counter()
         await fpl_data_to_db()
+        await get_team_of_week()
         await get_fixtures()
         await table_scrap()
         await xg_scrap()
