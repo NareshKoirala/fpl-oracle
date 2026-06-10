@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
+import chelsea from '../../../public/chelsea.svg'
 
 interface NavItem {
   label: string;
@@ -33,7 +35,10 @@ export default function NavBar() {
           {/* Logo */}
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 shadow-lg flex items-center justify-center">
-              <span className="text-white font-bold text-xl">⚡</span>
+              <Image
+                src={chelsea}
+                alt='Logo'
+              />
             </div>
             <span className="text-2xl font-bold bg-gradient-to-r from-blue-700 to-cyan-600 bg-clip-text text-transparent">
               FPL‑Oracle
@@ -48,11 +53,10 @@ export default function NavBar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-6 py-2.5 rounded-2xl font-semibold transition-all duration-300 ease-out ${
-                    active
-                      ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:shadow-xl'
-                      : 'text-gray-700 hover:bg-blue-50/80 hover:text-blue-700'
-                  }`}
+                  className={`px-6 py-2.5 rounded-2xl font-semibold transition-all duration-300 ease-out ${active
+                    ? 'bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-lg hover:shadow-xl'
+                    : 'text-gray-700 hover:bg-blue-50/80 hover:text-blue-700'
+                    }`}
                 >
                   {item.label}
                 </Link>
