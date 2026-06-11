@@ -1,13 +1,14 @@
 import os
 from fastapi import APIRouter, Depends
 from utils.redis_server import start_past_server
+import json
 
 router = APIRouter(prefix="/history-path", tags=["history_path"])
 
 SNAPSHOT_ROOT = os.path.join(os.getcwd(), "snapshots")
 
 
-@router.get("/paths")
+@router.get("/", response_model=dict)
 async def get_history_paths():
     seasons = {}
 
@@ -32,9 +33,6 @@ async def get_history_paths():
         if weeks:
             seasons[int(season_folder)] = sorted(weeks, reverse=True)
 
-    return dict(sorted(seasons.items(), reverse=True))
+    data = dict(sorted(seasons.items(), reverse=True))
 
-
-@router.post("/cold-start/{season}/{gw}")
-async def check_redis(season, gw):
-    print(season, gw)
+    return data

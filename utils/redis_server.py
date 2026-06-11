@@ -4,7 +4,7 @@ import os
 import socket
 import time
 
-from config.settings import LIVE_PORT, PAST_PORT
+from config.settings import LIVE_PORT, PAST_PORT, LIVE_HOST, PAST_HOST
 from utils.log import Logger
 
 LOG = Logger("Launcher", "utils")
@@ -97,6 +97,8 @@ def download_req():
 
 
 def enable_redis():
+    kill_if_enable(LIVE_HOST, LIVE_PORT)
+
     n_path = os.path.join(os.getcwd(), "snapshots/")
     os.makedirs(n_path, exist_ok=True)
 
@@ -113,7 +115,29 @@ def enable_redis():
     run_with_logs(cmd, LOG)
 
 
+def kill_if_enable(host, port):
+    import socket
+    import psutil
+
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    try:
+        s.connect((host, port))
+        s.close()
+
+        LOG.info(f"Redis detected on port {port}. Killing...")
+
+        for proc in psutil.process_iter(["pid", "name", "cmdline"]):
+            if "redis-server" in proc.info["name"]:
+                proc.kill()
+                LOG.info(f"Killed Redis PID {proc.info['pid']}")
+
+    except Exception:
+        LOG.info(f"No Redis running on port {port}.")
+
+
 def start_past_server(season, gw):
+    kill_if_enable(PAST_HOST, PAST_PORT)
+
     c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
     os.makedirs(c_path, exist_ok=True)
 

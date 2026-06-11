@@ -68,15 +68,98 @@ async def collect_player_names(db):
 
 
 # ---------------------------------------------------------
+# EXPORT: CURRENT GW
+# ---------------------------------------------------------
+
+
+async def export_current_gw_info(db):
+
+    LOG.info("=== Exporting CURRENT GW INFO ===")
+
+    data = await db.hget_all(f"current_gw")
+
+    LOG.info(f"Found {len(data)} current gw info keys")
+
+    folder = await create_folders(db, "gameweek")
+
+    path = folder / "info.json"
+
+    write_json(path, data)
+
+    LOG.info("=== Finished Exporting CURRENT GW INFO ===")
+
+
+async def export_gw_info(db):
+    LOG.info("=== Exporting CURRENT GW INFO ===")
+
+    folder = await create_folders(db, "gameweek")
+
+    path = folder / "gw_info.json"
+
+    player = await collect_player_names(db)
+
+    gw_key = await db.get_keys("raw_gw:*")
+
+    data = {}
+
+    for key in gw_key:
+        key = key.decode()
+
+        if key.count(":") == 1:
+            t_data = await db.hget_all(key)
+
+            data[t_data["name"]] = {
+                "id": t_data["id"],
+                "name": t_data["name"],
+                "deadline_time": t_data["deadline_time"],
+                "highest_score": t_data["highest_score"],
+                "most_selected": player[t_data["most_selected"]],
+                "most_transferred_in": player[t_data["most_transferred_in"]],
+                "top_element": player[t_data["top_element"]],
+                "most_captained": player[t_data["most_captained"]],
+                "most_vice_captained": player[t_data["most_vice_captained"]],
+            }
+
+    write_json(path, data)
+
+    LOG.info("=== Finished Exporting CURRENT GW INFO ===")
+
+
+# ---------------------------------------------------------
 # EXPORT: FIXTURES
 # ---------------------------------------------------------
 
 
-async def export_fixture(db):
+async def export_raw_fixture(db):
     LOG.info("=== Exporting Fixtures ===")
 
-    td_name = await collect_team_names(db)
     folder = await create_folders(db, "fixture")
+    f_path = folder / "fixture.json"
+
+    r_keys = await db.get_keys("raw_fixtures:*")
+    teams = await collect_team_names(db)
+
+    data = {}
+
+    for key in r_keys:
+        key = key.decode()
+
+        if key.count(":") == 1:
+            t_data = await hget_all(key)
+            h = teams[t_data["team_h"]]
+            a = teams[t_data["team_a"]]
+            k = f"{h} vs {a}"
+
+            data[k] = {}
+
+    LOG.info("=== Finished Exporting Fixtures ===")
+
+
+async def export_fixture(db):
+    LOG.info("=== Proc Exporting Fixtures ===")
+
+    td_name = await collect_team_names(db)
+    folder = await create_folders(db, "proc_fixture")
 
     f_path = folder / "fixture.json"
     sl_path = folder / "fixture_scoreline.json"
@@ -119,7 +202,7 @@ async def export_fixture(db):
     write_json(gpa_path, gpa_data)
     write_json(gph_path, gph_data)
 
-    LOG.info("=== Finished Exporting Fixtures ===")
+    LOG.info("=== Finished Proc Exporting Fixtures ===")
 
 
 # ---------------------------------------------------------
@@ -272,5 +355,7 @@ async def export_db1_to_json(db):
     await export_teams_strength(db)
     await export_team_of_week(db)
     await export_fixture(db)
+    await export_current_gw_info(db)
+    await export_gw_info(db)
 
     LOG.info("=== Finished Full DB1 Export ===")
