@@ -246,7 +246,16 @@ async def export_teams_strength(db):
 
         mp_data[name] = raw_temp
 
-    write_json(raw_path, mp_data)
+    data = {}
+    for k, v in mp_data.items():
+        for k1, v1 in v.items():
+            data[k1] = {**data.get(k1, {}), k: v1}
+
+    for k, v in data.items():
+        path = folder / f"t_{k}.json"
+
+        write_json(path, v)
+
     write_json(sp_path, sp_data)
 
     LOG.info("=== Finished Exporting Team Strength ===")

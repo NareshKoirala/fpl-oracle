@@ -1,0 +1,222 @@
+{
+    "Crystal Palace": {
+        "goals": "22",
+        "conceded": "28",
+        "position": "11",
+        "played": "19",
+        "win": "7",
+        "draw": "3",
+        "loss": "9",
+        "points": "24",
+        "form": "01010"
+    },
+    "Leeds": {
+        "goals": "20",
+        "conceded": "35",
+        "position": "18",
+        "played": "19",
+        "win": "2",
+        "draw": "9",
+        "loss": "8",
+        "points": "15",
+        "form": "13130"
+    },
+    "Everton": {
+        "goals": "21",
+        "conceded": "23",
+        "position": "7",
+        "played": "19",
+        "win": "7",
+        "draw": "5",
+        "loss": "7",
+        "points": "26",
+        "form": "01100"
+    },
+    "Bournemouth": {
+        "goals": "29",
+        "conceded": "34",
+        "position": "8",
+        "played": "19",
+        "win": "6",
+        "draw": "8",
+        "loss": "5",
+        "points": "26",
+        "form": "13311"
+    },
+    "West Ham": {
+        "goals": "19",
+        "conceded": "35",
+        "position": "17",
+        "played": "19",
+        "win": "4",
+        "draw": "5",
+        "loss": "10",
+        "points": "17",
+        "form": "30003"
+    },
+    "Sunderland": {
+        "goals": "17",
+        "conceded": "28",
+        "position": "13",
+        "played": "19",
+        "win": "5",
+        "draw": "6",
+        "loss": "8",
+        "points": "21",
+        "form": "01133"
+    },
+    "Chelsea": {
+        "goals": "32",
+        "conceded": "27",
+        "position": "5",
+        "played": "19",
+        "win": "7",
+        "draw": "5",
+        "loss": "7",
+        "points": "26",
+        "form": "00130"
+    },
+    "Aston Villa": {
+        "goals": "24",
+        "conceded": "27",
+        "position": "4",
+        "played": "19",
+        "win": "7",
+        "draw": "6",
+        "loss": "6",
+        "points": "27",
+        "form": "00133"
+    },
+    "Tottenham": {
+        "goals": "26",
+        "conceded": "26",
+        "position": "6",
+        "played": "19",
+        "win": "7",
+        "draw": "5",
+        "loss": "7",
+        "points": "26",
+        "form": "33103"
+    },
+    "Newcastle": {
+        "goals": "17",
+        "conceded": "25",
+        "position": "15",
+        "played": "19",
+        "win": "4",
+        "draw": "5",
+        "loss": "10",
+        "points": "17",
+        "form": "03130"
+    },
+    "Nottm Forest": {
+        "goals": "28",
+        "conceded": "28",
+        "position": "9",
+        "played": "19",
+        "win": "7",
+        "draw": "3",
+        "loss": "9",
+        "points": "24",
+        "form": "33101"
+    },
+    "Wolves": {
+        "goals": "8",
+        "conceded": "34",
+        "position": "20",
+        "played": "19",
+        "win": "0",
+        "draw": "6",
+        "loss": "13",
+        "points": "6",
+        "form": "01011"
+    },
+    "Burnley": {
+        "goals": "20",
+        "conceded": "46",
+        "position": "19",
+        "played": "19",
+        "win": "2",
+        "draw": "3",
+        "loss": "14",
+        "points": "9",
+        "form": "00101"
+    },
+    "Liverpool": {
+        "goals": "29",
+        "conceded": "33",
+        "position": "10",
+        "played": "19",
+        "win": "7",
+        "draw": "3",
+        "loss": "9",
+        "points": "24",
+        "form": "30101"
+    },
+    "Brighton": {
+        "goals": "22",
+        "conceded": "26",
+        "position": "14",
+        "played": "19",
+        "win": "5",
+        "draw": "5",
+        "loss": "9",
+        "points": "20",
+        "form": "30300"
+    },
+    "Fulham": {
+        "goals": "17",
+        "conceded": "31",
+        "position": "16",
+        "played": "19",
+        "win": "4",
+        "draw": "5",
+        "loss": "10",
+        "points": "17",
+        "form": "30013"
+    },
+    "Arsenal": {
+        "goals": "30",
+        "conceded": "16",
+        "position": "1",
+        "played": "19",
+        "win": "11",
+        "draw": "5",
+        "loss": "3",
+        "points": "38",
+        "form": "33333"
+    },
+    "Man United": {
+        "goals": "30",
+        "conceded": "26",
+        "position": "3",
+        "played": "19",
+        "win": "7",
+        "draw": "8",
+        "loss": "4",
+        "points": "29",
+        "form": "33133"
+    },
+    "Brentford": {
+        "goals": "22",
+        "conceded": "31",
+        "position": "12",
+        "played": "19",
+        "win": "6",
+        "draw": "3",
+        "loss": "10",
+        "points": "21",
+        "form": "03011"
+    },
+    "Man City": {
+        "goals": "32",
+        "conceded": "21",
+        "position": "2",
+        "played": "19",
+        "win": "9",
+        "draw": "6",
+        "loss": "4",
+        "points": "33",
+        "form": "13310"
+    }
+}

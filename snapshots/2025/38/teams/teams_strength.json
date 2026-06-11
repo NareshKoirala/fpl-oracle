@@ -26,6 +26,114 @@
             "points": 0.3
         }
     },
+    "Leeds": {
+        "expected": {
+            "attack": 1.02,
+            "defence": 0.95,
+            "point": 1.03
+        },
+        "real": {
+            "attack": 0.94,
+            "defence": 0.93,
+            "point": 0.91
+        },
+        "home": {
+            "attack": 1.55,
+            "defence": 0.71,
+            "points": 1.08
+        },
+        "away": {
+            "attack": 1.01,
+            "defence": 0.71,
+            "points": 0.67
+        },
+        "last5": {
+            "attack": 1.33,
+            "defence": 0.75,
+            "points": 1.19
+        }
+    },
+    "Everton": {
+        "expected": {
+            "attack": 0.88,
+            "defence": 0.94,
+            "point": 0.86
+        },
+        "real": {
+            "attack": 0.9,
+            "defence": 1.04,
+            "point": 0.95
+        },
+        "home": {
+            "attack": 1.39,
+            "defence": 0.55,
+            "points": 0.78
+        },
+        "away": {
+            "attack": 1.06,
+            "defence": 1.07,
+            "points": 1.17
+        },
+        "last5": {
+            "attack": 1.33,
+            "defence": 0.47,
+            "points": 0.3
+        }
+    },
+    "Bournemouth": {
+        "expected": {
+            "attack": 1.17,
+            "defence": 0.94,
+            "point": 1.08
+        },
+        "real": {
+            "attack": 1.11,
+            "defence": 0.97,
+            "point": 1.1
+        },
+        "home": {
+            "attack": 1.55,
+            "defence": 0.75,
+            "points": 1.05
+        },
+        "away": {
+            "attack": 1.46,
+            "defence": 0.73,
+            "points": 1.17
+        },
+        "last5": {
+            "attack": 1.52,
+            "defence": 1.31,
+            "points": 1.33
+        }
+    },
+    "West Ham": {
+        "expected": {
+            "attack": 0.87,
+            "defence": 0.89,
+            "point": 0.84
+        },
+        "real": {
+            "attack": 0.88,
+            "defence": 0.8,
+            "point": 0.75
+        },
+        "home": {
+            "attack": 1.45,
+            "defence": 0.5,
+            "points": 0.75
+        },
+        "away": {
+            "attack": 0.96,
+            "defence": 0.71,
+            "points": 0.76
+        },
+        "last5": {
+            "attack": 1.14,
+            "defence": 0.65,
+            "points": 0.89
+        }
+    },
     "Sunderland": {
         "expected": {
             "attack": 0.73,
@@ -51,6 +159,33 @@
             "attack": 1.14,
             "defence": 0.65,
             "points": 1.19
+        }
+    },
+    "Chelsea": {
+        "expected": {
+            "attack": 1.25,
+            "defence": 1.02,
+            "point": 1.14
+        },
+        "real": {
+            "attack": 1.11,
+            "defence": 1.0,
+            "point": 1.0
+        },
+        "home": {
+            "attack": 1.39,
+            "defence": 0.6,
+            "points": 0.88
+        },
+        "away": {
+            "attack": 1.62,
+            "defence": 0.92,
+            "points": 1.17
+        },
+        "last5": {
+            "attack": 0.95,
+            "defence": 0.52,
+            "points": 0.59
         }
     },
     "Aston Villa": {
@@ -80,31 +215,31 @@
             "points": 1.04
         }
     },
-    "Man City": {
+    "Tottenham": {
         "expected": {
-            "attack": 1.34,
-            "defence": 1.2,
-            "point": 1.35
+            "attack": 0.75,
+            "defence": 1.02,
+            "point": 0.86
         },
         "real": {
-            "attack": 1.47,
-            "defence": 1.49,
-            "point": 1.51
+            "attack": 0.92,
+            "defence": 0.92,
+            "point": 0.79
         },
         "home": {
-            "attack": 2.41,
-            "defence": 1.07,
-            "points": 1.53
+            "attack": 1.18,
+            "defence": 0.48,
+            "points": 0.51
         },
         "away": {
-            "attack": 1.62,
-            "defence": 1.18,
-            "points": 1.48
+            "attack": 1.31,
+            "defence": 0.95,
+            "points": 1.17
         },
         "last5": {
-            "attack": 2.09,
-            "defence": 0.87,
-            "points": 1.19
+            "attack": 1.14,
+            "defence": 1.31,
+            "points": 1.48
         }
     },
     "Newcastle": {
@@ -134,33 +269,6 @@
             "points": 1.04
         }
     },
-    "Burnley": {
-        "expected": {
-            "attack": 0.61,
-            "defence": 0.7,
-            "point": 0.48
-        },
-        "real": {
-            "attack": 0.73,
-            "defence": 0.7,
-            "point": 0.42
-        },
-        "home": {
-            "attack": 0.96,
-            "defence": 0.52,
-            "points": 0.44
-        },
-        "away": {
-            "attack": 1.01,
-            "defence": 0.54,
-            "points": 0.4
-        },
-        "last5": {
-            "attack": 0.76,
-            "defence": 0.65,
-            "points": 0.3
-        }
-    },
     "Nottm Forest": {
         "expected": {
             "attack": 0.87,
@@ -188,31 +296,139 @@
             "points": 1.19
         }
     },
-    "Bournemouth": {
+    "Wolves": {
         "expected": {
-            "attack": 1.17,
-            "defence": 0.94,
-            "point": 1.08
+            "attack": 0.67,
+            "defence": 0.89,
+            "point": 0.72
         },
         "real": {
-            "attack": 1.11,
-            "defence": 0.97,
-            "point": 1.1
+            "attack": 0.52,
+            "defence": 0.77,
+            "point": 0.39
         },
         "home": {
-            "attack": 1.55,
+            "attack": 1.02,
+            "defence": 0.44,
+            "points": 0.47
+        },
+        "away": {
+            "attack": 0.4,
+            "defence": 0.73,
+            "points": 0.27
+        },
+        "last5": {
+            "attack": 0.57,
             "defence": 0.75,
-            "points": 1.05
+            "points": 0.44
+        }
+    },
+    "Burnley": {
+        "expected": {
+            "attack": 0.61,
+            "defence": 0.7,
+            "point": 0.48
+        },
+        "real": {
+            "attack": 0.73,
+            "defence": 0.7,
+            "point": 0.42
+        },
+        "home": {
+            "attack": 0.96,
+            "defence": 0.52,
+            "points": 0.44
+        },
+        "away": {
+            "attack": 1.01,
+            "defence": 0.54,
+            "points": 0.4
+        },
+        "last5": {
+            "attack": 0.76,
+            "defence": 0.65,
+            "points": 0.3
+        }
+    },
+    "Liverpool": {
+        "expected": {
+            "attack": 1.15,
+            "defence": 1.12,
+            "point": 1.18
+        },
+        "real": {
+            "attack": 1.21,
+            "defence": 0.99,
+            "point": 1.16
+        },
+        "home": {
+            "attack": 1.82,
+            "defence": 0.75,
+            "points": 1.22
         },
         "away": {
             "attack": 1.46,
-            "defence": 0.73,
-            "points": 1.17
+            "defence": 0.75,
+            "points": 1.08
         },
         "last5": {
-            "attack": 1.52,
-            "defence": 1.31,
-            "points": 1.33
+            "attack": 1.71,
+            "defence": 0.52,
+            "points": 0.74
+        }
+    },
+    "Brighton": {
+        "expected": {
+            "attack": 1.09,
+            "defence": 1.08,
+            "point": 1.1
+        },
+        "real": {
+            "attack": 1.0,
+            "defence": 1.14,
+            "point": 1.02
+        },
+        "home": {
+            "attack": 1.61,
+            "defence": 0.75,
+            "points": 1.12
+        },
+        "away": {
+            "attack": 1.11,
+            "defence": 0.95,
+            "points": 0.9
+        },
+        "last5": {
+            "attack": 1.33,
+            "defence": 0.75,
+            "points": 0.89
+        }
+    },
+    "Fulham": {
+        "expected": {
+            "attack": 0.91,
+            "defence": 1.0,
+            "point": 0.93
+        },
+        "real": {
+            "attack": 0.9,
+            "defence": 1.02,
+            "point": 1.0
+        },
+        "home": {
+            "attack": 1.61,
+            "defence": 0.75,
+            "points": 1.19
+        },
+        "away": {
+            "attack": 0.86,
+            "defence": 0.8,
+            "points": 0.76
+        },
+        "last5": {
+            "attack": 0.76,
+            "defence": 1.04,
+            "points": 1.04
         }
     },
     "Arsenal": {
@@ -269,249 +485,6 @@
             "points": 1.93
         }
     },
-    "Everton": {
-        "expected": {
-            "attack": 0.88,
-            "defence": 0.94,
-            "point": 0.86
-        },
-        "real": {
-            "attack": 0.9,
-            "defence": 1.04,
-            "point": 0.95
-        },
-        "home": {
-            "attack": 1.39,
-            "defence": 0.55,
-            "points": 0.78
-        },
-        "away": {
-            "attack": 1.06,
-            "defence": 1.07,
-            "points": 1.17
-        },
-        "last5": {
-            "attack": 1.33,
-            "defence": 0.47,
-            "points": 0.3
-        }
-    },
-    "West Ham": {
-        "expected": {
-            "attack": 0.87,
-            "defence": 0.89,
-            "point": 0.84
-        },
-        "real": {
-            "attack": 0.88,
-            "defence": 0.8,
-            "point": 0.75
-        },
-        "home": {
-            "attack": 1.45,
-            "defence": 0.5,
-            "points": 0.75
-        },
-        "away": {
-            "attack": 0.96,
-            "defence": 0.71,
-            "points": 0.76
-        },
-        "last5": {
-            "attack": 1.14,
-            "defence": 0.65,
-            "points": 0.89
-        }
-    },
-    "Leeds": {
-        "expected": {
-            "attack": 1.02,
-            "defence": 0.95,
-            "point": 1.03
-        },
-        "real": {
-            "attack": 0.94,
-            "defence": 0.93,
-            "point": 0.91
-        },
-        "home": {
-            "attack": 1.55,
-            "defence": 0.71,
-            "points": 1.08
-        },
-        "away": {
-            "attack": 1.01,
-            "defence": 0.71,
-            "points": 0.67
-        },
-        "last5": {
-            "attack": 1.33,
-            "defence": 0.75,
-            "points": 1.19
-        }
-    },
-    "Tottenham": {
-        "expected": {
-            "attack": 0.75,
-            "defence": 1.02,
-            "point": 0.86
-        },
-        "real": {
-            "attack": 0.92,
-            "defence": 0.92,
-            "point": 0.79
-        },
-        "home": {
-            "attack": 1.18,
-            "defence": 0.48,
-            "points": 0.51
-        },
-        "away": {
-            "attack": 1.31,
-            "defence": 0.95,
-            "points": 1.17
-        },
-        "last5": {
-            "attack": 1.14,
-            "defence": 1.31,
-            "points": 1.48
-        }
-    },
-    "Liverpool": {
-        "expected": {
-            "attack": 1.15,
-            "defence": 1.12,
-            "point": 1.18
-        },
-        "real": {
-            "attack": 1.21,
-            "defence": 0.99,
-            "point": 1.16
-        },
-        "home": {
-            "attack": 1.82,
-            "defence": 0.75,
-            "points": 1.22
-        },
-        "away": {
-            "attack": 1.46,
-            "defence": 0.75,
-            "points": 1.08
-        },
-        "last5": {
-            "attack": 1.71,
-            "defence": 0.52,
-            "points": 0.74
-        }
-    },
-    "Fulham": {
-        "expected": {
-            "attack": 0.91,
-            "defence": 1.0,
-            "point": 0.93
-        },
-        "real": {
-            "attack": 0.9,
-            "defence": 1.02,
-            "point": 1.0
-        },
-        "home": {
-            "attack": 1.61,
-            "defence": 0.75,
-            "points": 1.19
-        },
-        "away": {
-            "attack": 0.86,
-            "defence": 0.8,
-            "points": 0.76
-        },
-        "last5": {
-            "attack": 0.76,
-            "defence": 1.04,
-            "points": 1.04
-        }
-    },
-    "Chelsea": {
-        "expected": {
-            "attack": 1.25,
-            "defence": 1.02,
-            "point": 1.14
-        },
-        "real": {
-            "attack": 1.11,
-            "defence": 1.0,
-            "point": 1.0
-        },
-        "home": {
-            "attack": 1.39,
-            "defence": 0.6,
-            "points": 0.88
-        },
-        "away": {
-            "attack": 1.62,
-            "defence": 0.92,
-            "points": 1.17
-        },
-        "last5": {
-            "attack": 0.95,
-            "defence": 0.52,
-            "points": 0.59
-        }
-    },
-    "Brighton": {
-        "expected": {
-            "attack": 1.09,
-            "defence": 1.08,
-            "point": 1.1
-        },
-        "real": {
-            "attack": 1.0,
-            "defence": 1.14,
-            "point": 1.02
-        },
-        "home": {
-            "attack": 1.61,
-            "defence": 0.75,
-            "points": 1.12
-        },
-        "away": {
-            "attack": 1.11,
-            "defence": 0.95,
-            "points": 0.9
-        },
-        "last5": {
-            "attack": 1.33,
-            "defence": 0.75,
-            "points": 0.89
-        }
-    },
-    "Wolves": {
-        "expected": {
-            "attack": 0.67,
-            "defence": 0.89,
-            "point": 0.72
-        },
-        "real": {
-            "attack": 0.52,
-            "defence": 0.77,
-            "point": 0.39
-        },
-        "home": {
-            "attack": 1.02,
-            "defence": 0.44,
-            "points": 0.47
-        },
-        "away": {
-            "attack": 0.4,
-            "defence": 0.73,
-            "points": 0.27
-        },
-        "last5": {
-            "attack": 0.57,
-            "defence": 0.75,
-            "points": 0.44
-        }
-    },
     "Brentford": {
         "expected": {
             "attack": 1.14,
@@ -537,6 +510,33 @@
             "attack": 1.33,
             "defence": 0.65,
             "points": 0.74
+        }
+    },
+    "Man City": {
+        "expected": {
+            "attack": 1.34,
+            "defence": 1.2,
+            "point": 1.35
+        },
+        "real": {
+            "attack": 1.47,
+            "defence": 1.49,
+            "point": 1.51
+        },
+        "home": {
+            "attack": 2.41,
+            "defence": 1.07,
+            "points": 1.53
+        },
+        "away": {
+            "attack": 1.62,
+            "defence": 1.18,
+            "points": 1.48
+        },
+        "last5": {
+            "attack": 2.09,
+            "defence": 0.87,
+            "points": 1.19
         }
     }
 }
