@@ -20,7 +20,7 @@ export default function RootLayout({
       <head>
         <link rel="icon" href="/pl.jpg" type="image/x-icon" />
       </head>
-      <body className={`${inter.className} bg-gradient-to-br from-blue-50 via-slate-50 to-cyan-50 min-h-screen`}>
+      <body className={`${inter.className} bg-blue-100/40 min-h-screen`}>
         <NavBar />
         <main className="pt-24 px-8 pb-16">
           <div className="max-w-7xl mx-auto">
