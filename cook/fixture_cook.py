@@ -1,7 +1,15 @@
-from db.db_redis import RedisDB
-from utils.log import Logger
+from cook.team_cook import teams_cook
+from cook.playing_cook import playing_cook
 from cook.fixture_math.fixture_diff import fixture_difficulty
 from cook.fixture_math.fixture_xg import cal_fix_xg
+
+from utils.log import Logger
+from db.db_redis import RedisDB
+
+import asyncio
+from datetime import datetime
+
+from utils.export_redis import export_db1_to_json
 
 
 LOG = Logger("Fixture_cook", "cook")
@@ -9,15 +17,29 @@ DB = RedisDB()
 
 
 async def fixture_cook(gw=None):
-    LOG.info("Started fixture_cook()")
+    LOG.info("\n========== START fixture_cook() ==========")
 
+    # Determine gameweek
     if not gw:
-        gw = await DB.hget_one(f"current_gw", "current")
-        LOG.info(f"Current gw found: {gw}")
+        gw = await DB.hget_one("current_gw", "current")
+        LOG.info(f"Using current GW → {gw}")
 
+    # Load fixtures for this GW
     fix_dict = await DB.hget_all(f"index:gw_fixture:{gw}")
+    LOG.info(f"Found {len(fix_dict)} fixtures for GW {gw}")
 
+    # Process each fixture
     for fx_id, fix in fix_dict.items():
-        h, a = fix.split(":")
-        await fixture_difficulty(h, a, gw, fx_id)
-        await cal_fix_xg(gw, fx_id)
+        try:
+            h, a = fix.split(":")
+            LOG.info(f"Processing fixture {fx_id}: {h} vs {a}")
+
+            await fixture_difficulty(h, a, gw, fx_id)
+            await cal_fix_xg(gw, fx_id)
+
+            LOG.info(f"Finished fixture {fx_id}")
+
+        except Exception as e:
+            LOG.error(f"Error processing fixture {fx_id}: {e}")
+
+    LOG.info("========== END fixture_cook() ==========\n")

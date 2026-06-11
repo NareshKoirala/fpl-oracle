@@ -7,35 +7,48 @@ DB = RedisDB()
 
 
 async def get_players(raw_data):
-    db = f"raw_players:{raw_data["element_type"]}:{raw_data['id']}"
+    db = f"raw_players:{raw_data['element_type']}:{raw_data['id']}"
 
+    LOG.info(
+        f"Saving player → ID={raw_data['id']} | Name={raw_data['web_name']} | TID={raw_data['team']}"
+    )
+
+    # Validate all sections
     for key in PLAYERS.keys():
         await validate(db, raw_data, key)
 
+    # Index player
     place_json = {
         "id": raw_data["id"],
         "name": raw_data["web_name"],
         "tid": raw_data["team"],
     }
-    await DB.hset_dict(
-        f'index:player:{raw_data["element_type"]}:{raw_data["id"]}', place_json
-    )
+
+    index_key = f"index:player:{raw_data['element_type']}:{raw_data['id']}"
+    await DB.hset_dict(index_key, place_json)
+
+    LOG.info(f"Indexed player → {index_key}")
 
 
 async def valid_check(db, dict_copy, section, raw_data):
+    LOG.info(f"Validating section '{section}' for player DB={db}")
+
     for key, value in dict_copy.items():
         if key in raw_data:
             data = raw_data[key]
 
-            if key == "chance_of_playing_this_round":
-                if data == None:
-                    data = 100
+            # Fix chance_of_playing_this_round
+            if key == "chance_of_playing_this_round" and data is None:
+                LOG.info(f"chance_of_playing_this_round missing → defaulting to 100")
+                data = 100
 
-            if data == "" or data == None:
+            # Fix empty or None values
+            if data == "" or data is None:
+                LOG.info(f"Field '{key}' missing → defaulting to 0")
                 data = 0
 
             dict_copy[key] = str(data)
-            await DB.hset_one(db + f":{section}", f"{key}", dict_copy[key])
+            await DB.hset_one(f"{db}:{section}", key, dict_copy[key])
 
     return dict_copy
 

@@ -1,5 +1,5 @@
-from utils.log import Logger
 from utils.scraper import Scraper
+from utils.log import Logger
 from db.teams import get_teams
 from db.players import get_players
 from db.gw_fixtures import get_fixtures
@@ -9,29 +9,59 @@ import asyncio
 LOG = Logger("Fpl_Scraper", "producer")
 
 
+# ---------------------------------------------------------
+# API FETCH
+# ---------------------------------------------------------
+
+
 async def api_fetch() -> dict:
-    LOG.info("api_fetch() running.")
+    LOG.info("\n========== START api_fetch() ==========")
 
     data = await Scraper().fetch_request(FPL_BOOTSTRAP)
 
     if data:
         LOG.info("API data fetched successfully.")
+        LOG.info(
+            f"Teams: {len(data['teams'])}, "
+            f"Players: {len(data['elements'])}, "
+            f"Events: {len(data['events'])}"
+        )
+        LOG.info("========== END api_fetch() ==========\n")
         return data["teams"], data["elements"], data["events"]
-    else:
-        LOG.error("Failed to fetch API data.")
-        return None
+
+    LOG.error("Failed to fetch API data.")
+    LOG.info("========== END api_fetch() ==========\n")
+    return None
+
+
+# ---------------------------------------------------------
+# MAIN FPL SCRAPER → DB
+# ---------------------------------------------------------
 
 
 async def fpl_data_to_db():
-    LOG.info("Starting fpl_data_to_db()")
+    LOG.info("\n========== START fpl_data_to_db() ==========")
 
-    teams, players, fixtures = await api_fetch()
+    result = await api_fetch()
 
+    if not result:
+        LOG.error("API fetch failed — cannot continue fpl_data_to_db().")
+        LOG.info("========== END fpl_data_to_db() ==========\n")
+        return
+
+    teams, players, fixtures = result
+
+    LOG.info(f"Inserting {len(teams)} teams into DB...")
     for team in teams:
         await get_teams(team)
+
+    LOG.info(f"Inserting {len(players)} players into DB...")
     for player in players:
         await get_players(player)
-    for fixtures in fixtures:
-        await get_fixtures(fixtures)
 
-    LOG.info("Finished fpl_data_to_db()")
+    LOG.info(f"Inserting {len(fixtures)} fixtures into DB...")
+    for fixture in fixtures:
+        await get_fixtures(fixture)
+
+    LOG.info("All FPL bootstrap data inserted successfully.")
+    LOG.info("========== END fpl_data_to_db() ==========\n")

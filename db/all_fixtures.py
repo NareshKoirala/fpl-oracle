@@ -4,62 +4,86 @@ from config.data_struct import FIXTURES
 from config.settings import FIXTURES as url
 from utils.scraper import Scraper
 
-
 LOG = Logger("All Fixtures", "db")
 DB = RedisDB()
 
 
 async def get_fixtures():
+    LOG.info("\n========== START get_fixtures() ==========")
+
     await init_fixture_indexes()
+    LOG.info("Fixture indexes cleared.")
+
     data = await Scraper().fetch_request(url)
 
     if data:
+        LOG.info(f"Fetched {len(data)} fixtures from API.")
         await fixture_to_db(data)
+        LOG.info("All fixtures saved to Redis.")
     else:
-        LOG("Data couldn't be fetch, Empty data")
+        LOG.error("Data couldn't be fetched — empty response.")
+
+    LOG.info("========== END get_fixtures() ==========\n")
 
 
 async def fixture_to_db(raw_data):
-    place_json = {}
+    LOG.info("Processing fixture data...")
 
-    for data in raw_data:
+    for idx, data in enumerate(raw_data, start=1):
+        LOG.info(f"Processing fixture {idx}/{len(raw_data)} (ID={data['id']})")
+
+        place_json = {}
+
         for key in FIXTURES.copy():
-
             if key != "stats":
                 place_json[key] = str(data[key])
             else:
-                await fix_stats_to_db(key, data[key], f"raw_fixtures:{data["id"]}")
+                stats_key = f"raw_fixtures:{data['id']}"
+                await fix_stats_to_db(key, data[key], stats_key)
 
-        await DB.rpush(f"index:fixtures:{data["team_h"]}:home", data["id"])
-        await DB.rpush(f"index:fixtures:{data["team_a"]}:away", data["id"])
+        # Index by home/away
+        await DB.rpush(f"index:fixtures:{data['team_h']}:home", data["id"])
+        await DB.rpush(f"index:fixtures:{data['team_a']}:away", data["id"])
 
+        # Index by gameweek
         await DB.hset_dict(
-            f"index:gw_fixture:{data["event"]}",
-            {data["id"]: f"{data["team_h"]}:{data["team_a"]}"},
+            f"index:gw_fixture:{data['event']}",
+            {data["id"]: f"{data['team_h']}:{data['team_a']}"},
         )
 
-        await DB.hset_dict(f"raw_fixtures:{data["id"]}", place_json)
+        # Raw fixture
+        await DB.hset_dict(f"raw_fixtures:{data['id']}", place_json)
+
+    LOG.info("Finished processing all fixtures.")
 
 
 async def init_fixture_indexes():
-    tid_keys = await DB.get_keys(f"index:team:*")
-    tids = []
-    for key in tid_keys:
-        tids.append(await DB.hget_one(key, "tid"))
+    LOG.info("Clearing old fixture indexes...")
 
-    for tid in tids:  # EPL teams 1–20
+    tid_keys = await DB.get_keys("index:team:*")
+    tids = [await DB.hget_one(key, "tid") for key in tid_keys]
+
+    for tid in tids:
         await DB.delete(f"index:fixtures:{tid}:home")
         await DB.delete(f"index:fixtures:{tid}:away")
 
+    LOG.info(f"Cleared fixture indexes for {len(tids)} teams.")
+
 
 async def fix_stats_to_db(field, value, db):
-    place_json = {}
+    LOG.info(f"Saving stats for fixture key: {db}")
 
     for data in value:
         key = data["identifier"]
 
+        # Away stats
         for val in data["a"]:
-            await DB.hset_one(db + ":stats", f"{key}.a.{val['element']}", val["value"])
+            stat_key = f"{key}.a.{val['element']}"
+            await DB.hset_one(f"{db}:stats", stat_key, val["value"])
 
+        # Home stats
         for val in data["h"]:
-            await DB.hset_one(db + ":stats", f"{key}.h.{val['element']}", val["value"])
+            stat_key = f"{key}.h.{val['element']}"
+            await DB.hset_one(f"{db}:stats", stat_key, val["value"])
+
+    LOG.info(f"Stats saved for fixture key: {db}")

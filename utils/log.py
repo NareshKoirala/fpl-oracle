@@ -3,24 +3,36 @@ from pathlib import Path
 
 
 class Logger:
+    COLORS = {
+        "INFO": "\033[96m",  # cyan
+        "ERROR": "\033[91m",  # red
+        "RESET": "\033[0m",
+    }
+
     def __init__(self, fileName, subRepo=None):
-        # Modern path handling
         log_dir = Path.cwd() / "logs"
         log_dir.mkdir(parents=True, exist_ok=True)
+
+        self.fileName = fileName
 
         if subRepo:
             log_dir = log_dir / subRepo
             log_dir.mkdir(parents=True, exist_ok=True)
 
-        fileName = f"{fileName}.log"
-        self.log_path = log_dir / fileName
+        self.log_path = log_dir / f"{fileName}.log"
 
     def log(self, level, message):
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         log_entry = f"{timestamp} - {level}: {message}"
 
+        # Write to file
         with open(self.log_path, "a", encoding="utf-8") as f:
             f.write(log_entry + "\n")
+
+        # Pretty console output
+        color = self.COLORS.get(level, "")
+        reset = self.COLORS["RESET"]
+        print(f"{color}({self.fileName}) {log_entry}{reset}")
 
     def info(self, message):
         self.log("INFO", message)

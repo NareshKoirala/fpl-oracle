@@ -1,24 +1,30 @@
 from db.db_redis import RedisDB
 from utils.log import Logger
 
-
 LOG = Logger("Strength", "cook/team_math")
 DB = RedisDB()
 
 
 async def cal_teams_strength():
-    LOG.info("Started cal_teams_strength()")
+    LOG.info("\n========== START cal_teams_strength() ==========")
+
     # -------------------------------
-    # 1. Load EPL teams only (1–20)
+    # 1. Load EPL teams (1–20)
     # -------------------------------
+    LOG.info("Loading EPL team IDs...")
     teams_key_map = await DB.get_keys("index:team:*")
+
     team_ids = []
     for key in teams_key_map:
         value = await DB.hget_all(key)
         team_ids.append(value["tid"])
+
+    LOG.info(f"Loaded {len(team_ids)} teams.")
+
     # -------------------------------
     # 2. Compute league averages
     # -------------------------------
+    LOG.info("Computing league averages...")
     avg = await league_avg_xg(team_ids)
 
     (
@@ -42,11 +48,15 @@ async def cal_teams_strength():
         avg_fp,
     ) = avg
 
+    LOG.info("League averages computed.")
+
     # -------------------------------
     # 3. Compute team strengths
     # -------------------------------
+    LOG.info("Calculating strengths for each team...")
+
     for tid in team_ids:
-        LOG.info(f"Calculating Strenght for {tid}")
+        LOG.info(f"→ Team {tid}: calculating strength")
 
         data_ex = await team_data(tid, "expected")
         data_h = await team_data(tid, "home")
@@ -71,13 +81,11 @@ async def cal_teams_strength():
         # ----- Home Points -----
         hpts = safe_float(data_h.get("points"))
         home_pts_raw = hpts / hp
-
         home_pts = home_pts_raw / (avg_hpts / avg_hp)
 
         # ----- Away Points -----
         apts = safe_float(data_a.get("points"))
         away_pts_raw = apts / ap
-
         away_pts = away_pts_raw / (avg_apts / avg_ap)
 
         # ----- Home Defense -----
@@ -123,7 +131,9 @@ async def cal_teams_strength():
             },
         )
 
-        LOG.info(f"Finished Calculating Strenght for {tid}")
+        LOG.info(f"✓ Finished team {tid}")
+
+    LOG.info("========== END cal_teams_strength() ==========\n")
 
 
 def safe_float(v):
@@ -152,13 +162,14 @@ def cal_overall_strength(avg, data):
         "defence_overall_expected": f"{(avg[1] / xga):.2f}",
         "point_overall_expected": f"{(xpts / avg[2]):.2f}",
         "attack_overall_real": f"{(rg / avg[3]):.2f}",
-        "defence_overall_real": f"{(avg[4] / rga ):.2f}",
+        "defence_overall_real": f"{(avg[4] / rga):.2f}",
         "point_overall_real": f"{(rpts / avg[5]):.2f}",
     }
 
 
 async def league_avg_xg(ids):
-    LOG.info("Getting league avg values for g, ga, pts for x, r, h, a, l5")
+    LOG.info("Computing league averages for expected, real, home, away, last5...")
+
     total_xg = total_xga = total_xpts = 0
     total_rg = total_rga = total_rpts = 0
 
@@ -169,13 +180,12 @@ async def league_avg_xg(ids):
     size = len(ids)
 
     for tid in ids:
-
         data_ex = await team_data(tid, "expected")
         data_h = await team_data(tid, "home")
         data_a = await team_data(tid, "away")
         data_f = await team_data(tid, "last_five")
 
-        # ----- Expected -----
+        # Expected
         xg = safe_float(data_ex.get("xg"))
         xga = safe_float(data_ex.get("xga"))
         xpts = safe_float(data_ex.get("xpts"))
@@ -192,7 +202,7 @@ async def league_avg_xg(ids):
         total_rga += xga + xga_diff
         total_rpts += xpts + xpts_diff
 
-        # ----- Home -----
+        # Home
         hg = safe_float(data_h.get("goals"))
         hga = safe_float(data_h.get("conceded"))
         hpts = safe_float(data_h.get("points"))
@@ -203,7 +213,7 @@ async def league_avg_xg(ids):
         total_hpts += hpts
         total_hp += hp
 
-        # ----- Away -----
+        # Away
         ag = safe_float(data_a.get("goals"))
         aga = safe_float(data_a.get("conceded"))
         apts = safe_float(data_a.get("points"))
@@ -214,7 +224,7 @@ async def league_avg_xg(ids):
         total_apts += apts
         total_ap += ap
 
-        # ----- Last Five -----
+        # Last Five
         fg = safe_float(data_f.get("goals"))
         fga = safe_float(data_f.get("conceded"))
         fpts = safe_float(data_f.get("points"))
@@ -226,25 +236,20 @@ async def league_avg_xg(ids):
         total_fp += fp
 
     return (
-        # Expected
         total_xg / size,
         total_xga / size,
         total_xpts / size,
-        # Real
         total_rg / size,
         total_rga / size,
         total_rpts / size,
-        # Home
         total_hg / size,
         total_hga / size,
         total_hpts / size,
         total_hp / size,
-        # Away
         total_ag / size,
         total_aga / size,
         total_apts / size,
         total_ap / size,
-        # Last Five
         total_fg / size,
         total_fga / size,
         total_fpts / size,

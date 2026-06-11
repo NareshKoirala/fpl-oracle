@@ -1,3 +1,4 @@
+import redis.asyncio as redis
 from utils.log import Logger
 from config.settings import PLAYER_HISTORY
 from db.db_redis import RedisDB
@@ -9,47 +10,68 @@ DB = RedisDB()
 
 
 async def fetch_and_save(client, semaphore, pid):
-    # This limits how many requests can be active at once
     async with semaphore:
         url = PLAYER_HISTORY + f"{pid}"
-        response = await client.get(url)
+        LOG.info(f"Fetching history for PID={pid}")
+
+        try:
+            response = await client.get(url)
+        except Exception as e:
+            LOG.error(f"Request failed for PID={pid}: {e}")
+            return
+
         if response.status_code == 200:
             data = response.json()
             history = data["history"]
             history_past = data["history_past"]
+
+            # Current season fixtures
             for fixture in history:
-                await DB.hset_dict(
-                    f"raw_player_fixtures:{pid}:{fixture["fixture"]}", fixture
-                )
+                redis_key = f"raw_player_fixtures:{pid}:{fixture['fixture']}"
+                await DB.hset_dict(redis_key, fixture)
+
+            # Past seasons
             for past in history_past:
-                await DB.hset_dict(
-                    f"raw_player_past_season:{pid}:{past["season_name"]}", past
-                )
+                redis_key = f"raw_player_past_season:{pid}:{past['season_name']}"
+                await DB.hset_dict(redis_key, past)
+
+            LOG.info(
+                f"Saved history for PID={pid} "
+                f"(fixtures={len(history)}, past={len(history_past)})"
+            )
+
         else:
-            LOG.error(f"Status: {response.status_code}, For: {url}")
-        
+            LOG.error(f"Status {response.status_code} for PID={pid} → {url}")
+
         await asyncio.sleep(0.05)
 
 
-
 async def fetch_history(pids):
+    LOG.info(f"Starting fetch for {len(pids)} players...")
     semaphore = asyncio.Semaphore(10)
 
     async with httpx.AsyncClient(follow_redirects=True) as client:
         tasks = [fetch_and_save(client, semaphore, pid) for pid in pids]
         await asyncio.gather(*tasks)
 
+    LOG.info("Finished fetching all player histories.")
+
 
 async def get_player_history():
     cursor = 0
     pids = []
-    LOG.info("Started to get the pids.")
+
+    LOG.info("Collecting player IDs...")
+
     while True:
         cursor, data = await DB.scan("index:player:*", cursor=cursor)
         for key in data:
-            pids.append(await DB.hget_one(key, "id"))
+            pid = await DB.hget_one(key, "id")
+            pids.append(pid)
 
         if cursor == 0:
             break
-    LOG.info(f"Total pids got: {len(pids)}")
+
+    LOG.info(f"Total player IDs collected: {len(pids)}")
+
     await fetch_history(pids)

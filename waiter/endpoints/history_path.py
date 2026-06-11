@@ -1,6 +1,5 @@
 import os
 from fastapi import APIRouter, Depends
-from waiter.models.history_path import Season, HistorySeasonResponse
 from utils.redis_server import start_past_server
 
 router = APIRouter(prefix="/history-path", tags=["history_path"])
@@ -8,9 +7,9 @@ router = APIRouter(prefix="/history-path", tags=["history_path"])
 SNAPSHOT_ROOT = os.path.join(os.getcwd(), "snapshots")
 
 
-@router.get("/history/seasons", response_model=HistorySeasonResponse)
+@router.get("/paths")
 async def get_history_paths():
-    seasons = []
+    seasons = {}
 
     # Loop through season folders
     for season_folder in os.listdir(SNAPSHOT_ROOT):
@@ -31,14 +30,11 @@ async def get_history_paths():
                     weeks.append(int(gw_folder))
 
         if weeks:
-            seasons.append(Season(season=int(season_folder), weeks=sorted(weeks)))
+            seasons[int(season_folder)] = sorted(weeks, reverse=True)
 
-    return HistorySeasonResponse(data=seasons)
+    return dict(sorted(seasons.items(), reverse=True))
 
 
-@router.post("/cold-start/{path}")
-async def check_redis(path):
-    print(path)
-    if path != "current":
-        s, w = path.split(":")
-        start_past_server(s, w)
+@router.post("/cold-start/{season}/{gw}")
+async def check_redis(season, gw):
+    print(season, gw)

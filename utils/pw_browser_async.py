@@ -16,81 +16,94 @@ class PlayWright_async_Browser:
     _user_data_dir = "./pw_session"
 
     def __init__(self):
-        # Every 'bot' gets its own private variables
         self.context = None
         self.page = None
-        self.viewport = (1280, 720)  # Default viewport size
+        self.viewport = (1280, 720)
+
+    # ---------------------------------------------------------
+    # ENGINE CONTROL
+    # ---------------------------------------------------------
 
     @classmethod
     async def shutdown_engine(cls):
-        """Call this once at the very end of your program."""
+        LOG.info("\n========== SHUTTING DOWN PLAYWRIGHT ENGINE ==========")
+
         if cls._shared_browser:
             await cls._shared_browser.close()
-            cls._shared_browser = None  # Clear the shared browser reference
+            cls._shared_browser = None
+            LOG.info("Shared browser context closed.")
+
         if cls._playwright_manager:
             await cls._playwright_manager.stop()
-            cls._playwright_manager = None  # Clear the manager reference
-        LOG.info("Browser engine shut down successfully.")
+            cls._playwright_manager = None
+            LOG.info("Playwright manager stopped.")
+
+        LOG.info("Playwright engine shutdown complete.\n")
 
     @classmethod
     async def _ensure_browser(cls):
         if cls._shared_browser is None:
-            LOG.info("Starting shared browser engine...")
+            LOG.info("\n========== STARTING PLAYWRIGHT ENGINE ==========")
+
             cls._playwright_manager = await async_playwright().start()
+            LOG.info("Playwright manager started.")
 
             if not os.path.exists(cls._user_data_dir):
                 os.makedirs(cls._user_data_dir)
-                
-            # Persistent context = BrowserContext
+                LOG.info(f"Created user data directory: {cls._user_data_dir}")
+
             context = await cls._playwright_manager.chromium.launch_persistent_context(
                 user_data_dir=cls._user_data_dir,
                 headless=HEAD,
                 args=["--disable-blink-features=AutomationControlled"],
             )
-            # Apply stealth to the shared context ONCE
-            # await Stealth().apply_stealth_async(context)
+
             cls._shared_browser = context
-            LOG.info("Shared browser engine started successfully.")
+            LOG.info("Shared persistent browser context created.\n")
 
     @classmethod
     async def create(cls):
-        """The only method the outside world should call to get a new bot."""
-        await cls._ensure_browser()  # Step 1: Ensure the process exists
+        LOG.info("\n========== CREATING NEW PLAYWRIGHT BOT ==========")
 
-        instance = cls()  # Step 2: Create the worker object
-        await instance._init_tab()  # Step 3: Open the tab
-        return instance  # Step 4: Hand over the worker
+        await cls._ensure_browser()
+        instance = cls()
+        await instance._init_tab()
+
+        LOG.info("Bot created successfully.\n")
+        return instance
+
+    # ---------------------------------------------------------
+    # PAGE / TAB CONTROL
+    # ---------------------------------------------------------
 
     async def close_page(self):
-        """Close the page for this instance."""
         if self.page:
             await self.page.close()
+            LOG.info("Page closed.")
             self.page = None
-            LOG.info("Page closed successfully.")
 
     async def _init_tab(self):
-        """Opens a unique tab for this specific instance."""
-        
-        self.context = self._shared_browser  # Use shared context if not creating a new one
-        
-        # Each worker gets its own page
+        self.context = self._shared_browser
         self.page = await self.context.new_page()
-        self.width, self.height = (
-            self.page.viewport_size["width"],
-            self.page.viewport_size["height"],
-        )
-        LOG.info("New Page with viewport size: {}x{}".format(self.width, self.height))
+
+        self.width = self.page.viewport_size["width"]
+        self.height = self.page.viewport_size["height"]
+
+        LOG.info(f"New page opened. Viewport: {self.width}x{self.height}")
+
+    # ---------------------------------------------------------
+    # HUMAN-LIKE MOUSE MOVEMENT
+    # ---------------------------------------------------------
 
     async def random_mouse_movement(self):
-        """Improved movement: jittery and purposeful."""
-        self.width, self.height = (
-            self.page.viewport_size["width"],
-            self.page.viewport_size["height"],
-        )
+        self.width = self.page.viewport_size["width"]
+        self.height = self.page.viewport_size["height"]
+
+        LOG.info("Performing random mouse movement...")
+
         for _ in range(rand.randint(2, 4)):
             x = rand.randint((-self.width // 3), self.width // 3)
             y = rand.randint((-self.height // 3), self.height // 3)
-            # Move mouse with 'steps' to avoid teleportation
 
             self.width = self.width // 3 + x
             self.height = self.height // 3 + y
@@ -98,52 +111,69 @@ class PlayWright_async_Browser:
             await self.page.mouse.move(
                 self.width, self.height, steps=rand.randint(10, 20)
             )
-            await asyncio.sleep(SLOW_MOTION)  # Random sleep between movements
+            await asyncio.sleep(SLOW_MOTION)
+
+        LOG.info("Mouse movement complete.")
+
+    # ---------------------------------------------------------
+    # PAGE ACTIONS
+    # ---------------------------------------------------------
 
     async def page_load(self, url: str):
-        """Utility method to load a new page."""
+        LOG.info(f"Loading page: {url}")
+
         try:
             await self.page.goto(url)
-            LOG.info(f"Page loaded successfully. URL: {url if url else 'Current URL'}")
+            LOG.info(f"Page loaded successfully → {url}")
         except Exception as e:
             LOG.error(f"Failed to load page {url}: {e}")
 
-    async def get_content(self, tag: str):
-        try:
-            await self.page.wait_for_selector(
-                tag, timeout=BROWSER_WAIT_TIME
-            )  # Wait for the specific tag to load
-
-            await asyncio.sleep(SLOW_MOTION)  # Simulate human-like mouse movement
-
-            return await self.page.content()
-        except Exception as e:
-            LOG.error(f"Scrape failed: {e}")
-            return None
-
-    async def click_element(self, selector: str):
-        """Utility method to click an element by selector."""
-        try:
-            await self.page.click(selector)
-            LOG.info(f"Clicked element with selector: {selector}")
-        except Exception as e:
-            LOG.error(f"Failed to click element {selector}: {e}")
-
-    async def get_element(self, selector: str):
-        """Utility method to get an element by selector."""
-        try:
-            await self.page.wait_for_selector(selector, timeout=BROWSER_WAIT_TIME)
-            element = await self.page.query_selector(selector)
-            LOG.info(f"Element found with selector: {selector}")
-            return element
-        except Exception as e:
-            LOG.error(f"Failed to get element {selector}: {e}")
-            return None
-
     async def page_reload(self):
-        """Utility method to reload the current page."""
+        LOG.info("Reloading page...")
+
         try:
             await self.page.reload(wait_until="networkidle")
             LOG.info("Page reloaded successfully.")
         except Exception as e:
             LOG.error(f"Failed to reload page: {e}")
+
+    # ---------------------------------------------------------
+    # SCRAPING UTILITIES
+    # ---------------------------------------------------------
+
+    async def get_content(self, tag: str):
+        LOG.info(f"Waiting for selector: {tag}")
+
+        try:
+            await self.page.wait_for_selector(tag, timeout=BROWSER_WAIT_TIME)
+            await asyncio.sleep(SLOW_MOTION)
+
+            LOG.info(f"Selector found: {tag}")
+            return await self.page.content()
+
+        except Exception as e:
+            LOG.error(f"Failed to get content for selector {tag}: {e}")
+            return None
+
+    async def click_element(self, selector: str):
+        LOG.info(f"Clicking element: {selector}")
+
+        try:
+            await self.page.click(selector)
+            LOG.info(f"Clicked element: {selector}")
+        except Exception as e:
+            LOG.error(f"Failed to click element {selector}: {e}")
+
+    async def get_element(self, selector: str):
+        LOG.info(f"Getting element: {selector}")
+
+        try:
+            await self.page.wait_for_selector(selector, timeout=BROWSER_WAIT_TIME)
+            element = await self.page.query_selector(selector)
+
+            LOG.info(f"Element found: {selector}")
+            return element
+
+        except Exception as e:
+            LOG.error(f"Failed to get element {selector}: {e}")
+            return None

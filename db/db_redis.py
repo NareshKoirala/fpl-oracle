@@ -15,33 +15,61 @@ class RedisDB:
         self.d_path = None
         self.c_path = None
 
+    # ---------------------------------------------------------
+    # RAW SNAPSHOT DUMP
+    # ---------------------------------------------------------
+
     async def dump_raw(self):
+        LOG.info("Starting Redis SAVE for raw DB...")
+
         await self.client_raw.save()
+        LOG.info("Redis SAVE completed.")
 
         file_config = await self.client_raw.config_get("dbfilename")
+        db_file = file_config["dbfilename"]
 
-        season = await self.hget_one(f"current_gw", "season")
-        gw = await self.hget_one(f"current_gw", "current")
+        season = await self.hget_one("current_gw", "season")
+        gw = await self.hget_one("current_gw", "current")
 
-        n_path = os.path.join(os.getcwd(), f"snapshots/{file_config["dbfilename"]}")
+        n_path = os.path.join(os.getcwd(), f"snapshots/{db_file}")
         c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
+
+        LOG.info(f"Dump file located at: {n_path}")
+        LOG.info(f"Copying dump to: {c_path}")
 
         os.makedirs(c_path, exist_ok=True)
 
         shutil.copy(n_path, c_path)
 
+        LOG.info("Redis dump copied successfully.")
+
+    # ---------------------------------------------------------
+    # CLIENT SELECTOR
+    # ---------------------------------------------------------
+
     def _select(self, db: str):
         return self.client_proc if db[0] == "p" else self.client_raw
 
+    # ---------------------------------------------------------
+    # BASIC COMMANDS
+    # ---------------------------------------------------------
+
     async def flush_raw(self):
+        LOG.info("Flushing RAW DB...")
         await self.client_raw.flushdb()
 
     async def flush_proc(self):
+        LOG.info("Flushing PROC DB...")
         await self.client_proc.flushdb()
 
     async def delete(self, db):
         client = self._select(db)
         await client.delete(db)
+        LOG.info(f"Deleted key: {db}")
+
+    # ---------------------------------------------------------
+    # HASH COMMANDS
+    # ---------------------------------------------------------
 
     async def hset_one(self, db, key, value):
         client = self._select(db)
@@ -73,6 +101,10 @@ class RedisDB:
         client = self._select(db)
         cursor, byte_data = await client.hscan(db, match=f"{section}.*")
         return {k.decode(): v.decode() for k, v in byte_data.items()}
+
+    # ---------------------------------------------------------
+    # SCAN / KEYS / LISTS
+    # ---------------------------------------------------------
 
     async def scan(self, prefix, cursor):
         client = self._select(prefix)
