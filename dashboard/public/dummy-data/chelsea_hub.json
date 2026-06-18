@@ -1,0 +1,28 @@
+{
+  "title": "Chelsea FC Hub",
+  "subtitle": "Upcoming Fixtures",
+  "quote": "love chelsea #ktbffh",
+  "fixtures": [
+    {
+      "gw": "GW36",
+      "opponent": "Everton",
+      "date": "May 10 • 15:00 UTC",
+      "isLiveOrHighlighted": false,
+      "location": "H"
+    },
+    {
+      "gw": "GW37",
+      "opponent": "Aston Villa",
+      "date": "May 17 • 12:30 UTC",
+      "isLiveOrHighlighted": true,
+      "location": "A"
+    },
+    {
+      "gw": "GW38",
+      "opponent": "Bournemouth",
+      "date": "May 24 • 16:00 UTC",
+      "isLiveOrHighlighted": false,
+      "location": "H"
+    }
+  ]
+}

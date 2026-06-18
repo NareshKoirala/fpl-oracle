@@ -1,0 +1,118 @@
+{
+  "gw": 1,
+  "formation": "3-4-3",
+  "total_points": 118,
+  "budget": 83.5,
+  "players": [
+    {
+      "name": "Raya",
+      "team": "Arsenal",
+      "position": "GKP",
+      "price": 5.5,
+      "points": 9,
+      "expected_points": 6.2,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Alexander-Arnold",
+      "team": "Liverpool",
+      "position": "DEF",
+      "price": 7.0,
+      "points": 12,
+      "expected_points": 8.5,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Gvardiol",
+      "team": "Man City",
+      "position": "DEF",
+      "price": 6.0,
+      "points": 8,
+      "expected_points": 5.4,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Gabriel",
+      "team": "Arsenal",
+      "position": "DEF",
+      "price": 6.0,
+      "points": 7,
+      "expected_points": 5.2,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Salah",
+      "team": "Liverpool",
+      "position": "MID",
+      "price": 12.5,
+      "points": 14,
+      "expected_points": 10.4,
+      "is_captain": false,
+      "is_vice_captain": true
+    },
+    {
+      "name": "Palmer",
+      "team": "Chelsea",
+      "position": "MID",
+      "price": 10.5,
+      "points": 11,
+      "expected_points": 9.1,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Saka",
+      "team": "Arsenal",
+      "position": "MID",
+      "price": 10.0,
+      "points": 10,
+      "expected_points": 8.8,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Eze",
+      "team": "Crystal Palace",
+      "position": "MID",
+      "price": 7.0,
+      "points": 9,
+      "expected_points": 6.8,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Haaland",
+      "team": "Man City",
+      "position": "FWD",
+      "price": 15.0,
+      "points": 17,
+      "expected_points": 12.1,
+      "is_captain": true,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Watkins",
+      "team": "Aston Villa",
+      "position": "FWD",
+      "price": 9.0,
+      "points": 8,
+      "expected_points": 7.5,
+      "is_captain": false,
+      "is_vice_captain": false
+    },
+    {
+      "name": "Isak",
+      "team": "Newcastle",
+      "position": "FWD",
+      "price": 8.5,
+      "points": 13,
+      "expected_points": 8.1,
+      "is_captain": false,
+      "is_vice_captain": false
+    }
+  ]
+}

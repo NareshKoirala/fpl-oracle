@@ -169,14 +169,6 @@ def start_uvicorn():
     run_with_logs(cmd, LOG)
 
 
-def run_npm():
-    # Install packages first
-    run_with_logs(["npm", "install", "--prefix", "dashboard"], LOG, wait=True)
-
-    # Start dev server (non-blocking)
-    run_with_logs(["npm", "run", "dev", "--prefix", "dashboard"], LOG)
-
-
 # ---------------------------------------------------------
 # MAIN LIVE SERVER STARTUP
 # ---------------------------------------------------------
@@ -193,7 +185,5 @@ def start_live_server():
 
     start_uvicorn()
     wait_for_port(8000)
-
-    run_npm()
 
     LOG.info("Live Server Pipeline fully started.")

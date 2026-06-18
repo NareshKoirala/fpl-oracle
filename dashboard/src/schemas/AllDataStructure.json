@@ -1,0 +1,20 @@
+{
+  "seasons": [
+    {
+      "id": "2025",
+      "name": "Season 2024/25",
+      "gameweeks": [1, 2, 3, 4, 10, 15, 20, 30, 35, 38],
+      "current_gameweek": 1
+    }
+  ],
+  "team_mapping": {
+    "ARS": "Arsenal",
+    "AVL": "Aston Villa"
+  },
+  "positions": {
+    "GKP": "Goalkeeper",
+    "DEF": "Defender",
+    "MID": "Midfielder",
+    "FWD": "Forward"
+  }
+}

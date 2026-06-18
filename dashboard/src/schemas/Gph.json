@@ -1,0 +1,7 @@
+{
+  "comment": "Keyed by team name or fixture ID, mapping to a decimal-percentage array representing probability of scoring [0, 1, 2, 3, 4, 5+] goals respectively.",
+  "Leeds": [22.4, 38.1, 24.5, 10.2, 3.8, 1.0],
+  "Arsenal": [10.5, 28.4, 32.1, 18.2, 7.6, 3.2],
+  "Man City": [6.2, 22.1, 31.4, 22.8, 11.5, 6.0],
+  "Chelsea": [18.5, 34.2, 26.8, 12.5, 5.0, 3.0]
+}
