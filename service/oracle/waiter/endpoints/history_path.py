@@ -1,11 +1,12 @@
+from service.oracle.config.settings import SNAPSHOTS_DIR
 import os
 from fastapi import APIRouter, Depends
-from utils.redis_server import start_past_server
+from service.oracle.utils.redis_server import start_past_server
 import json
 
 router = APIRouter(prefix="/history-path", tags=["history_path"])
 
-SNAPSHOT_ROOT = os.path.join(os.getcwd(), "snapshots")
+SNAPSHOT_ROOT = str(SNAPSHOTS_DIR)
 
 
 @router.get("/", response_model=dict)

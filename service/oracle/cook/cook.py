@@ -1,14 +1,14 @@
-from cook.team_cook import teams_cook
-from cook.fixture_cook import fixture_cook
-from cook.playing_cook import playing_cook
+from service.oracle.cook.team_cook import teams_cook
+from service.oracle.cook.fixture_cook import fixture_cook
+from service.oracle.cook.playing_cook import playing_cook
 
-from utils.log import Logger
-from db.db_redis import RedisDB
+from service.oracle.utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
 
 import asyncio
 from datetime import datetime
 
-from utils.export_redis import export_db1_to_json
+from service.oracle.utils.export_redis import export_db1_to_json
 
 
 LOG = Logger("Cook", "cook")
@@ -18,14 +18,12 @@ DB = RedisDB()
 async def run_cook():
     LOG.info("\n========== START run_cook() ==========")
 
-    raw_data = await DB.db_size("raw")
-
     # Wait until producer finishes
-    while raw_data < 42000:
-        LOG.info(f"Waiting for producer... Raw Data Count: {raw_data}")
+    while (await DB.hget_one("status:producer", "completed")) != "True":
+        LOG.info("Waiting for producer to finish...")
         await asyncio.sleep(10)
-        raw_data = await DB.db_size("raw")
 
+    raw_data = await DB.db_size("raw")
     LOG.info(f"Enough data to start cook → Raw Data: {raw_data}")
 
     # Validate GW timing

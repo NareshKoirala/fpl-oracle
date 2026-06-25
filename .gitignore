@@ -1,6 +1,4 @@
-fpl_oracle/.venv/
-**/.venv/
-pw_session
+.venv/
 __pycache__/
 *.pyc
-logs
+.cache/

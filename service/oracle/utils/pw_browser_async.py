@@ -2,8 +2,8 @@ import asyncio
 import random as rand
 import os
 from time import time
-from utils.log import Logger
-from config.settings import HEAD, BROWSER_WAIT_TIME, SLOW_MOTION
+from service.oracle.utils.log import Logger
+from service.oracle.config.settings import HEAD, BROWSER_WAIT_TIME, SLOW_MOTION, PW_SESSION_DIR
 from playwright.async_api import async_playwright
 from playwright_stealth import Stealth
 
@@ -13,7 +13,7 @@ LOG = Logger("PlayWright_Browser_Async", "utils")
 class PlayWright_async_Browser:
     _playwright_manager = None
     _shared_browser = None
-    _user_data_dir = "./pw_session"
+    _user_data_dir = str(PW_SESSION_DIR)
 
     def __init__(self):
         self.context = None

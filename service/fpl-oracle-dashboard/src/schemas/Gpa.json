@@ -1,0 +1,7 @@
+{
+  "comment": "Keyed by team name or fixture ID, mapping to a decimal-percentage array representing away goal probabilities [0, 1, 2, 3, 4, 5+] goals respectively.",
+  "Leeds": [32.5, 40.2, 18.5, 6.2, 2.1, 0.5],
+  "Arsenal": [15.2, 32.4, 28.1, 14.8, 6.5, 3.0],
+  "Man City": [11.4, 26.5, 29.8, 18.4, 9.1, 4.8],
+  "Chelsea": [24.1, 38.4, 23.2, 9.8, 3.5, 1.0]
+}

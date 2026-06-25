@@ -1,7 +1,7 @@
 import redis.asyncio as redis
-from utils.log import Logger
-from config.settings import PLAYER_HISTORY
-from db.db_redis import RedisDB
+from service.oracle.utils.log import Logger
+from service.oracle.config.settings import PLAYER_HISTORY
+from service.oracle.db.db_redis import RedisDB
 import asyncio
 import httpx
 

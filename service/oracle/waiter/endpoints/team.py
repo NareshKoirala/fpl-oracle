@@ -1,14 +1,15 @@
+from service.oracle.config.settings import SNAPSHOTS_DIR
 from fastapi import APIRouter
 import json
 from pathlib import Path
-from utils.log import Logger
+from service.oracle.utils.log import Logger
 
 router = APIRouter(prefix="/team", tags=["team"])
 LOG = Logger("Team Waiter", "waiter/endpoints")
 
 
 def get_json(filepath):
-    cwd = Path.cwd() / "snapshots" / f"{filepath}.json"
+    cwd = SNAPSHOTS_DIR / f"{filepath}.json"
 
     if not cwd.exists():
         LOG.error(f"File not found: {cwd}")

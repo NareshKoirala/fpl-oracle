@@ -1,6 +1,6 @@
-from utils.scraper import Scraper
-from utils.log import Logger
-from config.settings import (
+from service.oracle.utils.scraper import Scraper
+from service.oracle.utils.log import Logger
+from service.oracle.config.settings import (
     FOTMOB_TABLE,
     TABLE_CLASS,
     FOTMOB_xG,
@@ -8,7 +8,7 @@ from config.settings import (
     FOTMOB_HOME,
     FOTMOB_FORM,
 )
-from db.db_redis import RedisDB
+from service.oracle.db.db_redis import RedisDB
 
 LOG = Logger("Fotmob_Scraper", "producer")
 DB = RedisDB()

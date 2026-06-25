@@ -1,7 +1,7 @@
-from db.db_redis import RedisDB
-from config.settings import TEAM_OF_WEEK
-from utils.scraper import Scraper
-from utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
+from service.oracle.config.settings import TEAM_OF_WEEK
+from service.oracle.utils.scraper import Scraper
+from service.oracle.utils.log import Logger
 
 DB = RedisDB()
 LOG = Logger("Team_Of_Week", "producer")

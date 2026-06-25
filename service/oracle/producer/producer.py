@@ -1,16 +1,16 @@
-from utils.log import Logger
-from producer.fpl_scraper import fpl_data_to_db
-from producer.team_week import get_team_of_week
-from producer.fotmob_scraper import (
+from service.oracle.utils.log import Logger
+from service.oracle.producer.fpl_scraper import fpl_data_to_db
+from service.oracle.producer.team_week import get_team_of_week
+from service.oracle.producer.fotmob_scraper import (
     table_scrap,
     xg_scrap,
     home_table_scrap,
     away_table_scrap,
     form_table_scrap,
 )
-from db.db_redis import RedisDB
-from db.all_fixtures import get_fixtures
-from db.players_history import get_player_history
+from service.oracle.db.db_redis import RedisDB
+from service.oracle.db.all_fixtures import get_fixtures
+from service.oracle.db.players_history import get_player_history
 import asyncio
 import time
 
@@ -69,6 +69,11 @@ async def run_producer():
         await get_player_history()
 
         # -----------------------------
+        # Set status to completed before saving the dump
+        # -----------------------------
+        await DB.hset_one("status:producer", "completed", "True")
+
+        # -----------------------------
         # Dump RAW Snapshot
         # -----------------------------
         LOG.info("\n--- Dumping RAW Redis Snapshot ---")
@@ -83,4 +88,5 @@ async def run_producer():
 
     else:
         LOG.info("Redis RAW DB already populated → skipping producer run.")
+        await DB.hset_one("status:producer", "completed", "True")
         LOG.info("========== END run_producer() ==========\n")

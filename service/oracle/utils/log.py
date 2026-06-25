@@ -1,5 +1,5 @@
 import datetime
-from pathlib import Path
+from service.oracle.config.settings import LOGS_DIR
 
 
 class Logger:
@@ -10,7 +10,7 @@ class Logger:
     }
 
     def __init__(self, fileName, subRepo=None):
-        log_dir = Path.cwd() / "logs"
+        log_dir = LOGS_DIR
         log_dir.mkdir(parents=True, exist_ok=True)
 
         self.fileName = fileName

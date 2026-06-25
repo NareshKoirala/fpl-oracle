@@ -1,6 +1,6 @@
-from utils.log import Logger
-from db.db_redis import RedisDB
-from cook.team_math.strength import cal_teams_strength
+from service.oracle.utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
+from service.oracle.cook.team_math.strength import cal_teams_strength
 
 LOG = Logger("Team_Cook", "cook")
 DB = RedisDB()

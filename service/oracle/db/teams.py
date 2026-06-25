@@ -1,7 +1,7 @@
-from config.data_struct import TEAMS
-from config.data_maps import FOTMOB_NAME_MAP
-from utils.log import Logger
-from db.db_redis import RedisDB
+from service.oracle.config.data_struct import TEAMS
+from service.oracle.config.data_maps import FOTMOB_NAME_MAP
+from service.oracle.utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
 
 LOG = Logger("Teams_DB", "db")
 DB = RedisDB()

@@ -1,5 +1,6 @@
+from service.oracle.config.settings import SNAPSHOTS_DIR
 from pathlib import Path
-from utils.log import Logger
+from service.oracle.utils.log import Logger
 
 LOG = Logger("Export Redis", "utils")
 
@@ -13,7 +14,7 @@ async def create_folders(db, extra=None):
     season = await db.hget_one("current_gw", "season")
     gw = await db.hget_one("current_gw", "current")
 
-    base = Path.cwd() / f"snapshots/{season}/{gw}"
+    base = SNAPSHOTS_DIR / str(season) / str(gw)
     if extra:
         base = base / extra
 
@@ -219,7 +220,7 @@ async def export_team_of_week(db):
     season = await db.hget_one("current_gw", "season")
     last_week = await db.hget_one("current_gw", "last")
 
-    last_path = Path.cwd() / f"snapshots/{season}/{last_week}"
+    last_path = SNAPSHOTS_DIR / str(season) / str(last_week)
     last_path.mkdir(parents=True, exist_ok=True)
     last_path = last_path / "team_week.json"
 

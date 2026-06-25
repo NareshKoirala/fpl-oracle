@@ -1,19 +1,18 @@
 # API Endpoints
-YAHOO_SPORTS = "https://sports.yahoo.com/soccer/premier-league/stats/team/?_rsc=k9461"
+SEASON = "2025/2026"
 
 FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
 FIXTURES = "https://fantasy.premierleague.com/api/fixtures/"
 PLAYER_HISTORY = f"https://fantasy.premierleague.com/api/element-summary/"
 TEAM_OF_WEEK = "https://fantasy.premierleague.com/api/dream-team/"
 
-FOTMOB_BASE = "https://www.fotmob.com"
-FOTMOB_TABLE = f"{FOTMOB_BASE}/leagues/47/table/premier-league/teams"
-FOTMOB_xG = f"{FOTMOB_TABLE}?filter=xg"
-FOTMOB_HOME = f"{FOTMOB_TABLE}?filter=home"
-FOTMOB_AWAY = f"{FOTMOB_TABLE}?filter=away"
-FOTMOB_FORM = f"{FOTMOB_TABLE}?filter=form"
-FOTMOB_TEAM_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/teams"
-FOTMOB_PLAYER_STATS = f"{FOTMOB_BASE}/leagues/47/stats/premier-league/players"
+FOTMOB_BASE = "https://www.fotmob.com/leagues/47/"
+# FOTMOB_TABLE = f"{FOTMOB_BASE}table/premier-league?"
+FOTMOB_TABLE = f"{FOTMOB_BASE}table/premier-league?season={SEASON}&"
+FOTMOB_xG = f"{FOTMOB_TABLE}filter=xg"
+FOTMOB_HOME = f"{FOTMOB_TABLE}filter=home"
+FOTMOB_AWAY = f"{FOTMOB_TABLE}filter=away"
+FOTMOB_FORM = f"{FOTMOB_TABLE}filter=form"
 
 # Key Classes for FotMob
 TABLE_CLASS = "flipmove"
@@ -35,3 +34,10 @@ LIVE_PORT = 6379
 
 PAST_HOST = "localhost"
 PAST_PORT = 6380
+
+# Paths relative to fpl-oracle/service/
+from pathlib import Path
+BASE_DIR = Path(__file__).resolve().parent.parent.parent  # service/
+SNAPSHOTS_DIR = BASE_DIR / ".cache/snapshots"
+LOGS_DIR = BASE_DIR / ".cache/logs"
+PW_SESSION_DIR = BASE_DIR / ".cache/pw_session"

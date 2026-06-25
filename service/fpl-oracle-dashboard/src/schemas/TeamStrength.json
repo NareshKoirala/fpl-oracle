@@ -1,0 +1,30 @@
+{
+  "comment": "Keyed by team name, maps to its expected, real, home, away, and last 5 match stats.",
+  "Leeds": {
+    "expected": {
+      "attack": 1.02,
+      "defence": 0.95,
+      "point": 1.03
+    },
+    "real": {
+      "attack": 0.94,
+      "defence": 0.93,
+      "point": 0.91
+    },
+    "home": {
+      "attack": 1.55,
+      "defence": 0.71,
+      "points": 1.08
+    },
+    "away": {
+      "attack": 1.01,
+      "defence": 0.71,
+      "points": 0.67
+    },
+    "last5": {
+      "attack": 1.33,
+      "defence": 0.75,
+      "points": 1.19
+    }
+  }
+}

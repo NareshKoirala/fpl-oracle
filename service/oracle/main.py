@@ -1,8 +1,12 @@
+import sys
+from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent.parent))
+
 import asyncio
-from utils.log import Logger
-from producer.producer import run_producer
-from cook.cook import run_cook
-from utils.redis_server import start_live_server
+from service.oracle.utils.log import Logger
+from service.oracle.producer.producer import run_producer
+from service.oracle.cook.cook import run_cook
+from service.oracle.utils.redis_server import start_live_server
 
 LOG = Logger("Main")
 

@@ -1,8 +1,9 @@
+from service.oracle.config.settings import SNAPSHOTS_DIR
 import redis.asyncio as redis
-from utils.log import Logger
+from service.oracle.utils.log import Logger
 import os
 import shutil
-from config.settings import LIVE_HOST, LIVE_PORT
+from service.oracle.config.settings import LIVE_HOST, LIVE_PORT
 
 LOG = Logger("RedisDB", "db")
 
@@ -31,8 +32,8 @@ class RedisDB:
         season = await self.hget_one("current_gw", "season")
         gw = await self.hget_one("current_gw", "current")
 
-        n_path = os.path.join(os.getcwd(), f"snapshots/{db_file}")
-        c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
+        n_path = str(SNAPSHOTS_DIR / db_file)
+        c_path = str(SNAPSHOTS_DIR / str(season) / str(gw))
 
         LOG.info(f"Dump file located at: {n_path}")
         LOG.info(f"Copying dump to: {c_path}")
@@ -47,8 +48,8 @@ class RedisDB:
     # CLIENT SELECTOR
     # ---------------------------------------------------------
 
-    def _select(self, db: str):
-        return self.client_proc if db[0] == "p" else self.client_raw
+    def _select(self, key: str):
+        return self.client_proc if key.startswith("proc_") else self.client_raw
 
     # ---------------------------------------------------------
     # BASIC COMMANDS

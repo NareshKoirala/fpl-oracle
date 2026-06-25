@@ -1,5 +1,5 @@
-from utils.log import Logger
-from utils.pw_browser_async import PlayWright_async_Browser
+from service.oracle.utils.log import Logger
+from service.oracle.utils.pw_browser_async import PlayWright_async_Browser
 import httpx
 
 LOG = Logger("Scraper", "utils")

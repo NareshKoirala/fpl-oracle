@@ -4,8 +4,8 @@ import os
 import socket
 import time
 
-from config.settings import LIVE_PORT, PAST_PORT, LIVE_HOST, PAST_HOST
-from utils.log import Logger
+from service.oracle.config.settings import LIVE_PORT, PAST_PORT, LIVE_HOST, PAST_HOST, SNAPSHOTS_DIR
+from service.oracle.utils.log import Logger
 
 LOG = Logger("Launcher", "utils")
 
@@ -29,12 +29,19 @@ def log_process_header(cmd):
 def run_with_logs(cmd, logger, wait=False):
     log_process_header(cmd)
 
+    import os
+    from pathlib import Path
+    env = os.environ.copy()
+    root_path = str(Path(__file__).resolve().parent.parent.parent.parent)  # fpl-oracle/ root
+    env["PYTHONPATH"] = root_path + (os.pathsep + env.get("PYTHONPATH", "") if env.get("PYTHONPATH") else "")
+
     process = subprocess.Popen(
         cmd,
         stdout=subprocess.PIPE,
         stderr=subprocess.PIPE,
         text=True,  # <— enables text mode
         bufsize=1,  # <— line buffering now allowed
+        env=env,
     )
 
     threading.Thread(
@@ -99,7 +106,7 @@ def download_req():
 def enable_redis():
     kill_if_enable(LIVE_HOST, LIVE_PORT)
 
-    n_path = os.path.join(os.getcwd(), "snapshots/")
+    n_path = str(SNAPSHOTS_DIR)
     os.makedirs(n_path, exist_ok=True)
 
     cmd = [
@@ -138,7 +145,7 @@ def kill_if_enable(host, port):
 def start_past_server(season, gw):
     kill_if_enable(PAST_HOST, PAST_PORT)
 
-    c_path = os.path.join(os.getcwd(), f"snapshots/{season}/{gw}/")
+    c_path = str(SNAPSHOTS_DIR / str(season) / str(gw))
     os.makedirs(c_path, exist_ok=True)
 
     cmd = [
@@ -162,7 +169,7 @@ def start_past_server(season, gw):
 def start_uvicorn():
     cmd = [
         "uvicorn",
-        "waiter.waiter:app",
+        "service.oracle.waiter.waiter:app",
         "--reload",
     ]
 

@@ -1,5 +1,5 @@
-from utils.log import Logger
-from db.db_redis import RedisDB
+from service.oracle.utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
 from scipy.stats import poisson
 
 LOG = Logger("Fixture_xG", "cook/fixture_math")

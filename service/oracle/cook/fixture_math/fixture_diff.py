@@ -1,5 +1,5 @@
-from db.db_redis import RedisDB
-from utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
+from service.oracle.utils.log import Logger
 
 LOG = Logger("Fixture_Diff", "cook/fixture_math")
 DB = RedisDB()

@@ -1,6 +1,6 @@
-from config.data_struct import PLAYERS
-from utils.log import Logger
-from db.db_redis import RedisDB
+from service.oracle.config.data_struct import PLAYERS
+from service.oracle.utils.log import Logger
+from service.oracle.db.db_redis import RedisDB
 
 LOG = Logger("Players_DB", "db")
 DB = RedisDB()

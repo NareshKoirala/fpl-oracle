@@ -1,9 +1,9 @@
-from utils.scraper import Scraper
-from utils.log import Logger
-from db.teams import get_teams
-from db.players import get_players
-from db.gw_fixtures import get_fixtures
-from config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
+from service.oracle.utils.scraper import Scraper
+from service.oracle.utils.log import Logger
+from service.oracle.db.teams import get_teams
+from service.oracle.db.players import get_players
+from service.oracle.db.gw_fixtures import get_fixtures
+from service.oracle.config.settings import FPL_BOOTSTRAP, YAHOO_SPORTS
 import asyncio
 
 LOG = Logger("Fpl_Scraper", "producer")

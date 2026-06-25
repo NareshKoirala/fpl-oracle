@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from waiter.endpoints import (
+from service.oracle.waiter.endpoints import (
     proc_fixtures,
     team,
     history_path,

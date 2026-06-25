@@ -1,8 +1,8 @@
-from db.db_redis import RedisDB
-from utils.log import Logger
-from config.data_struct import FIXTURES
-from config.settings import FIXTURES as url
-from utils.scraper import Scraper
+from service.oracle.db.db_redis import RedisDB
+from service.oracle.utils.log import Logger
+from service.oracle.config.data_struct import FIXTURES
+from service.oracle.config.settings import FIXTURES as url
+from service.oracle.utils.scraper import Scraper
 
 LOG = Logger("All Fixtures", "db")
 DB = RedisDB()
