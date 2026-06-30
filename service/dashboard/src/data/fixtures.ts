@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever and mapper for game fixtures for the active Season and Gameweek.
  * USAGE: Used in /src/App.tsx to retrieve active fixture metadata and pass it to child views.
  */
-import fixtures38 from "../../public/dummy-data/2025/38/fixtures/fixtures.json";
+import fixtures38 from "../dummy-data/2025/38/fixtures/fixtures.json";
 import { CombinedFixture } from "./types";
 import { getScorelines } from "./scorelines";
 import { getGoalProbabilityHome, getGoalProbabilityAway } from "./goal_probabilities";
@@ -84,14 +84,16 @@ export const getFixtures = (season: string, gw: number): CombinedFixture[] => {
         away_id: f.id * 10 + 1,
         kickoff_time: "2026-05-18T14:00:00Z",
         finished: false,
-        score: "0-0"
+        home_score: 0,
+        away_score: 0
       },
       stats: {
         shots_home: 12,
         shots_away: 9,
         xG_home: f.xg_home,
         xG_away: f.xg_away,
-        possession_home: 54
+        possession_home: 54,
+        possession_away: 46
       },
       poisson: homePoissonMap[f.id.toString()]?.reduce((acc: any, val: number, idx: number) => {
         acc[idx.toString()] = val;

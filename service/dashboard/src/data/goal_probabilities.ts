@@ -3,8 +3,8 @@
  * PURPOSE: Data retriever and getter proxies for goal probability scales for teams.
  * USAGE: Used in /src/components/FixturesView.tsx to retrieve probability weights for goals (0 to 3) from the Redis DB 1 processed keyspace.
  */
-import gphData from "../../public/dummy-data/2025/38/fixtures/gph.json";
-import gpaData from "../../public/dummy-data/2025/38/fixtures/gpa.json";
+import gphData from "../dummy-data/2025/38/fixtures/gph.json";
+import gpaData from "../dummy-data/2025/38/fixtures/gpa.json";
 
 export const goalProbabilityHome = new Proxy(gphData as Record<string, number[]>, {
   get: (target, prop) => {

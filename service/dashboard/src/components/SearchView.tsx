@@ -1,19 +1,14 @@
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { 
   Search, 
   User, 
-  MapPin, 
   Calendar, 
-  Flame, 
-  Scale, 
-  ArrowRight,
-  TrendingUp,
-  Award,
-  Zap,
-  CheckCircle2
+  Scale
 } from "lucide-react";
-import { CombinedFixture, CombinedPlayer, CombinedTeam, ProcTeamStrength } from "../data/types";
+import { CombinedFixture, CombinedPlayer, CombinedTeam } from "../data/types";
 import { calculateAggregates } from "../data/fixtures";
+import { getPosString } from "../lib/utils";
+import { PositionBadge } from "./PositionBadge";
 
 interface SearchViewProps {
   selectedSeason: string;
@@ -32,40 +27,40 @@ export default function SearchView({
 }: SearchViewProps) {
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Search Results structures
-  let matchingPlayers: CombinedPlayer[] = [];
-  let matchingTeams: CombinedTeam[] = [];
-  let matchingFixtures: CombinedFixture[] = [];
-
   const activeFixtures = Array.isArray(fixtures) ? fixtures : [];
 
-  const handleSearch = () => {
-    if (!searchTerm.trim()) return;
-
+  const { matchingPlayers, matchingTeams, matchingFixtures } = useMemo(() => {
+    if (!searchTerm.trim()) {
+      return { matchingPlayers: [], matchingTeams: [], matchingFixtures: [] };
+    }
+    
     const term = searchTerm.toLowerCase();
 
     // 1. Players Search
-    matchingPlayers = players.filter(p => {
-      const posString = p.raw.position === 4 ? "FWD" : p.raw.position === 3 ? "MID" : p.raw.position === 2 ? "DEF" : "GKP";
+    const foundPlayers = players.filter(p => {
+      const posString = getPosString(p.raw.position);
       return p.raw.name.toLowerCase().includes(term) ||
              p.team.name.toLowerCase().includes(term) ||
              posString.toLowerCase().includes(term);
     });
 
     // 2. Teams Search
-    matchingTeams = teamsRaw.filter(t => 
+    const foundTeams = teamsRaw.filter(t => 
       t.raw.name.toLowerCase().includes(term)
     );
 
     // 3. Fixtures Search
-    matchingFixtures = activeFixtures.filter(f => 
+    const foundFixtures = activeFixtures.filter(f => 
       f.home_team.name.toLowerCase().includes(term) ||
       f.away_team.name.toLowerCase().includes(term)
     );
-  };
 
-  // Perform search on every keystroke for premium immediate feeling!
-  handleSearch();
+    return {
+      matchingPlayers: foundPlayers,
+      matchingTeams: foundTeams,
+      matchingFixtures: foundFixtures
+    };
+  }, [searchTerm, players, teamsRaw, activeFixtures]);
 
   const totalResults = matchingPlayers.length + matchingTeams.length + matchingFixtures.length;
 
@@ -120,17 +115,16 @@ export default function SearchView({
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   {matchingPlayers.map(p => {
-                    const posStr = p.raw.position === 4 ? "FWD" : p.raw.position === 3 ? "MID" : p.raw.position === 2 ? "DEF" : "GKP";
                     return (
                       <div key={p.id} className="clay-card p-4 border-white/5 bg-white/[0.01] flex justify-between items-center hover:border-[#00ff85]/30 hover:bg-white/[0.03] transition duration-150">
                         <div>
-                          <span className="text-[10px] bg-cyan-500/15 text-cyan-400 px-1.5 py-0.5 rounded font-mono font-bold">{posStr}</span>
+                          <PositionBadge position={p.raw.position} className="mb-1 block w-fit" />
                           <h4 className="text-sm font-bold text-white mt-1.5">{p.raw.name}</h4>
                           <p className="text-[11px] text-white/40 mt-0.5">{p.team.name} • Price £{(p.raw.cost / 10).toFixed(1)}m</p>
                         </div>
                         <div className="text-right font-mono">
                           <span className="text-[10px] text-white/30 uppercase block">Total Points</span>
-                          <span className="text-base font-black text-white">{p.gw.points}</span>
+                          <span className="text-base font-black text-white">{p.gw.total_points}</span>
                         </div>
                       </div>
                     );

@@ -4,7 +4,7 @@
  * USAGE: Used in /src/components/ChelseaHubCard.tsx to present specific fixture cards.
  */
 
-import chelseaHubData from "../../public/dummy-data/chelsea_hub.json";
+import chelseaHubData from "../dummy-data/chelsea_hub.json";
 
 export interface ChelseaHubFixture {
   gw: string;

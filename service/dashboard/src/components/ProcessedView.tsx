@@ -9,6 +9,8 @@ import {
   ChevronLeft,
   ChevronRight
 } from "lucide-react";
+import { getPosString } from "../lib/utils";
+import { PositionBadge } from "./PositionBadge";
 import { CombinedTeam, CombinedPlayer } from "../data/types";
 
 interface ProcessedViewProps {
@@ -43,7 +45,7 @@ export default function ProcessedView({ selectedSeason, selectedGW, players, tea
 
   const filteredPlayers = useMemo(() => {
     return processedPlayers.filter(p => {
-      const posString = p.raw.position === 4 ? "FWD" : p.raw.position === 3 ? "MID" : p.raw.position === 2 ? "DEF" : "GKP";
+      const posString = getPosString(p.raw.position);
       return p.raw.name.toLowerCase().includes(searchTerm.toLowerCase()) || 
              p.team.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
              posString.toLowerCase().includes(searchTerm.toLowerCase());
@@ -65,8 +67,6 @@ export default function ProcessedView({ selectedSeason, selectedGW, players, tea
   }, [filteredTeams, teamPage]);
 
   const totalTeamPages = Math.ceil(filteredTeams.length / itemsPerPage);
-
-  const getPosString = (pos: number) => pos === 4 ? "FWD" : pos === 3 ? "MID" : pos === 2 ? "DEF" : "GKP";
 
   return (
     <div className="space-y-6">
@@ -171,7 +171,7 @@ export default function ProcessedView({ selectedSeason, selectedGW, players, tea
                       </div>
                       <div className="text-right">
                         <span className="text-[10px] font-mono text-white/40 uppercase tracking-widest block">Overall Strength</span>
-                        <span className="text-2xl font-black font-mono text-[#00ff85]">{team.strength.overall_strength}%</span>
+                        <span className="text-2xl font-black font-mono text-[#00ff85]">{Math.round((team.raw.strength_overall_home + team.raw.strength_overall_away) / 2)}</span>
                       </div>
                     </div>
                     
@@ -230,21 +230,13 @@ export default function ProcessedView({ selectedSeason, selectedGW, players, tea
           >
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-4">
               {paginatedPlayers.map((player) => {
-                const posStr = getPosString(player.raw.position);
                 return (
                   <div key={player.id} className="clay-card border-white/5 bg-white/[0.01] p-4 flex flex-col justify-between hover:bg-white/[0.03] transition group relative overflow-hidden">
                     <div className="absolute top-0 right-0 w-24 h-24 bg-[#00ff85]/5 rounded-bl-full blur-2xl group-hover:bg-[#00ff85]/10 transition"></div>
                     
                     <div>
                       <div className="flex justify-between items-start mb-3 relative z-10">
-                        <span className={`text-[10px] font-mono font-bold px-2 py-0.5 rounded ${
-                            posStr === "FWD" ? "bg-[#ff005a]/10 text-[#ff005a] border border-[#ff005a]/20" :
-                            posStr === "MID" ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/20" :
-                            posStr === "DEF" ? "bg-indigo-500/10 text-indigo-400 border border-indigo-500/20" :
-                            "bg-amber-500/10 text-amber-500 border border-amber-500/20"
-                        }`}>
-                          {posStr}
-                        </span>
+                        <PositionBadge position={player.raw.position} className="px-2" />
                       </div>
                       
                       <h3 className="text-base font-bold text-white truncate relative z-10">{player.raw.name}</h3>

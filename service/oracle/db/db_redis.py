@@ -126,3 +126,49 @@ class RedisDB:
     async def lrange(self, db, start, stop):
         client = self._select(db)
         return await client.lrange(db, start, stop)
+
+    # ---------------------------------------------------------
+    # SET COMMANDS
+    # ---------------------------------------------------------
+
+    async def sadd_one(self, db, member):
+        client = self._select(db)
+        await client.sadd(db, member)
+
+    async def sadd_all(self, db, memberls):
+        client = self._select(db)
+        await client.sadd(db, *memberls)
+
+    async def smembers(self, db):
+        client = self._select(db)
+        return await client.smembers(db)
+
+    # ---------------------------------------------------------
+    # ZSET COMMANDS
+    # ---------------------------------------------------------
+
+    async def zadd(self, db, score, member):
+        client = self._select(db)
+        await client.zadd(db, {member: score})
+
+    async def zrange(self, db, start, stop, withscores=False):
+        client = self._select(db)
+        return await client.zrange(db, start, stop, withscores=withscores)
+
+    async def zrevrange(self, db, start, stop, withscores=False):
+        client = self._select(db)
+        return await client.zrevrange(db, start, stop, withscores=withscores)
+
+    async def zrangebyscore(self, db, min_score, max_score, withscores=False):
+        client = self._select(db)
+        return await client.zrangebyscore(
+            db, min_score, max_score, withscores=withscores
+        )
+
+    async def zrem(self, db, member):
+        client = self._select(db)
+        await client.zrem(db, member)
+
+    async def zscore(self, db, member):
+        client = self._select(db)
+        return await client.zscore(db, member)

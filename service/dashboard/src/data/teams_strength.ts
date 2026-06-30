@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever for team attributes including difficulty ratings, squad stats, and fixture coefficients.
  * USAGE: Used in /src/App.tsx to retrieve active team difficulty values and pass it to child views.
  */
-import ts38 from "../../public/dummy-data/2025/38/teams/strengths.json";
+import ts38 from "../dummy-data/2025/38/teams/strengths.json";
 import { ProcTeamStrength } from "./types";
 
 /**

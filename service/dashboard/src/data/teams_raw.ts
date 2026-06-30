@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever for raw team parameters, goals scored, conceded, and standings logs.
  * USAGE: Used in /src/App.tsx to retrieve standings data and pass it to child views.
  */
-import teamsRawData from "../../public/dummy-data/2025/38/teams/raw.json";
+import teamsRawData from "../dummy-data/2025/38/teams/raw.json";
 import { CombinedTeam } from "./types";
 import { getTeamsStrength } from "./teams_strength";
 

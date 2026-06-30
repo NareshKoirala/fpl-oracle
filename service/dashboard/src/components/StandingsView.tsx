@@ -28,6 +28,12 @@ interface StandingsViewProps {
   teamsRaw: CombinedTeam[];
 }
 
+// Helper for styling difference values (e.g. green for positive, amber for negative)
+const getDiffColor = (val: string) => {
+  if (!val || val === "0" || val === "0.0") return "text-white/40";
+  return val.startsWith("+") ? "text-emerald-400 font-bold" : val.startsWith("-") ? "text-rose-400" : "text-white/60";
+};
+
 export default function StandingsView({ selectedSeason, selectedGW, teamsRaw }: StandingsViewProps) {
   const [activeTab, setActiveTab] = useState<TableTab>("current");
   const [searchTerm, setSearchTerm] = useState("");
@@ -499,12 +505,6 @@ export default function StandingsView({ selectedSeason, selectedGW, teamsRaw }: 
               <tbody className="divide-y divide-white/5 text-sm">
                 {sortedExpectedTable.map((team, index) => {
                   const pos = index + 1;
-                  
-                  // Helper for styling difference values (e.g. green for positive, amber for negative)
-                  const getDiffColor = (val: string) => {
-                    if (!val || val === "0" || val === "0.0") return "text-white/40";
-                    return val.startsWith("+") ? "text-emerald-400 font-bold" : val.startsWith("-") ? "text-rose-400" : "text-white/60";
-                  };
 
                   return (
                     <tr 

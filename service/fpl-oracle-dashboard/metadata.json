@@ -1,6 +1,0 @@
-{
-  "name": "FPL Oracle Dashboard",
-  "description": "An advanced, animated, and modern analytics dashboard for Fantasy Premier League (FPL). Features predictive modeling, team strengths, fixture probabilities, and player expected metrics.",
-  "requestFramePermissions": [],
-  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
-}

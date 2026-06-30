@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever for expected (xG based) coefficients, expected goals scored/conceded, and expected points for teams.
  * USAGE: Used in /src/components/StandingsView.tsx to render the Simulated expected league standings from Redis keys.
  */
-import tExpectedData from "../../public/dummy-data/2025/38/teams/expected.json";
+import tExpectedData from "../dummy-data/2025/38/teams/expected.json";
 
 /**
  * In production, this will fetch from a FastAPI endpoint that returns data

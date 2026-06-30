@@ -21,6 +21,8 @@ import {
   Info,
   X
 } from "lucide-react";
+import { getPosString } from "../lib/utils";
+import { PositionBadge } from "./PositionBadge";
 import { CombinedPlayer } from "../data/types";
 import { 
   ResponsiveContainer, 
@@ -72,7 +74,7 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
   // Filter player list
   const filteredPlayers = useMemo(() => {
     return safePlayers.filter(p => {
-      const posString = p.raw.position === 4 ? "FWD" : p.raw.position === 3 ? "MID" : p.raw.position === 2 ? "DEF" : "GKP";
+      const posString = getPosString(p.raw.position);
       const matchesSearch = p.raw.name.toLowerCase().includes(searchTerm.toLowerCase());
       const matchesPosition = selectedPosition === "ALL" || posString === selectedPosition;
       const matchesTeam = selectedTeam === "ALL" || p.team.name === selectedTeam;
@@ -109,8 +111,8 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
   const radarData = useMemo(() => {
     if (!activePlayer) return [];
     return [
-      { name: "Threat", val: activePlayer.season.xG * 10 },
-      { name: "Creativity", val: activePlayer.season.xA * 10 },
+      { name: "Threat", val: activePlayer.season.expected_goals * 10 },
+      { name: "Creativity", val: activePlayer.season.expected_assists * 10 },
       { name: "Form", val: activePlayer.proc.form_coefficient * 5 },
       { name: "Points Exp", val: activePlayer.proc.xp_this_gw * 10 },
       { name: "Minutes", val: activePlayer.proc.minute_probability }
@@ -121,8 +123,8 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
   const outcomesData = useMemo(() => {
     if (!activePlayer) return [];
     return [
-      { name: "Goals", Expected: activePlayer.season.xG, Actual: activePlayer.season.goals },
-      { name: "Assists", Expected: activePlayer.season.xA, Actual: activePlayer.season.assists }
+      { name: "Goals", Expected: activePlayer.season.expected_goals, Actual: activePlayer.season.goals_scored },
+      { name: "Assists", Expected: activePlayer.season.expected_assists, Actual: activePlayer.season.assists }
     ];
   }, [activePlayer]);
 
@@ -138,8 +140,6 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
         return <span className="inline-flex items-center gap-1 text-[10px] bg-red-500/10 text-red-400 border border-red-500/25 px-2 py-0.5 rounded-full font-mono">■ Injured</span>;
     }
   };
-
-  const getPosString = (pos: number) => pos === 4 ? "FWD" : pos === 3 ? "MID" : pos === 2 ? "DEF" : "GKP";
 
   const renderDossierContent = () => {
     if (!activePlayer) return null;
@@ -255,13 +255,13 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
           <div className="grid grid-cols-2 gap-4">
             <div className="p-3 bg-white/[0.01] border border-white/5 rounded-xl">
               <span className="text-[10px] text-white/30 uppercase block font-mono">Expected Goals (xG)</span>
-              <span className="text-base font-black text-white font-mono">{activePlayer.season.xG.toFixed(2)}</span>
-              <span className="text-[10px] text-white/40 block font-mono mt-0.5">Real Goals: {activePlayer.season.goals}</span>
+              <span className="text-base font-black text-white font-mono">{activePlayer.season.expected_goals.toFixed(2)}</span>
+              <span className="text-[10px] text-white/40 block font-mono mt-0.5">Real Goals: {activePlayer.season.goals_scored}</span>
             </div>
 
             <div className="p-3 bg-white/[0.01] border border-white/5 rounded-xl">
               <span className="text-[10px] text-white/30 uppercase block font-mono">Expected Assists (xA)</span>
-              <span className="text-base font-black text-white font-mono">{activePlayer.season.xA.toFixed(2)}</span>
+              <span className="text-base font-black text-white font-mono">{activePlayer.season.expected_assists.toFixed(2)}</span>
               <span className="text-[10px] text-white/40 block font-mono mt-0.5">Real Assists: {activePlayer.season.assists}</span>
             </div>
           </div>
@@ -272,7 +272,7 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
             <div className="grid grid-cols-2 gap-4 pt-1 text-center font-mono">
               <div className="border-r border-white/5">
                 <span className="text-[9px] text-white/30 uppercase block">Total Points</span>
-                <span className="text-xs font-bold text-[#00ff85] mt-0.5 block">{activePlayer.gw.points} pts</span>
+                <span className="text-xs font-bold text-[#00ff85] mt-0.5 block">{activePlayer.gw.total_points} pts</span>
               </div>
               <div>
                 <span className="text-[9px] text-white/30 uppercase block">Form Coefficient</span>
@@ -400,7 +400,6 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
                 ) : (
                   paginatedPlayers.map((p) => {
                     const isSelected = p.id === activePlayer?.id;
-                    const posStr = getPosString(p.raw.position);
                     return (
                       <tr 
                         key={p.id} 
@@ -421,14 +420,7 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
                             <span className="text-[10px] font-mono text-white/60 bg-white/5 px-1.5 py-0.5 rounded">
                               {p.team.short_name}
                             </span>
-                            <span className={`text-[10px] font-mono font-bold px-1.5 py-0.5 rounded ${
-                              posStr === "FWD" ? "bg-[#ff005a]/10 text-[#ff005a]" :
-                              posStr === "MID" ? "bg-cyan-500/10 text-cyan-400" :
-                              posStr === "DEF" ? "bg-indigo-500/10 text-indigo-400" :
-                              "bg-amber-500/10 text-amber-500"
-                            }`}>
-                              {posStr}
-                            </span>
+                            <PositionBadge position={p.raw.position} withBorder={false} />
                           </div>
                         </td>
 
@@ -449,7 +441,7 @@ export default function PlayersView({ selectedSeason, selectedGW, players }: Pla
 
                         {/* Total Points */}
                         <td className="py-3 px-4 text-center font-mono font-black text-sm text-white">
-                          {p.gw.points}
+                          {p.gw.total_points}
                         </td>
 
                         {/* View Button */}

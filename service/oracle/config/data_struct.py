@@ -35,18 +35,18 @@ PLAYER = {
     "id": "0",
     "first_name": "",
     "second_name": "",
-    "name": "",             # web_name — the display name used everywhere
+    "name": "",             # (web_name) — the display name used everywhere
     "code": "0",            # FPL photo/asset code
     # Relationships (normalized IDs)
-    "team_id": "0",         # FK → team:{id}
-    "position": "0",        # 1=GK  2=DEF  3=MID  4=FWD
+    "team_id": "0",         # FK → team:{id} (team_code)
+    "position": "0",        # 1=GK  2=DEF  3=MID  4=FWD (element_type)
     # Availability
     "status": "a",          # a=available  d=doubtful  i=injured  s=suspended  u=unavailable
-    "chance_of_playing": "100",
+    "chance_of_playing": "100", # (chance_of_playing_this_round)
     "news": "",
     # Pricing
-    "cost": "0",            # now_cost / 10 (stored as float string e.g. "8.5")
-    "cost_change_start": "0",
+    "cost": "0",            # (now_cost) / 10 (stored as float string e.g. "8.5")
+    "cost_change_start": "0", 
     "cost_change_event": "0",
     # Current season totals (summary — full history in player:{id}:season:{year})
     "total_points": "0",
@@ -211,33 +211,7 @@ PLAYER_GW = {
 }
 
 
-# -----------------------------------------------------------------------------
-# player:{id}:fixture:{fixture_id} — HASH
-# Per-fixture detailed stats (Opta/FotMob player-level data).
-# Source: future FotMob player match scraper
-# Note: populated in a future phase — key exists in schema but writer TBD.
-# -----------------------------------------------------------------------------
-PLAYER_FIXTURE = {
-    "shots": "0",
-    "shots_on_target": "0",
-    "key_passes": "0",
-    "xG": "0",
-    "xA": "0",
-    "xGChain": "0",
-    "xGBuildup": "0",
-    "touches": "0",
-    "duels_won": "0",
-    "duels_total": "0",
-    "dribbles_completed": "0",
-    "fouls_drawn": "0",
-    "fouls_committed": "0",
-    "interceptions": "0",
-    "clearances": "0",
-    "tackles": "0",
-    "recoveries": "0",
-}
-
-
+# DONE
 # -----------------------------------------------------------------------------
 # team:{id} — HASH
 # Core team identity + raw FPL strength ratings.
@@ -256,14 +230,14 @@ TEAM = {
     "strength_defence_home": "0",
     "strength_defence_away": "0",
     # Full season table (updated by fotmob_scraper → table_scrap)
-    "table_position": "0",
-    "table_played": "0",
-    "table_wins": "0",
-    "table_draws": "0",
-    "table_losses": "0",
-    "table_goals_for": "0",
-    "table_goals_against": "0",
-    "table_points": "0",
+    "position": "0",
+    "played": "0",
+    "wins": "0",
+    "draws": "0",
+    "losses": "0",
+    "goals_for": "0",
+    "goals_against": "0",
+    "points": "0",
 }
 
 
@@ -282,20 +256,51 @@ TEAM_EXPECTED = {
     "xPts_difference": "0",
 }
 
-
 # -----------------------------------------------------------------------------
 # team:{id}:form — HASH
 # Last 5 matches summary.
 # Source: fotmob_scraper → form_table_scrap()
 # -----------------------------------------------------------------------------
 TEAM_FORM = {
-    "form_string": "",      # e.g. "WWDLW" (most recent last)
-    "goals_for": "0",
-    "goals_against": "0",
-    "points": "0",
+    "position": "0",
+    "played": "0",
     "wins": "0",
     "draws": "0",
     "losses": "0",
+    "goals_for": "0",
+    "goals_against": "0",
+    "points": "0",
+}
+# -----------------------------------------------------------------------------
+# team:{id}:home — HASH
+# Last 5 matches summary.
+# Source: fotmob_scraper → form_table_scrap()
+# -----------------------------------------------------------------------------
+TEAM_HOME = {
+    "position": "0",
+    "played": "0",
+    "wins": "0",
+    "draws": "0",
+    "losses": "0",
+    "goals_for": "0",
+    "goals_against": "0",
+    "points": "0",
+}
+
+# -----------------------------------------------------------------------------
+# team:{id}:away — HASH
+# Last 5 matches summary.
+# Source: fotmob_scraper → form_table_scrap()
+# -----------------------------------------------------------------------------
+TEAM_AWAY = {
+    "position": "0",
+    "played": "0",
+    "wins": "0",
+    "draws": "0",
+    "losses": "0",
+    "goals_for": "0",
+    "goals_against": "0",
+    "points": "0",
 }
 
 
@@ -314,31 +319,6 @@ FIXTURE = {
     "started": "False",
     "home_score": "",       # empty string if not yet played
     "away_score": "",
-}
-
-
-# -----------------------------------------------------------------------------
-# fixture:{id}:stats — HASH
-# Raw match stats (aggregated at team level).
-# Source: FPL fixture stats API + future FotMob match scraper
-# -----------------------------------------------------------------------------
-FIXTURE_STATS = {
-    "shots_home": "0",
-    "shots_away": "0",
-    "shots_on_target_home": "0",
-    "shots_on_target_away": "0",
-    "xG_home": "0",
-    "xG_away": "0",
-    "possession_home": "0",
-    "possession_away": "0",
-    "corners_home": "0",
-    "corners_away": "0",
-    "fouls_home": "0",
-    "fouls_away": "0",
-    "yellow_cards_home": "0",
-    "yellow_cards_away": "0",
-    "red_cards_home": "0",
-    "red_cards_away": "0",
 }
 
 

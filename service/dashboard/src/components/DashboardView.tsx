@@ -9,16 +9,8 @@ import { motion, AnimatePresence } from "motion/react";
 import { 
   TrendingUp, 
   Tv, 
-  ShieldAlert, 
-  CheckCircle, 
-  ChevronDown, 
-  Calendar, 
   User, 
-  Activity, 
-  DollarSign, 
-  Award, 
-  Zap,
-  Percent
+  Award 
 } from "lucide-react";
 import { allDataStructure } from "../data/all_data_structure";
 import { getTeamWeek, getActualTeamOfWeek, TeamWeekPlayer } from "../data/team_week";

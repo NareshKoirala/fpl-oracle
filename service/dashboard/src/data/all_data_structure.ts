@@ -12,8 +12,5 @@ export const allDataStructure = {
   ]
 };
 
-export const getAllDataStructure = (season: string, gw: number) => {
-  console.log(`getAllDataStructure: season=${season}, gw=${gw}`);
-  return allDataStructure;
-};
+
 

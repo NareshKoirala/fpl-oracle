@@ -7,16 +7,9 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { 
-  TrendingUp, 
   ChevronRight, 
-  Flame, 
-  Grid, 
   Clock, 
-  Percent, 
-  BadgeHelp,
   Calculator,
-  ShieldCheck,
-  Eye,
   Info,
   X,
   Award

@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever and builder for FPL Projected and Actual Team of the Weeks (Dream Teams).
  * USAGE: Used in /src/components/DashboardView.tsx to render the pitch grid, players, prices, and FPL score cards.
  */
-import teamWeekData from "../../public/dummy-data/2025/38/teams/week.json";
+import teamWeekData from "../dummy-data/2025/38/teams/week.json";
 export interface TeamWeekPlayer {
   name: string;
   team: string;
@@ -23,11 +23,11 @@ export interface TeamWeek {
   players: TeamWeekPlayer[];
 }
 
-export const teamWeek: Record<number, TeamWeek> = {
+const teamWeek: Record<number, TeamWeek> = {
   1: teamWeekData as unknown as TeamWeek,
 };
 
-export const actualTeamOfWeek: Record<number, TeamWeek> = {
+const actualTeamOfWeek: Record<number, TeamWeek> = {
   1: {
     gw: 38,
     formation: "3-6-1",
@@ -59,6 +59,7 @@ export const getTeamWeek = (season: string, gw: number): TeamWeek => {
   return teamWeekData as unknown as TeamWeek;
 };
 
+// TODO: Replace with real FastAPI call when the backend is ready. Currently returns hardcoded dummy data.
 export const getActualTeamOfWeek = (season: string, gw: number): TeamWeek => {
   console.log(`getActualTeamOfWeek called with: season=${season}, gw=${gw}`);
   return actualTeamOfWeek[1];

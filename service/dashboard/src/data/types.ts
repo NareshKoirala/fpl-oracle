@@ -28,18 +28,18 @@ export interface PlayerMeta {
 
 export interface PlayerSeason {
   minutes: number;
-  goals: number;
+  goals_scored: number;
   assists: number;
-  xG: number;
-  xA: number;
+  expected_goals: number;
+  expected_assists: number;
 }
 
 export interface PlayerGw {
   minutes: number;
-  goals: number;
+  goals_scored: number;
   assists: number;
   bps: number;
-  points: number;
+  total_points: number;
 }
 
 export interface PlayerFixture {
@@ -75,7 +75,8 @@ export interface FixtureRaw {
   away_id: number;
   kickoff_time: string; // ISO string e.g., "2026-05-18T14:00:00Z"
   finished: boolean;
-  score: string; // e.g., "1-1"
+  home_score: number | null;
+  away_score: number | null;
 }
 
 export interface FixtureStats {
@@ -84,20 +85,32 @@ export interface FixtureStats {
   xG_home: number;
   xG_away: number;
   possession_home: number;
+  possession_away: number;
 }
 
 export interface GameweekRaw {
+  id: number;
   name: string;
   deadline_time: string;
+  is_previous: boolean;
   is_current: boolean;
+  is_next: boolean;
+  finished: boolean;
+  data_checked: boolean;
   highest_score: number;
   most_captained: number;
+  most_selected: number;
+  most_transferred_in: number;
+  top_element: number;
+  most_vice_captained: number;
 }
 
 export interface SystemState {
   current_gw: number;
   current_season: number;
   last_producer_run: string;
+  last_cook_run: string;
+  producer_status: string;
   cook_status: string; // "complete", etc.
 }
 
@@ -133,8 +146,20 @@ export interface ProcTeamOfWeek {
   def_1: number;
   def_2: number;
   def_3: number;
+  def_4: number;
+  def_5: number;
   mid_1: number;
+  mid_2: number;
+  mid_3: number;
+  mid_4: number;
+  mid_5: number;
   fwd_1: number;
+  fwd_2: number;
+  fwd_3: number;
+  bench_1: number;
+  bench_2: number;
+  bench_3: number;
+  bench_4: number;
   captain: number;
   vice_captain: number;
 }

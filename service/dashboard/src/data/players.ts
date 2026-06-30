@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever for general FPL player profiles, cost, position, and statistical summaries.
  * USAGE: Used in /src/App.tsx to retrieve active static player details.
  */
-import playersData from "../../public/dummy-data/2025/38/players/players.json";
+import playersData from "../dummy-data/2025/38/players/players.json";
 import { CombinedPlayer } from "./types";
 
 /**
@@ -33,17 +33,17 @@ export const getPlayers = (season: string, gw: number): CombinedPlayer[] => {
       },
       season: {
         minutes: p.minutes || 0,
-        goals: p.goals_scored || 0,
+        goals_scored: p.goals_scored || 0,
         assists: p.assists || 0,
-        xG: parseFloat(p.expected_goals) || 0.0,
-        xA: parseFloat(p.expected_assists) || 0.0
+        expected_goals: parseFloat(p.expected_goals) || 0.0,
+        expected_assists: parseFloat(p.expected_assists) || 0.0
       },
       gw: {
         minutes: 90,
-        goals: 0,
+        goals_scored: 0,
         assists: 0,
         bps: p.bps || 0,
-        points: p.total_points || 0
+        total_points: p.total_points || 0
       },
       proc: {
         xp_this_gw: parseFloat(p.ep_this) || 0,

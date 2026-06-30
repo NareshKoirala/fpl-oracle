@@ -26,3 +26,24 @@ EPL_NAME_MAP = {
     "West Ham United": "West Ham",
     "Nottingham Forest": "Nottm Forest",
 }
+
+PLAYERS_KEY_MAP = {
+    "web_name": "name",
+    "team_code": "team_id",
+    "element_type": "position",
+    "chance_of_playing_this_round": "chance_of_playing",
+    "now_cost": "cost",
+}
+
+PLAYER_GW_KEY_MAP = {
+    "fixture_id": "fixture",
+    "opponent_team_id": "opponent_team",
+}
+
+FIXTURE_MAP = {
+    "gw": "event",
+    "home_id": "team_h",
+    "away_id": "team_a",
+    "home_score": "team_h_score",
+    "away_score": "team_a_score",
+}

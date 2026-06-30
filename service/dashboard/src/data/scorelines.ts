@@ -3,7 +3,7 @@
  * PURPOSE: Data retriever and proxy layer for precise scoreline probability distributions.
  * USAGE: Used in /src/components/FixturesView.tsx to populate the predicted outcome matrix of potential scorelines (e.g. "1-1", "2-1").
  */
-import scorelinesData from "../../public/dummy-data/2025/38/fixtures/scoreline.json";
+import scorelinesData from "../dummy-data/2025/38/fixtures/scoreline.json";
 
 export const scorelines = new Proxy(scorelinesData as Record<string, Record<string, string>>, {
   get: (target, prop) => {
