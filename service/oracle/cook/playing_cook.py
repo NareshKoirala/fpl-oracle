@@ -11,17 +11,17 @@ async def fetch_pids(db, type):
 
 
 async def playing_cook():
-    LOG.info("\n========== START playing_cook() ==========")
+    LOG.info("========== START playing_cook() ==========")
 
     for element_t in range(1, 5):
-        LOG.info(f"\n--- Processing element type {element_t} ---")
+        LOG.info(f"--- Processing element type {element_t} ---")
 
         pids = await fetch_pids(DB, element_t)
         LOG.info(f"Found {len(pids)} players for element type {element_t}")
 
         await save_player(pids, element_t)
 
-    LOG.info("\n========== END playing_cook() ==========\n")
+    LOG.info("========== END playing_cook() ==========")
 
 
 def valid(can_t, status, can_s, rm):

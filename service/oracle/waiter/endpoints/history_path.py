@@ -2,15 +2,18 @@ from service.oracle.config.settings import SNAPSHOTS_DIR
 import os
 from fastapi import APIRouter, Depends
 from service.oracle.utils.redis_server import start_past_server
+from service.oracle.utils.log import Logger
 import json
 
 router = APIRouter(prefix="/history-path", tags=["history_path"])
+LOG = Logger("History Path Waiter", "waiter/endpoints")
 
 SNAPSHOT_ROOT = str(SNAPSHOTS_DIR)
 
 
 @router.get("/", response_model=dict)
 async def get_history_paths():
+    LOG.info("Fetching history paths from snapshots root")
     seasons = {}
 
     # Loop through season folders
@@ -35,5 +38,6 @@ async def get_history_paths():
             seasons[int(season_folder)] = sorted(weeks, reverse=True)
 
     data = dict(sorted(seasons.items(), reverse=True))
+    LOG.info(f"Loaded {len(data)} seasons of history paths")
 
     return data

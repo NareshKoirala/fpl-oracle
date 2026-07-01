@@ -14,7 +14,7 @@ def safe_float(v):
 
 
 async def cal_fix_xg(gw, fx_id):
-    LOG.info(f"\n--- cal_fix_xg(GW={gw}, FID={fx_id}) ---")
+    LOG.info(f"--- cal_fix_xg(GW={gw}, FID={fx_id}) ---")
 
     key = f"proc_fixture:{fx_id}"
 
@@ -109,5 +109,5 @@ async def cal_fix_xg(gw, fx_id):
         f"Saved xG + probabilities for FID={fx_id} → "
         f"HW:{home:.2f}, D:{draw:.2f}, AW:{away:.2f}, "
         f"CS_H:{clean_h:.2f}, CS_A:{clean_a:.2f}, "
-        f"O2.5:{over:.2f}, U2.5:{under:.2f}\n"
+        f"O2.5:{over:.2f}, U2.5:{under:.2f}"
     )

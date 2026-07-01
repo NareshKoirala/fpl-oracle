@@ -14,7 +14,7 @@ DB = RedisDB()
 
 
 async def fixture_cook(gw=None):
-    LOG.info("\n========== START fixture_cook() ==========")
+    LOG.info("========== START fixture_cook() ==========")
 
     # Determine gameweek
     if not gw:
@@ -39,4 +39,4 @@ async def fixture_cook(gw=None):
         except Exception as e:
             LOG.error(f"Error processing fixture {fx_id}: {e}")
 
-    LOG.info("========== END fixture_cook() ==========\n")
+    LOG.info("========== END fixture_cook() ==========")

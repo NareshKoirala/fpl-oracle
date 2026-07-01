@@ -24,7 +24,6 @@ import httpx
 from service.oracle.config.settings import (
     FIXTURES as FIXTURES_URL,
     FPL_BOOTSTRAP,
-    FPL_SET_PIECE_NOTES,
     PLAYER_HISTORY,
     SEASON,
 )
@@ -37,7 +36,6 @@ from service.oracle.db.players_history import (
     save_player_gw,
     save_player_season,
 )
-from service.oracle.db.set_pieces import build_name_to_pid, save_set_pieces
 from service.oracle.db.teams import save_team
 from service.oracle.utils.log import Logger
 
@@ -189,7 +187,7 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
     Returns:
         The current season string (e.g. ``"2026"``) or ``None`` on failure.
     """
-    LOG.info("\n========== BOOTSTRAP INGEST ==========")
+    LOG.info("========== BOOTSTRAP INGEST ==========")
 
     data = await client.fetch(FPL_BOOTSTRAP)
     if not data:
@@ -227,7 +225,7 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
         await DB.sadd_all(f"index:season_players:{season}", all_pids)
         LOG.info(f"index:season_players:{season} → {len(all_pids)} players")
 
-    LOG.info("========== BOOTSTRAP INGEST COMPLETE ==========\n")
+    LOG.info("========== BOOTSTRAP INGEST COMPLETE ==========")
     return season
 
 
@@ -238,7 +236,7 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
 
 async def ingest_fixtures(client: FPLClient, season: str | None = None):
     """Fetch ``/api/fixtures/`` and delegate writes."""
-    LOG.info("\n========== FIXTURES INGEST ==========")
+    LOG.info("========== FIXTURES INGEST ==========")
 
     data = await client.fetch(FIXTURES_URL)
     if not data:
@@ -256,7 +254,7 @@ async def ingest_fixtures(client: FPLClient, season: str | None = None):
 
     LOG.info(
         f"========== FIXTURES INGEST COMPLETE "
-        f"({len(data)} fixtures) ==========\n"
+        f"({len(data)} fixtures) =========="
     )
 
 
@@ -308,7 +306,7 @@ async def _fetch_one_player(
 
 async def ingest_player_histories(client: FPLClient):
     """Iterate all players and concurrently fetch ``/api/element-summary/{id}/``."""
-    LOG.info("\n========== PLAYER HISTORY INGEST ==========")
+    LOG.info("========== PLAYER HISTORY INGEST ==========")
 
     # Collect all player IDs from position indexes (built in bootstrap)
     all_pids: set[str] = set()
@@ -339,34 +337,11 @@ async def ingest_player_histories(client: FPLClient):
 
     LOG.info(
         f"========== PLAYER HISTORY INGEST COMPLETE "
-        f"({len(all_pids)} players) ==========\n"
+        f"({len(all_pids)} players) =========="
     )
 
 
-# =============================================================================
-# PHASE 4 — SET-PIECE INGEST
-# =============================================================================
 
-
-async def ingest_set_pieces(client: FPLClient):
-    """Fetch ``/api/team/set-piece-notes/`` and delegate parsing + writes."""
-    LOG.info("\n========== SET-PIECE INGEST ==========")
-
-    data = await client.fetch(FPL_SET_PIECE_NOTES)
-    if not data:
-        LOG.error("Set-piece notes fetch failed — skipping.")
-        return
-
-    # Build player name lookup (needs bootstrap data)
-    name_to_pid = await build_name_to_pid()
-    LOG.info(f"Name lookup built: {len(name_to_pid)} players")
-
-    update_count = await save_set_pieces(data, name_to_pid)
-
-    LOG.info(
-        f"========== SET-PIECE INGEST COMPLETE "
-        f"({update_count} updates) ==========\n"
-    )
 
 
 # =============================================================================
@@ -374,7 +349,7 @@ async def ingest_set_pieces(client: FPLClient):
 # =============================================================================
 
 
-async def run_fpl_ingest():
+async def run_fpl_ingest(full: bool = True):
     """Master orchestrator for all FPL API ingestion.
 
     Called by ``producer.py`` as the single entry point for FPL data.
@@ -408,10 +383,12 @@ async def run_fpl_ingest():
             await ingest_fixtures(client, season)
 
             # Phase 3: Player histories (depends on position indexes)
-            await ingest_player_histories(client)
+            if full:
+                await ingest_player_histories(client)
+            else:
+                LOG.info("Differential mode: skipping player history summary ingest.")
 
-            # Phase 4: Set-piece notes (depends on player name data)
-            await ingest_set_pieces(client)
+
 
         # Mark success
         await DB.hset_one("status", "producer_status", "complete")

@@ -20,7 +20,7 @@ def safe_float(v):
 
 async def fixture_difficulty(team_h, team_a, gw, fx_id):
     LOG.info(
-        f"\n--- fixture_difficulty(H:{team_h}, A:{team_a}, GW:{gw}, FID:{fx_id}) ---"
+        f"--- fixture_difficulty(H:{team_h}, A:{team_a}, GW:{gw}, FID:{fx_id}) ---"
     )
 
     # Weight ratios
@@ -103,4 +103,4 @@ async def fixture_difficulty(team_h, team_a, gw, fx_id):
         },
     )
 
-    LOG.info(f"Saved fixture difficulty for FID={fx_id}\n")
+    LOG.info(f"Saved fixture difficulty for FID={fx_id}")

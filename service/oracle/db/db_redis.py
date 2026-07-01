@@ -8,6 +8,38 @@ from service.oracle.config.settings import LIVE_HOST, LIVE_PORT
 LOG = Logger("RedisDB", "db")
 
 
+def sanitize_value(field_name: str, value) -> str:
+    """Ensure that value is converted to a string and gets a sensible default if empty/None/null."""
+    if value is None:
+        val_str = ""
+    elif isinstance(value, bool):
+        val_str = "true" if value else "false"
+    else:
+        val_str = str(value).strip()
+
+    # Normalize uppercase booleans
+    if val_str == "True":
+        val_str = "true"
+    elif val_str == "False":
+        val_str = "false"
+
+    if not val_str or val_str.lower() in ("none", "null", ""):
+        lower_field = field_name.lower()
+        if "name" in lower_field or "news" in lower_field or "status" in lower_field or "code" in lower_field:
+            return "None"
+        if "time" in lower_field or "date" in lower_field:
+            return "1970-01-01"
+        if "form" in lower_field or "points" in lower_field or "cost" in lower_field or "value" in lower_field or "ict" in lower_field or "influence" in lower_field or "creativity" in lower_field or "threat" in lower_field or "expected" in lower_field or "xG" in lower_field or "xA" in lower_field or "xP" in lower_field or "xp" in lower_field or "percent" in lower_field:
+            if any(kw in lower_field for kw in ("cost", "value", "percent", "xg", "xa", "xp", "ict", "influence", "creativity", "threat")):
+                return "0.0"
+            return "0"
+        if "order" in lower_field or "rank" in lower_field or "played" in lower_field or "wins" in lower_field or "draws" in lower_field or "losses" in lower_field or "goals" in lower_field or "assists" in lower_field or "clean" in lower_field or "conceded" in lower_field or "saves" in lower_field or "starts" in lower_field or "yellow" in lower_field or "red" in lower_field or "bonus" in lower_field or "bps" in lower_field:
+            return "0"
+        return "0"
+
+    return val_str
+
+
 class RedisDB:
     def __init__(self):
         self.client_raw = redis.Redis(host=LIVE_HOST, port=LIVE_PORT, db=0)
@@ -74,19 +106,20 @@ class RedisDB:
 
     async def hset_one(self, db, key, value):
         client = self._select(db)
-        await client.hset(db, key, value)
+        await client.hset(db, key, sanitize_value(key, value))
 
     async def hset_dict(self, db, dicts, subDB=None):
         client = self._select(db)
         async with client.pipeline(transaction=True) as pipe:
             for k, v in dicts.items():
                 field = f"{subDB}.{k}" if subDB else k
-                pipe.hset(db, field, str(v))
+                pipe.hset(db, field, sanitize_value(k, v))
             await pipe.execute()
 
     async def hset_all(self, db, data):
         client = self._select(db)
-        await client.hset(db, mapping=data)
+        sanitized_data = {k: sanitize_value(k, v) for k, v in data.items()}
+        await client.hset(db, mapping=sanitized_data)
 
     async def hget_all(self, db):
         client = self._select(db)

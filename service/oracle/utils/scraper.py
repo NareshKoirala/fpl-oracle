@@ -17,10 +17,10 @@ class Scraper:
 
     async def enable_playwright(self):
         if not self.enablePW:
-            LOG.info("\n========== ENABLING PLAYWRIGHT FOR SCRAPER ==========")
+            LOG.info("========== ENABLING PLAYWRIGHT FOR SCRAPER ==========")
             self.enablePW = True
             self.browser = await PlayWright_async_Browser.create()
-            LOG.info("Playwright enabled for this Scraper instance.\n")
+            LOG.info("Playwright enabled for this Scraper instance.")
         else:
             LOG.info("Playwright already enabled for this Scraper instance.")
 
@@ -30,7 +30,7 @@ class Scraper:
 
     async def fetch_request(self, url: str) -> dict:
         if url:
-            LOG.info(f"\n========== HTTPX REQUEST ==========\nUpdating URL → {url}")
+            LOG.info(f"========== HTTPX REQUEST ==========\nUpdating URL → {url}")
             self.url = url
 
         async with httpx.AsyncClient() as client:
@@ -39,14 +39,14 @@ class Scraper:
                 LOG.info(f"HTTP GET → {url} | Status: {response.status_code}")
 
                 if response.status_code == 200:
-                    LOG.info("HTTPX fetch successful.\n")
+                    LOG.info("HTTPX fetch successful.")
                     return response.json()
 
-                LOG.error(f"HTTPX fetch failed with status {response.status_code}\n")
+                LOG.error(f"HTTPX fetch failed with status {response.status_code}")
                 return None
 
             except Exception as e:
-                LOG.error(f"HTTPX request error: {e}\n")
+                LOG.error(f"HTTPX request error: {e}")
                 return None
 
     # ---------------------------------------------------------
@@ -58,15 +58,15 @@ class Scraper:
             LOG.error("Playwright not enabled for this Scraper instance.")
             return None
 
-        LOG.info(f"\n========== PLAYWRIGHT FETCH ==========\nSelector: {tag}")
+        LOG.info(f"========== PLAYWRIGHT FETCH ==========\nSelector: {tag}")
 
         content = await self.browser.get_content(tag)
 
         if content:
-            LOG.info("Playwright content fetched successfully. Parsing HTML...\n")
+            LOG.info("Playwright content fetched successfully. Parsing HTML...")
             return Scraper.BeautifulSoup_Parse(content, "html.parser")
 
-        LOG.error("Playwright failed to fetch content.\n")
+        LOG.error("Playwright failed to fetch content.")
         return None
 
     # ---------------------------------------------------------
@@ -94,9 +94,9 @@ class Scraper:
             LOG.info("Playwright not enabled — nothing to close.")
             return None
 
-        LOG.info("\n========== CLOSING SCRAPER BROWSER ==========")
+        LOG.info("========== CLOSING SCRAPER BROWSER ==========")
         await self.browser.shutdown_engine()
-        LOG.info("Scraper browser closed.\n")
+        LOG.info("Scraper browser closed.")
 
     async def close_page(self):
         if not self.enablePW:
@@ -105,7 +105,7 @@ class Scraper:
 
         LOG.info("Closing Scraper page...")
         await self.browser.close_page()
-        LOG.info("Scraper page closed.\n")
+        LOG.info("Scraper page closed.")
 
     # ---------------------------------------------------------
     # PAGE ACTIONS
@@ -116,7 +116,7 @@ class Scraper:
             LOG.info("Playwright not enabled — cannot load page.")
             return None
 
-        LOG.info(f"\n========== PAGE LOAD ==========\nURL → {url}")
+        LOG.info(f"========== PAGE LOAD ==========\nURL → {url}")
         await self.browser.page_load(url)
 
     async def click_element(self, selector: str):
@@ -124,7 +124,7 @@ class Scraper:
             LOG.info("Playwright not enabled — cannot click element.")
             return None
 
-        LOG.info(f"\n========== CLICK ELEMENT ==========\nSelector → {selector}")
+        LOG.info(f"========== CLICK ELEMENT ==========\nSelector → {selector}")
         await self.browser.click_element(selector)
 
     async def get_element(self, selector: str):
@@ -132,7 +132,7 @@ class Scraper:
             LOG.info("Playwright not enabled — cannot get element.")
             return None
 
-        LOG.info(f"\n========== GET ELEMENT ==========\nSelector → {selector}")
+        LOG.info(f"========== GET ELEMENT ==========\nSelector → {selector}")
         return await self.browser.get_element(selector)
 
     async def page_reload(self):
@@ -140,5 +140,5 @@ class Scraper:
             LOG.info("Playwright not enabled — cannot reload page.")
             return None
 
-        LOG.info("\n========== PAGE RELOAD ==========")
+        LOG.info("========== PAGE RELOAD ==========")
         await self.browser.page_reload()

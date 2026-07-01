@@ -6,7 +6,7 @@ DB = RedisDB()
 
 
 async def cal_teams_strength():
-    LOG.info("\n========== START cal_teams_strength() ==========")
+    LOG.info("========== START cal_teams_strength() ==========")
 
     # -------------------------------
     # 1. Load EPL teams (1–20)
@@ -133,7 +133,7 @@ async def cal_teams_strength():
 
         LOG.info(f"✓ Finished team {tid}")
 
-    LOG.info("========== END cal_teams_strength() ==========\n")
+    LOG.info("========== END cal_teams_strength() ==========")
 
 
 def safe_float(v):

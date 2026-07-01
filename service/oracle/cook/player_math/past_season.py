@@ -6,7 +6,7 @@ DB = RedisDB()
 
 
 async def past_season_stats(db: RedisDB):
-    LOG.info("\n========== START past_season_stats() ==========")
+    LOG.info("========== START past_season_stats() ==========")
 
     gk_pids = await fetch_pids(db, 1)
     df_pids = await fetch_pids(db, 2)
@@ -23,7 +23,7 @@ async def past_season_stats(db: RedisDB):
     await midfeild_cal(mf_pids)
     await attacker_cal(fw_pids)
 
-    LOG.info("========== END past_season_stats() ==========\n")
+    LOG.info("========== END past_season_stats() ==========")
 
 
 async def fetch_pids(db, type):
@@ -37,7 +37,7 @@ async def fetch_pids(db, type):
 
 
 async def goalkeeper_cal(pids):
-    LOG.info("\n--- Calculating GK past-season stats ---")
+    LOG.info("--- Calculating GK past-season stats ---")
 
     for pid in pids:
         try:
@@ -54,7 +54,7 @@ async def goalkeeper_cal(pids):
 
 
 async def defence_cal(pids):
-    LOG.info("\n--- Calculating DEF past-season stats ---")
+    LOG.info("--- Calculating DEF past-season stats ---")
 
     for pid in pids:
         try:
@@ -71,7 +71,7 @@ async def defence_cal(pids):
 
 
 async def midfeild_cal(pids):
-    LOG.info("\n--- Calculating MID past-season stats ---")
+    LOG.info("--- Calculating MID past-season stats ---")
 
     for pid in pids:
         try:
@@ -88,7 +88,7 @@ async def midfeild_cal(pids):
 
 
 async def attacker_cal(pids):
-    LOG.info("\n--- Calculating FWD past-season stats ---")
+    LOG.info("--- Calculating FWD past-season stats ---")
 
     for pid in pids:
         try:

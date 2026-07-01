@@ -15,10 +15,10 @@ DB = RedisDB()
 
 
 async def run_cook():
-    LOG.info("\n========== START run_cook() ==========")
+    LOG.info("========== START run_cook() ==========")
 
     # Wait until producer finishes
-    while (await DB.hget_one("status", "completed")) != "True":
+    while (await DB.hget_one("status", "completed")) != "true":
         LOG.info("Waiting for producer to finish...")
         await asyncio.sleep(10)
 
@@ -32,25 +32,25 @@ async def run_cook():
         # -----------------------------
         # TEAM COOK
         # -----------------------------
-        LOG.info("\n--- Running teams_cook() ---")
+        LOG.info("--- Running teams_cook() ---")
         await teams_cook()
 
         # -----------------------------
         # FIXTURE COOK
         # -----------------------------
-        LOG.info("\n--- Running fixture_cook() ---")
+        LOG.info("--- Running fixture_cook() ---")
         await fixture_cook()
 
         # -----------------------------
         # PLAYING COOK
         # -----------------------------
-        LOG.info("\n--- Running playing_cook() ---")
+        LOG.info("--- Running playing_cook() ---")
         await playing_cook()
 
         # -----------------------------
         # RAW SNAPSHOT (TEST ONLY)
         # -----------------------------
-        LOG.info("\n--- Dumping RAW snapshot (TEST MODE) ---")
+        LOG.info("--- Dumping RAW snapshot (TEST MODE) ---")
         await DB.dump_raw()
 
         # -----------------------------
@@ -58,11 +58,11 @@ async def run_cook():
         # -----------------------------
         await export_db1()
 
-        LOG.info("\n========== FINISHED run_cook() ==========\n")
+        LOG.info("========== FINISHED run_cook() ==========")
 
     else:
         LOG.error("Cook aborted → Deadline has already started.")
-        LOG.info("========== END run_cook() ==========\n")
+        LOG.info("========== END run_cook() ==========")
 
 
 async def valid_gw_day():

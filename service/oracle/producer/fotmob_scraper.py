@@ -1,14 +1,8 @@
 from service.oracle.utils.scraper import Scraper
 from service.oracle.utils.log import Logger
-from service.oracle.config.settings import (
-    FOTMOB_TABLE,
-    TABLE_CLASS,
-    FOTMOB_xG,
-    FOTMOB_AWAY,
-    FOTMOB_HOME,
-    FOTMOB_FORM,
-)
+from service.oracle.config.settings import FOTMOB_FORM
 from service.oracle.db.db_redis import RedisDB
+import json
 
 FOTMOB_TO_FPL_NAME = {
     "Man United": "Man Utd",
@@ -28,191 +22,192 @@ FOTMOB_TO_FPL_NAME = {
 LOG = Logger("Fotmob_Scraper", "producer")
 DB = RedisDB()
 
+_SCRAPED_DATA = None
 
-# ---------------------------------------------------------
-# HOME TABLE
-# ---------------------------------------------------------
+
+def safe_float_str(val, decimal_places=2, with_sign=False):
+    if val is None or val == "":
+        return "0.0"
+    try:
+        f_val = float(val)
+        fmt = f"+.{decimal_places}f" if with_sign else f".{decimal_places}f"
+        return f"{f_val:{fmt}}"
+    except (ValueError, TypeError):
+        return str(val)
+
+
+async def _ensure_scraped_data():
+    global _SCRAPED_DATA
+    if _SCRAPED_DATA is not None:
+        return
+
+    LOG.info("Scraping all FotMob tables in a single page load...")
+    s = Scraper()
+    await s.enable_playwright()
+    try:
+        # Load FOTMOB_FORM which contains all tables (all, home, away, form, xg)
+        await s.page_load(FOTMOB_FORM)
+
+        # Get content of __NEXT_DATA__
+        content = await s.browser.page.locator("#__NEXT_DATA__").text_content()
+        if not content:
+            LOG.error("Failed to get __NEXT_DATA__ from page")
+            return
+
+        data = json.loads(content)
+        pprops = data.get("props", {}).get("pageProps", {})
+
+        table_list = pprops.get("table", [])
+        if not table_list:
+            LOG.error("No table data found in pageProps")
+            return
+
+        _SCRAPED_DATA = table_list[0]
+        LOG.info("Successfully loaded and cached FotMob data")
+    except Exception as e:
+        LOG.error(f"Error during single-pass FotMob scrape: {e}")
+    finally:
+        await s.close_page()
+        await s.close_browser()
 
 
 async def home_table_scrap():
-    LOG.info("\n========== START home_table_scrap() ==========")
-
-    s = Scraper()
-    await s.enable_playwright()
-    await s.page_load(FOTMOB_HOME)
-
-    await fetch_table(s, "home")
-
-    LOG.info("========== END home_table_scrap() ==========\n")
-
-
-# ---------------------------------------------------------
-# AWAY TABLE
-# ---------------------------------------------------------
+    LOG.info("========== START home_table_scrap() ==========")
+    await _ensure_scraped_data()
+    if _SCRAPED_DATA:
+        await _process_and_save("home")
+    LOG.info("========== END home_table_scrap() ==========")
 
 
 async def away_table_scrap():
-    LOG.info("\n========== START away_table_scrap() ==========")
-
-    s = Scraper()
-    await s.enable_playwright()
-    await s.page_load(FOTMOB_AWAY)
-
-    await fetch_table(s, "away")
-
-    LOG.info("========== END away_table_scrap() ==========\n")
-
-
-# ---------------------------------------------------------
-# FORM TABLE
-# ---------------------------------------------------------
+    LOG.info("========== START away_table_scrap() ==========")
+    await _ensure_scraped_data()
+    if _SCRAPED_DATA:
+        await _process_and_save("away")
+    LOG.info("========== END away_table_scrap() ==========")
 
 
 async def form_table_scrap():
-    LOG.info("\n========== START form_table_scrap() ==========")
-
-    s = Scraper()
-    await s.enable_playwright()
-    await s.page_load(FOTMOB_FORM)
-
-    await fetch_table(s, "last_five")
-
-    LOG.info("========== END form_table_scrap() ==========\n")
-
-
-# ---------------------------------------------------------
-# FULL TABLE
-# ---------------------------------------------------------
+    LOG.info("========== START form_table_scrap() ==========")
+    await _ensure_scraped_data()
+    if _SCRAPED_DATA:
+        await _process_and_save("last_five")
+    LOG.info("========== END form_table_scrap() ==========")
 
 
 async def table_scrap():
-    LOG.info("\n========== START table_scrap() ==========")
-
-    s = Scraper()
-    await s.enable_playwright()
-    await s.page_load(FOTMOB_TABLE)
-
-    await fetch_table(s, "table")
-
-    LOG.info("========== END table_scrap() ==========\n")
-
-
-# ---------------------------------------------------------
-# FETCH TABLE (shared logic)
-# ---------------------------------------------------------
-
-
-async def fetch_table(s, feild):
-    LOG.info(f"Fetching table for field: {feild}")
-
-    data = await s.fetch_playwright(f".{TABLE_CLASS}")
-
-    if data is None:
-        LOG.error(f"Failed to fetch table for field: {feild}")
-        return
-
-    table = data.find_all("div", class_=TABLE_CLASS)
-    LOG.info(f"Found {len(table)} rows in table for: {feild}")
-
-    for idx, row in enumerate(table[1:], start=1):
-        try:
-            div_data = [
-                d.text.strip() for d in row.find_all("div")[1:] if d.text.strip()
-            ]
-            form = ["3" if c == "W" else "1" if c == "D" else "0" for c in div_data[10]]
-            name = row.find(class_="TeamShortname").text.strip()
-            goal = div_data[7].split("-")
-
-            mapped_name = FOTMOB_TO_FPL_NAME.get(name, name)
-            tid = await DB.hget_one(f"index:team:{mapped_name}", "tid")
-
-            place_json = {
-                "goals": goal[0],
-                "conceded": goal[1],
-                "position": div_data[0],
-                "played": div_data[3],
-                "win": div_data[4],
-                "draw": div_data[5],
-                "loss": div_data[6],
-                "points": div_data[9],
-                "form": "".join(form),
-            }
-
-            if feild == "table":
-                mapped_json = {
-                    "goals_for": goal[0],
-                    "goals_against": goal[1],
-                    "position": div_data[0],
-                    "played": div_data[3],
-                    "wins": div_data[4],
-                    "draws": div_data[5],
-                    "losses": div_data[6],
-                    "points": div_data[9],
-                    "form": "".join(form),
-                }
-                await DB.hset_dict(f"team:{tid}", mapped_json)
-            else:
-                await DB.hset_dict(f"team:{tid}:{feild}", place_json)
-
-            LOG.info(f"[{feild}] Row {idx}: Saved → {name}")
-
-        except Exception as e:
-            LOG.error(f"Error parsing row {idx} for {feild}: {e}")
-
-    await s.close_page()
-    LOG.info(f"Completed table fetch for: {feild}")
-
-
-# ---------------------------------------------------------
-# XG SCRAPER
-# ---------------------------------------------------------
+    LOG.info("========== START table_scrap() ==========")
+    await _ensure_scraped_data()
+    if _SCRAPED_DATA:
+        await _process_and_save("table")
+    LOG.info("========== END table_scrap() ==========")
 
 
 async def xg_scrap():
-    LOG.info("\n========== START xg_scrap() ==========")
+    LOG.info("========== START xg_scrap() ==========")
+    await _ensure_scraped_data()
+    if _SCRAPED_DATA:
+        await _process_and_save("xg")
+    LOG.info("========== END xg_scrap() ==========")
 
-    s = Scraper()
-    await s.enable_playwright()
-    await s.page_load(FOTMOB_xG)
 
-    data = await s.fetch_playwright(f".{TABLE_CLASS}")
-
-    if data is None:
-        LOG.error("Failed to fetch xG table.")
+async def _process_and_save(field_type):
+    global _SCRAPED_DATA
+    if not _SCRAPED_DATA:
+        LOG.error("No scraped data available to process")
         return
 
-    table = data.find_all("div", class_=TABLE_CLASS)
-    LOG.info(f"Found {len(table)} rows in xG table")
+    data_dict = _SCRAPED_DATA.get("data", {}) or {}
+    table_data = data_dict.get("table", {}) or {}
+    team_form_dict = _SCRAPED_DATA.get("teamForm", {}) or {}
 
-    for idx, row in enumerate(table[1:], start=1):
+    # Map field_type to the JSON table key
+    json_key = "all" if field_type == "table" else "form" if field_type == "last_five" else field_type
+
+    rows = table_data.get(json_key, [])
+    if not rows:
+        LOG.error(f"No rows found in FotMob data for key: {json_key}")
+        return
+
+    LOG.info(f"Processing {len(rows)} rows for field: {field_type}")
+
+    for idx, row in enumerate(rows, start=1):
         try:
-            x_data = [
-                d.text.strip() for d in row.find_all("span")[2:] if d.text.strip()
-            ]
-            name = x_data[0]
-
-            data = [d.text.strip() for d in row.find_all("td")[-3:]]
-
+            name = row.get("shortName") or row.get("name")
             mapped_name = FOTMOB_TO_FPL_NAME.get(name, name)
             tid = await DB.hget_one(f"index:team:{mapped_name}", "tid")
+            if not tid:
+                # Try with full name as fallback
+                name_full = row.get("name")
+                mapped_name = FOTMOB_TO_FPL_NAME.get(name_full, name_full)
+                tid = await DB.hget_one(f"index:team:{mapped_name}", "tid")
 
-            place_json = {
-                "xg": data[0][:4],
-                "xga": data[1][:4],
-                "xpts": data[2][:2],
-                "xg_difference": data[0][4:] if len(data[0]) != 1 else "0.0",
-                "xga_difference": data[1][4:] if len(data[1]) != 1 else "0.0",
-                "xpts_difference": data[2][2:] if len(data[2]) != 1 else "0.0",
-            }
+            if not tid:
+                LOG.error(f"Could not map team name {name} to FPL tid")
+                continue
 
-            await DB.hset_dict(f"team:{tid}:expected", place_json)
+            # Build common form string
+            team_id_str = str(row.get("id"))
+            form_list = team_form_dict.get(team_id_str, []) or []
+            form_digits = []
+            for match in form_list[-5:]:
+                res = match.get("resultString")
+                if res == "W":
+                    form_digits.append("3")
+                elif res == "D":
+                    form_digits.append("1")
+                else:
+                    form_digits.append("0")
+            form_str = "".join(form_digits)
 
-            LOG.info(f"[xG] Row {idx}: Saved → {name}")
+            if field_type == "xg":
+                # xG specific fields
+                place_json = {
+                    "xg": safe_float_str(row.get("xg"), 2),
+                    "xga": safe_float_str(row.get("xgConceded"), 2),
+                    "xpts": safe_float_str(row.get("xPoints"), 2),
+                    "xg_difference": safe_float_str(row.get("xgDiff"), 2, with_sign=True),
+                    "xga_difference": safe_float_str(row.get("xgConcededDiff"), 2, with_sign=True),
+                    "xpts_difference": safe_float_str(row.get("xPointsDiff"), 2, with_sign=True),
+                }
+                await DB.hset_dict(f"team:{tid}:expected", place_json)
+            else:
+                # For table, home, away, form
+                scores = row.get("scoresStr", "0-0").split("-")
+                goals = scores[0]
+                conceded = scores[1]
+
+                place_json = {
+                    "goals": goals,
+                    "conceded": conceded,
+                    "position": str(row.get("idx", idx)),
+                    "played": str(row.get("played", 0)),
+                    "win": str(row.get("wins", 0)),
+                    "draw": str(row.get("draws", 0)),
+                    "loss": str(row.get("losses", 0)),
+                    "points": str(row.get("pts", 0)),
+                    "form": form_str,
+                }
+
+                if field_type == "table":
+                    mapped_json = {
+                        "goals_for": goals,
+                        "goals_against": conceded,
+                        "position": str(row.get("idx", idx)),
+                        "played": str(row.get("played", 0)),
+                        "wins": str(row.get("wins", 0)),
+                        "draws": str(row.get("draws", 0)),
+                        "losses": str(row.get("losses", 0)),
+                        "points": str(row.get("pts", 0)),
+                        "form": form_str,
+                    }
+                    await DB.hset_dict(f"team:{tid}", mapped_json)
+                else:
+                    await DB.hset_dict(f"team:{tid}:{field_type}", place_json)
+
+            LOG.info(f"[{field_type}] Row {idx}: Saved → {name}")
 
         except Exception as e:
-            LOG.error(f"Error parsing xG row {idx}: {e}")
+            LOG.error(f"Error parsing row {idx} for {field_type}: {e}")
 
-    await s.close_page()
-    await s.close_browser()
-
-    LOG.info("========== END xg_scrap() ==========\n")
+    LOG.info(f"Completed table fetch for: {field_type}")

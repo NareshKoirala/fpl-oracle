@@ -26,7 +26,7 @@ class PlayWright_async_Browser:
 
     @classmethod
     async def shutdown_engine(cls):
-        LOG.info("\n========== SHUTTING DOWN PLAYWRIGHT ENGINE ==========")
+        LOG.info("========== SHUTTING DOWN PLAYWRIGHT ENGINE ==========")
 
         if cls._shared_browser:
             await cls._shared_browser.close()
@@ -38,12 +38,12 @@ class PlayWright_async_Browser:
             cls._playwright_manager = None
             LOG.info("Playwright manager stopped.")
 
-        LOG.info("Playwright engine shutdown complete.\n")
+        LOG.info("Playwright engine shutdown complete.")
 
     @classmethod
     async def _ensure_browser(cls):
         if cls._shared_browser is None:
-            LOG.info("\n========== STARTING PLAYWRIGHT ENGINE ==========")
+            LOG.info("========== STARTING PLAYWRIGHT ENGINE ==========")
 
             cls._playwright_manager = await async_playwright().start()
             LOG.info("Playwright manager started.")
@@ -59,17 +59,17 @@ class PlayWright_async_Browser:
             )
 
             cls._shared_browser = context
-            LOG.info("Shared persistent browser context created.\n")
+            LOG.info("Shared persistent browser context created.")
 
     @classmethod
     async def create(cls):
-        LOG.info("\n========== CREATING NEW PLAYWRIGHT BOT ==========")
+        LOG.info("========== CREATING NEW PLAYWRIGHT BOT ==========")
 
         await cls._ensure_browser()
         instance = cls()
         await instance._init_tab()
 
-        LOG.info("Bot created successfully.\n")
+        LOG.info("Bot created successfully.")
         return instance
 
     # ---------------------------------------------------------
