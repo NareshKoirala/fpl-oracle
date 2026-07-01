@@ -29,8 +29,8 @@ class RedisDB:
         file_config = await self.client_raw.config_get("dbfilename")
         db_file = file_config["dbfilename"]
 
-        season = await self.hget_one("current_gw", "season")
-        gw = await self.hget_one("current_gw", "current")
+        season = await self.hget_one("status", "season")
+        gw = await self.hget_one("status", "current")
 
         n_path = str(SNAPSHOTS_DIR / db_file)
         c_path = str(SNAPSHOTS_DIR / str(season) / str(gw))

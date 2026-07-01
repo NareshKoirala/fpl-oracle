@@ -6,7 +6,9 @@ DB = RedisDB()
 
 
 async def team_data(tid, field):
-    return await DB.hget_all(f"raw_teams:{tid}:{field}")
+    if field == "strength":
+        return await DB.hget_all(f"team:{tid}")
+    return await DB.hget_all(f"team:{tid}:{field}")
 
 
 def safe_float(v):

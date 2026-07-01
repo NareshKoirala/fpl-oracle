@@ -10,8 +10,8 @@ LOG = Logger("Team_Of_Week", "producer")
 async def get_team_of_week():
     LOG.info("\n========== START get_team_of_week() ==========")
 
-    l_week = await DB.hget_one("current_gw", "last")
-    c_week = await DB.hget_one("current_gw", "current")
+    l_week = await DB.hget_one("status", "last")
+    c_week = await DB.hget_one("status", "current")
 
     # -----------------------------
     # LAST WEEK

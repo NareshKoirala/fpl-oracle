@@ -10,6 +10,21 @@ from service.oracle.config.settings import (
 )
 from service.oracle.db.db_redis import RedisDB
 
+FOTMOB_TO_FPL_NAME = {
+    "Man United": "Man Utd",
+    "Nottm Forest": "Nott'm Forest",
+    "Tottenham": "Spurs",
+    "Manchester United": "Man Utd",
+    "Nottingham Forest": "Nott'm Forest",
+    "Tottenham Hotspur": "Spurs",
+    "Manchester City": "Man City",
+    "Newcastle United": "Newcastle",
+    "Brighton and Hove Albion": "Brighton",
+    "Wolverhampton Wanderers": "Wolves",
+    "West Ham United": "West Ham",
+    "Leeds United": "Leeds",
+}
+
 LOG = Logger("Fotmob_Scraper", "producer")
 DB = RedisDB()
 
@@ -108,7 +123,8 @@ async def fetch_table(s, feild):
             name = row.find(class_="TeamShortname").text.strip()
             goal = div_data[7].split("-")
 
-            tid = await DB.hget_one(f"index:team:{name}", "tid")
+            mapped_name = FOTMOB_TO_FPL_NAME.get(name, name)
+            tid = await DB.hget_one(f"index:team:{mapped_name}", "tid")
 
             place_json = {
                 "goals": goal[0],
@@ -122,7 +138,21 @@ async def fetch_table(s, feild):
                 "form": "".join(form),
             }
 
-            await DB.hset_dict(f"raw_teams:{tid}:{feild}", place_json)
+            if feild == "table":
+                mapped_json = {
+                    "goals_for": goal[0],
+                    "goals_against": goal[1],
+                    "position": div_data[0],
+                    "played": div_data[3],
+                    "wins": div_data[4],
+                    "draws": div_data[5],
+                    "losses": div_data[6],
+                    "points": div_data[9],
+                    "form": "".join(form),
+                }
+                await DB.hset_dict(f"team:{tid}", mapped_json)
+            else:
+                await DB.hset_dict(f"team:{tid}:{feild}", place_json)
 
             LOG.info(f"[{feild}] Row {idx}: Saved → {name}")
 
@@ -163,7 +193,8 @@ async def xg_scrap():
 
             data = [d.text.strip() for d in row.find_all("td")[-3:]]
 
-            tid = await DB.hget_one(f"index:team:{name}", "tid")
+            mapped_name = FOTMOB_TO_FPL_NAME.get(name, name)
+            tid = await DB.hget_one(f"index:team:{mapped_name}", "tid")
 
             place_json = {
                 "xg": data[0][:4],
@@ -174,7 +205,7 @@ async def xg_scrap():
                 "xpts_difference": data[2][2:] if len(data[2]) != 1 else "0.0",
             }
 
-            await DB.hset_dict(f"raw_teams:{tid}:expected", place_json)
+            await DB.hset_dict(f"team:{tid}:expected", place_json)
 
             LOG.info(f"[xG] Row {idx}: Saved → {name}")
 

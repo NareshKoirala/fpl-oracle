@@ -222,6 +222,7 @@ TEAM = {
     "id": "0",
     "name": "",             # full name e.g. "Manchester United"
     "short_name": "",       # 3-char e.g. "MUN"
+    "strength": "0",        # FPL raw overall strength rating
     # FPL raw strength ratings (1–5 scale, stored normalized)
     "strength_overall_home": "0",
     "strength_overall_away": "0",

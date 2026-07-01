@@ -4,11 +4,10 @@ from service.oracle.cook.playing_cook import playing_cook
 
 from service.oracle.utils.log import Logger
 from service.oracle.db.db_redis import RedisDB
+from service.oracle.utils.export_redis import export_db1
 
 import asyncio
 from datetime import datetime
-
-from service.oracle.utils.export_redis import export_db1_to_json
 
 
 LOG = Logger("Cook", "cook")
@@ -19,7 +18,7 @@ async def run_cook():
     LOG.info("\n========== START run_cook() ==========")
 
     # Wait until producer finishes
-    while (await DB.hget_one("status:producer", "completed")) != "True":
+    while (await DB.hget_one("status", "completed")) != "True":
         LOG.info("Waiting for producer to finish...")
         await asyncio.sleep(10)
 
@@ -55,10 +54,9 @@ async def run_cook():
         await DB.dump_raw()
 
         # -----------------------------
-        # EXPORT JSON SNAPSHOTS
+        # Pretty Export DB 1
         # -----------------------------
-        LOG.info("\n--- Exporting DB to JSON ---")
-        await export_db1_to_json(DB)
+        await export_db1()
 
         LOG.info("\n========== FINISHED run_cook() ==========\n")
 
@@ -68,7 +66,7 @@ async def run_cook():
 
 
 async def valid_gw_day():
-    date_gw = await DB.hget_one("current_gw", "current_in")
+    date_gw = await DB.hget_one("status", "current_in")
     today = datetime.now()
     gw = datetime.fromisoformat(date_gw)
 

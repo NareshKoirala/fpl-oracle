@@ -9,9 +9,6 @@ from service.oracle.db.db_redis import RedisDB
 import asyncio
 from datetime import datetime
 
-from service.oracle.utils.export_redis import export_db1_to_json
-
-
 LOG = Logger("Fixture_cook", "cook")
 DB = RedisDB()
 
@@ -21,7 +18,7 @@ async def fixture_cook(gw=None):
 
     # Determine gameweek
     if not gw:
-        gw = await DB.hget_one("current_gw", "current")
+        gw = await DB.hget_one("status", "current")
         LOG.info(f"Using current GW → {gw}")
 
     # Load fixtures for this GW

@@ -264,4 +264,4 @@ async def team_fixtures(tid):
 
 
 async def team_data(tid, field):
-    return await DB.hget_all(f"raw_teams:{tid}:{field}")
+    return await DB.hget_all(f"team:{tid}:{field}")

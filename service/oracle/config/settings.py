@@ -5,6 +5,7 @@ FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
 FIXTURES = "https://fantasy.premierleague.com/api/fixtures/"
 PLAYER_HISTORY = f"https://fantasy.premierleague.com/api/element-summary/"
 TEAM_OF_WEEK = "https://fantasy.premierleague.com/api/dream-team/"
+FPL_SET_PIECE_NOTES = "https://fantasy.premierleague.com/api/team/set-piece-notes/"
 
 FOTMOB_BASE = "https://www.fotmob.com/leagues/47/"
 # FOTMOB_TABLE = f"{FOTMOB_BASE}table/premier-league?"

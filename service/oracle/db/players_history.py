@@ -1,77 +1,52 @@
-import redis.asyncio as redis
-from service.oracle.utils.log import Logger
-from service.oracle.config.settings import PLAYER_HISTORY
+"""
+DB Writer — Player History
+===========================
+Writes per-gameweek and past-season data from
+``/api/element-summary/{id}/`` responses.
+"""
+
+from service.oracle.config.data_struct import PLAYER_GW, PLAYER_SEASON
+from service.oracle.db.helpers import (
+    map_fields,
+    normalize_season,
+    PLAYER_GW_FIELD_MAP,
+)
 from service.oracle.db.db_redis import RedisDB
-import asyncio
-import httpx
+from service.oracle.utils.log import Logger
 
 LOG = Logger("Player_History", "db")
 DB = RedisDB()
 
 
-async def fetch_and_save(client, semaphore, pid):
-    async with semaphore:
-        url = PLAYER_HISTORY + f"{pid}"
-        LOG.info(f"Fetching history for PID={pid}")
+async def save_player_gw(pid: str, match_data: dict) -> str | None:
+    """Write ``player:{pid}:gw:{gw}`` from one ``history[]`` entry.
 
-        try:
-            response = await client.get(url)
-        except Exception as e:
-            LOG.error(f"Request failed for PID={pid}: {e}")
-            return
+    Returns:
+        The fixture ID as a string, or ``None`` if the entry had no round.
+    """
+    gw = match_data.get("round")
+    if gw is None:
+        return None
 
-        if response.status_code == 200:
-            data = response.json()
-            history = data["history"]
-            history_past = data["history_past"]
+    gw_data = map_fields(PLAYER_GW, match_data, PLAYER_GW_FIELD_MAP)
+    await DB.hset_all(f"player:{pid}:gw:{gw}", gw_data)
 
-            # Current season fixtures
-            for fixture in history:
-                redis_key = f"raw_player_fixtures:{pid}:{fixture['fixture']}"
-                await DB.hset_dict(redis_key, fixture)
-
-            # Past seasons
-            for past in history_past:
-                redis_key = f"raw_player_past_season:{pid}:{past['season_name']}"
-                await DB.hset_dict(redis_key, past)
-
-            LOG.info(
-                f"Saved history for PID={pid} "
-                f"(fixtures={len(history)}, past={len(history_past)})"
-            )
-
-        else:
-            LOG.error(f"Status {response.status_code} for PID={pid} → {url}")
-
-        await asyncio.sleep(0.05)
+    fix_id = match_data.get("fixture")
+    return str(fix_id) if fix_id else None
 
 
-async def fetch_history(pids):
-    LOG.info(f"Starting fetch for {len(pids)} players...")
-    semaphore = asyncio.Semaphore(10)
+async def save_player_season(pid: str, past_data: dict):
+    """Write ``player:{pid}:season:{year}`` from one ``history_past[]`` entry."""
+    season_name = past_data.get("season_name", "")
+    year = normalize_season(season_name)
+    if not year:
+        return
 
-    async with httpx.AsyncClient(follow_redirects=True) as client:
-        tasks = [fetch_and_save(client, semaphore, pid) for pid in pids]
-        await asyncio.gather(*tasks)
-
-    LOG.info("Finished fetching all player histories.")
+    season_data = map_fields(PLAYER_SEASON, past_data)
+    await DB.hset_all(f"player:{pid}:season:{year}", season_data)
 
 
-async def get_player_history():
-    cursor = 0
-    pids = []
-
-    LOG.info("Collecting player IDs...")
-
-    while True:
-        cursor, data = await DB.scan("index:player:*", cursor=cursor)
-        for key in data:
-            pid = await DB.hget_one(key, "id")
-            pids.append(pid)
-
-        if cursor == 0:
-            break
-
-    LOG.info(f"Total player IDs collected: {len(pids)}")
-
-    await fetch_history(pids)
+async def save_player_fixture_index(pid: str, fixture_ids: list[str]):
+    """Bulk-write ``index:player_fixtures:{pid}``."""
+    if fixture_ids:
+        await DB.sadd_all(f"index:player_fixtures:{pid}", fixture_ids)
