@@ -109,10 +109,10 @@ PLAYER_META = {
     "event_points": "0",
     "in_dreamteam": "False",
     "dreamteam_count": "0",
-    # Set pieces (order = 1 means first taker, 0 = not a taker)
-    "corners_and_indirect_freekicks_order": "0",
-    "direct_freekicks_order": "0",
-    "penalties_order": "0",
+    # Set pieces (order = 1 means first taker, "" = not a taker)
+    "corners_and_indirect_freekicks_order": "",
+    "direct_freekicks_order": "",
+    "penalties_order": "",
     # Ranks (within position group)
     "selected_rank": "0",
     "selected_rank_type": "0",

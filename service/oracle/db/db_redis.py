@@ -25,6 +25,8 @@ def sanitize_value(field_name: str, value) -> str:
 
     if not val_str or val_str.lower() in ("none", "null", ""):
         lower_field = field_name.lower()
+        if "order" in lower_field:
+            return ""
         if "name" in lower_field or "news" in lower_field or "status" in lower_field or "code" in lower_field:
             return "None"
         if "time" in lower_field or "date" in lower_field:
@@ -33,7 +35,7 @@ def sanitize_value(field_name: str, value) -> str:
             if any(kw in lower_field for kw in ("cost", "value", "percent", "xg", "xa", "xp", "ict", "influence", "creativity", "threat")):
                 return "0.0"
             return "0"
-        if "order" in lower_field or "rank" in lower_field or "played" in lower_field or "wins" in lower_field or "draws" in lower_field or "losses" in lower_field or "goals" in lower_field or "assists" in lower_field or "clean" in lower_field or "conceded" in lower_field or "saves" in lower_field or "starts" in lower_field or "yellow" in lower_field or "red" in lower_field or "bonus" in lower_field or "bps" in lower_field:
+        if "rank" in lower_field or "played" in lower_field or "wins" in lower_field or "draws" in lower_field or "losses" in lower_field or "goals" in lower_field or "assists" in lower_field or "clean" in lower_field or "conceded" in lower_field or "saves" in lower_field or "starts" in lower_field or "yellow" in lower_field or "red" in lower_field or "bonus" in lower_field or "bps" in lower_field:
             return "0"
         return "0"
 

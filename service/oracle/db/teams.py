@@ -29,5 +29,6 @@ async def save_team(raw_data: dict):
 
     # Reverse lookup index: team name → tid
     await DB.hset_one(f"index:team:{name}", "tid", str(tid))
+    await DB.hset_one(f"index:team_name:{name}", "tid", str(tid))
 
     LOG.info(f"team:{tid} → {name}")
