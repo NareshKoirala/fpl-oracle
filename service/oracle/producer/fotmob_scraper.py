@@ -178,30 +178,19 @@ async def _process_and_save(field_type):
                 conceded = scores[1]
 
                 place_json = {
-                    "goals": goals,
-                    "conceded": conceded,
+                    "goals_for": goals,
+                    "goals_against": conceded,
                     "position": str(row.get("idx", idx)),
                     "played": str(row.get("played", 0)),
-                    "win": str(row.get("wins", 0)),
-                    "draw": str(row.get("draws", 0)),
-                    "loss": str(row.get("losses", 0)),
+                    "wins": str(row.get("wins", 0)),
+                    "draws": str(row.get("draws", 0)),
+                    "losses": str(row.get("losses", 0)),
                     "points": str(row.get("pts", 0)),
                     "form": form_str,
                 }
 
                 if field_type == "table":
-                    mapped_json = {
-                        "goals_for": goals,
-                        "goals_against": conceded,
-                        "position": str(row.get("idx", idx)),
-                        "played": str(row.get("played", 0)),
-                        "wins": str(row.get("wins", 0)),
-                        "draws": str(row.get("draws", 0)),
-                        "losses": str(row.get("losses", 0)),
-                        "points": str(row.get("pts", 0)),
-                        "form": form_str,
-                    }
-                    await DB.hset_dict(f"team:{tid}", mapped_json)
+                    await DB.hset_dict(f"team:{tid}", place_json)
                 else:
                     await DB.hset_dict(f"team:{tid}:{field_type}", place_json)
 

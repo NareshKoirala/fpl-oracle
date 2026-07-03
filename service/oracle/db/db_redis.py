@@ -116,18 +116,9 @@ class RedisDB:
     # PIPELINED BATCH FETCHING
     # ---------------------------------------------------------
 
-    async def get_mass_raw_team_field_val(
+    async def get_mass_raw_team_field_val_one(
         self, field: str, sub_key: str = "", as_dict: bool = False
     ):
-        """
-        Pipelined O(1) fetch of a specific field across all 20 Premier League teams.
-
-        Examples:
-            - self.get_mass_raw_team_field_val("short_name", as_dict=True)
-              -> Returns: {"1": "ARS", "2": "AVL", ...}
-            - self.get_mass_raw_team_field_val("points", sub_key="home", as_dict=False)
-              -> Returns: ["40", "22", "15", ...]
-        """
         LOG.info(
             f"Pipelined fetch of team field '{field}' (sub_key='{sub_key}') for 20 teams"
         )
@@ -158,19 +149,9 @@ class RedisDB:
 
         return decoded_results
 
-    async def get_mass_raw_player_field_val(
+    async def get_mass_raw_player_field_val_one(
         self, field: str, subKey: str = "", as_dict: bool = False
     ):
-        """
-        Dynamically fetches a specific field for all active players tracked in the index set.
-        Uses a pipeline to execute all lookups in a single network round-trip.
-
-        Args:
-            field: The hash field key to retrieve (e.g., "points", "cost", "form")
-            subKey: Suffix namespace for the key structure (e.g., "home", "season", "meta")
-            as_dict: If True, returns a dict mapping {player_id: value}.
-                     If False, returns a flat list of values matching the index order.
-        """
         LOG.info(f"Fetching active player IDs from 'index:season_players'")
         # 1. Pull the exact active player IDs from the static index set
         player_ids_bytes = await self.client_raw.smembers("index:season_players")

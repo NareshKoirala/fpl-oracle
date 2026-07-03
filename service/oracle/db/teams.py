@@ -25,6 +25,21 @@ async def save_team(raw_data: dict):
     name = raw_data["name"]
 
     team_data = map_fields(TEAM, raw_data)
+    
+    # Normalize strength ratings by dividing by 1000
+    strength_fields = [
+        "strength_overall_home",
+        "strength_overall_away",
+        "strength_attack_home",
+        "strength_attack_away",
+        "strength_defence_home",
+        "strength_defence_away",
+    ]
+    for field in strength_fields:
+        val = raw_data.get(field)
+        if val is not None:
+            team_data[field] = str(float(val) / 1000.0)
+
     await DB.hset_all(f"team:{tid}", team_data)
 
     # Reverse lookup index: team name → tid

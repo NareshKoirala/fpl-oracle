@@ -54,7 +54,7 @@ Responsible for executing the pipelines in dependency order and saving raw data 
     4. Triggers `get_team_of_week()`.
     5. Triggers `table_scrap()`, `xg_scrap()`, `home_table_scrap()`, `away_table_scrap()`, and `form_table_scrap()`.
     6. Overwrites the status keys: sets `status -> completed` to `True`, and updates pipeline runtimes.
-    7. Performs Redis `SAVE` to dump the snapshot and copies the `.rdb` file into the target `.cache/snapshots/{season}/{gw}/` directory.
+    7. Performs Redis `SAVE` to dump the snapshot and copies the `.rdb` file into the target `service/snapshots/{season}/{gw}/` directory.
     8. Exports a human-readable pretty text version of the database.
 
 ---

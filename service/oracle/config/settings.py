@@ -40,6 +40,6 @@ PAST_PORT = 6380
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # service/
-SNAPSHOTS_DIR = BASE_DIR / ".cache/snapshots"
+SNAPSHOTS_DIR = BASE_DIR / "snapshots"
 LOGS_DIR = BASE_DIR / ".cache/logs"
 PW_SESSION_DIR = BASE_DIR / ".cache/pw_session"
