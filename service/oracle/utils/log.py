@@ -6,6 +6,7 @@ class Logger:
     COLORS = {
         "INFO": "\033[96m",  # cyan
         "ERROR": "\033[91m",  # red
+        "DEBUG": "\033[93m",  # yellow
         "RESET": "\033[0m",
     }
 
@@ -39,3 +40,6 @@ class Logger:
 
     def error(self, message):
         self.log("ERROR", message)
+
+    def debug(self, message):
+        self.log("DEBUG", message)

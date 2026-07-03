@@ -38,6 +38,7 @@ PAST_PORT = 6380
 
 # Paths relative to fpl-oracle/service/
 from pathlib import Path
+
 BASE_DIR = Path(__file__).resolve().parent.parent.parent  # service/
 SNAPSHOTS_DIR = BASE_DIR / ".cache/snapshots"
 LOGS_DIR = BASE_DIR / ".cache/logs"

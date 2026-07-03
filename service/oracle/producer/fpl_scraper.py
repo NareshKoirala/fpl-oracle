@@ -68,6 +68,7 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
         The current season string (e.g. ``"2026"``) or ``None`` on failure.
     """
     LOG.info("========== BOOTSTRAP INGEST ==========")
+    start_bootstrap = time.perf_counter()
 
     data = await client.fetch(FPL_BOOTSTRAP)
     if not data:
@@ -86,15 +87,22 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
     season = _derive_season()
 
     # Order matters: teams first (name index), then GWs (state), then players
+    start_teams = time.perf_counter()
     LOG.info(f"Inserting {len(teams)} teams...")
     for team in teams:
         await save_team(team)
+    elapsed_teams = time.perf_counter() - start_teams
+    LOG.info(f"FPL Team Bootstrap complete in {elapsed_teams:.3f} seconds")
 
+    start_gws = time.perf_counter()
     LOG.info(f"Processing {len(events)} gameweeks...")
     for event in events:
         await save_gameweek(event)
     await save_system_state(events, season)
+    elapsed_gws = time.perf_counter() - start_gws
+    LOG.info(f"GW Bootstrap complete in {elapsed_gws:.3f} seconds")
 
+    start_players = time.perf_counter()
     LOG.info(f"Inserting {len(elements)} players...")
     for element in elements:
         await save_player(element)
@@ -102,10 +110,15 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
     # Season-wide player index
     all_pids = [str(e["id"]) for e in elements]
     if all_pids:
-        await DB.sadd_all(f"index:season_players:{season}", all_pids)
-        LOG.info(f"index:season_players:{season} → {len(all_pids)} players")
+        await DB.sadd_all("index:season_players", all_pids)
+        LOG.info(f"index:season_players → {len(all_pids)} players")
+    elapsed_players = time.perf_counter() - start_players
+    LOG.info(f"Player Bootstrap complete in {elapsed_players:.3f} seconds")
 
-    LOG.info("========== BOOTSTRAP INGEST COMPLETE ==========")
+    elapsed_bootstrap = time.perf_counter() - start_bootstrap
+    LOG.info(
+        f"========== BOOTSTRAP INGEST COMPLETE in {elapsed_bootstrap:.3f} seconds =========="
+    )
     return season
 
 
@@ -117,6 +130,7 @@ async def ingest_bootstrap(client: FPLClient) -> str | None:
 async def ingest_fixtures(client: FPLClient, season: str | None = None):
     """Fetch ``/api/fixtures/`` and delegate writes."""
     LOG.info("========== FIXTURES INGEST ==========")
+    start_fixtures = time.perf_counter()
 
     data = await client.fetch(FIXTURES_URL)
     if not data:
@@ -132,9 +146,10 @@ async def ingest_fixtures(client: FPLClient, season: str | None = None):
 
     await save_season_fixture_index(season, fixture_ids)
 
+    elapsed_fixtures = time.perf_counter() - start_fixtures
     LOG.info(
         f"========== FIXTURES INGEST COMPLETE "
-        f"({len(data)} fixtures) =========="
+        f"({len(data)} fixtures) in {elapsed_fixtures:.3f} seconds =========="
     )
 
 
@@ -187,6 +202,7 @@ async def _fetch_one_player(
 async def ingest_player_histories(client: FPLClient):
     """Iterate all players and concurrently fetch ``/api/element-summary/{id}/``."""
     LOG.info("========== PLAYER HISTORY INGEST ==========")
+    start_histories = time.perf_counter()
 
     # Collect all player IDs from position indexes (built in bootstrap)
     all_pids: set[str] = set()
@@ -198,30 +214,23 @@ async def ingest_player_histories(client: FPLClient):
 
     if not all_pids:
         LOG.error(
-            "No player IDs found in position indexes — "
-            "skipping history ingest."
+            "No player IDs found in position indexes — " "skipping history ingest."
         )
         return
 
-    LOG.info(
-        f"Fetching histories for {len(all_pids)} players "
-        f"(concurrency=10)..."
-    )
+    LOG.info(f"Fetching histories for {len(all_pids)} players " f"(concurrency=10)...")
 
     semaphore = asyncio.Semaphore(10)
     tasks = [
-        _fetch_one_player(client, semaphore, pid)
-        for pid in sorted(all_pids, key=int)
+        _fetch_one_player(client, semaphore, pid) for pid in sorted(all_pids, key=int)
     ]
     await asyncio.gather(*tasks)
 
+    elapsed_histories = time.perf_counter() - start_histories
     LOG.info(
         f"========== PLAYER HISTORY INGEST COMPLETE "
-        f"({len(all_pids)} players) =========="
+        f"({len(all_pids)} players) in {elapsed_histories:.3f} seconds =========="
     )
-
-
-
 
 
 # =============================================================================
@@ -267,8 +276,6 @@ async def run_fpl_ingest(full: bool = True):
                 await ingest_player_histories(client)
             else:
                 LOG.info("Differential mode: skipping player history summary ingest.")
-
-
 
         # Mark success
         await DB.hset_one("status", "producer_status", "complete")

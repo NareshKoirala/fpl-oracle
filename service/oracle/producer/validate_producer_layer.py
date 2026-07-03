@@ -212,21 +212,21 @@ async def validate():
             p5_pass = False
             p5_reasons.append(f"{k} is empty")
             
-    # Check index:season_players:{year}
-    season_players_keys = [k for k in index_keys if k.startswith("index:season_players:")]
-    if not season_players_keys:
+    # Check index:season_players
+    k = "index:season_players"
+    k_exists = await r.exists(k)
+    if not k_exists:
         p5_pass = False
-        p5_reasons.append("No index:season_players:* keys found")
+        p5_reasons.append("index:season_players key not found")
     else:
-        for k in season_players_keys:
-            k_type = await r.type(k)
-            if k_type != "set":
-                p5_pass = False
-                p5_reasons.append(f"{k} type is '{k_type}', expected 'set'")
-            members = await r.smembers(k)
-            if not members:
-                p5_pass = False
-                p5_reasons.append(f"{k} is empty")
+        k_type = await r.type(k)
+        if k_type != "set":
+            p5_pass = False
+            p5_reasons.append(f"index:season_players type is '{k_type}', expected 'set'")
+        members = await r.smembers(k)
+        if not members:
+            p5_pass = False
+            p5_reasons.append("index:season_players set is empty")
                 
     # Check index:season_fixtures:{year}
     season_fixtures_keys = [k for k in index_keys if k.startswith("index:season_fixtures:")]

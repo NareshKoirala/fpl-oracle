@@ -27,15 +27,65 @@ def sanitize_value(field_name: str, value) -> str:
         lower_field = field_name.lower()
         if "order" in lower_field:
             return ""
-        if "name" in lower_field or "news" in lower_field or "status" in lower_field or "code" in lower_field:
+        if (
+            "name" in lower_field
+            or "news" in lower_field
+            or "status" in lower_field
+            or "code" in lower_field
+        ):
             return "None"
         if "time" in lower_field or "date" in lower_field:
             return "1970-01-01"
-        if "form" in lower_field or "points" in lower_field or "cost" in lower_field or "value" in lower_field or "ict" in lower_field or "influence" in lower_field or "creativity" in lower_field or "threat" in lower_field or "expected" in lower_field or "xG" in lower_field or "xA" in lower_field or "xP" in lower_field or "xp" in lower_field or "percent" in lower_field:
-            if any(kw in lower_field for kw in ("cost", "value", "percent", "xg", "xa", "xp", "ict", "influence", "creativity", "threat")):
+        if (
+            "form" in lower_field
+            or "points" in lower_field
+            or "cost" in lower_field
+            or "value" in lower_field
+            or "ict" in lower_field
+            or "influence" in lower_field
+            or "creativity" in lower_field
+            or "threat" in lower_field
+            or "expected" in lower_field
+            or "xG" in lower_field
+            or "xA" in lower_field
+            or "xP" in lower_field
+            or "xp" in lower_field
+            or "percent" in lower_field
+        ):
+            if any(
+                kw in lower_field
+                for kw in (
+                    "cost",
+                    "value",
+                    "percent",
+                    "xg",
+                    "xa",
+                    "xp",
+                    "ict",
+                    "influence",
+                    "creativity",
+                    "threat",
+                )
+            ):
                 return "0.0"
             return "0"
-        if "rank" in lower_field or "played" in lower_field or "wins" in lower_field or "draws" in lower_field or "losses" in lower_field or "goals" in lower_field or "assists" in lower_field or "clean" in lower_field or "conceded" in lower_field or "saves" in lower_field or "starts" in lower_field or "yellow" in lower_field or "red" in lower_field or "bonus" in lower_field or "bps" in lower_field:
+        if (
+            "rank" in lower_field
+            or "played" in lower_field
+            or "wins" in lower_field
+            or "draws" in lower_field
+            or "losses" in lower_field
+            or "goals" in lower_field
+            or "assists" in lower_field
+            or "clean" in lower_field
+            or "conceded" in lower_field
+            or "saves" in lower_field
+            or "starts" in lower_field
+            or "yellow" in lower_field
+            or "red" in lower_field
+            or "bonus" in lower_field
+            or "bps" in lower_field
+        ):
             return "0"
         return "0"
 
@@ -49,6 +99,121 @@ class RedisDB:
 
         self.d_path = None
         self.c_path = None
+
+    # ---------------------------------------------------------
+    # CLIENT ACCESSORS
+    # ---------------------------------------------------------
+
+    def get_raw_client(self):
+        LOG.info("Accessing raw Redis client (DB 0)")
+        return self.client_raw
+
+    def get_proc_client(self):
+        LOG.info("Accessing processed Redis client (DB 1)")
+        return self.client_proc
+
+    # ---------------------------------------------------------
+    # PIPELINED BATCH FETCHING
+    # ---------------------------------------------------------
+
+    async def get_mass_raw_team_field_val(
+        self, field: str, sub_key: str = "", as_dict: bool = False
+    ):
+        """
+        Pipelined O(1) fetch of a specific field across all 20 Premier League teams.
+
+        Examples:
+            - self.get_mass_raw_team_field_val("short_name", as_dict=True)
+              -> Returns: {"1": "ARS", "2": "AVL", ...}
+            - self.get_mass_raw_team_field_val("points", sub_key="home", as_dict=False)
+              -> Returns: ["40", "22", "15", ...]
+        """
+        LOG.info(
+            f"Pipelined fetch of team field '{field}' (sub_key='{sub_key}') for 20 teams"
+        )
+        suffix = f":{sub_key}" if sub_key else ""
+
+        # Track the team IDs we are pulling to maintain structural alignment or map keys
+        team_ids = [str(tid) for tid in range(1, 21)]
+
+        async with self.client_raw.pipeline(transaction=False) as pipe:
+            for tid in team_ids:
+                key = f"team:{tid}{suffix}"
+                pipe.hget(key, field)
+
+            results = await pipe.execute()
+
+        # Clean binary string signatures cleanly out of raw storage outputs
+        decoded_results = [
+            res.decode("utf-8") if isinstance(res, bytes) else res for res in results
+        ]
+
+        LOG.info(
+            f"Pipelined fetch complete for team field '{field}' ({len(decoded_results)} values decoded)"
+        )
+
+        # Return the structural data format requested by your downstream analytical Cook
+        if as_dict:
+            return dict(zip(team_ids, decoded_results))
+
+        return decoded_results
+
+    async def get_mass_raw_player_field_val(
+        self, field: str, subKey: str = "", as_dict: bool = False
+    ):
+        """
+        Dynamically fetches a specific field for all active players tracked in the index set.
+        Uses a pipeline to execute all lookups in a single network round-trip.
+
+        Args:
+            field: The hash field key to retrieve (e.g., "points", "cost", "form")
+            subKey: Suffix namespace for the key structure (e.g., "home", "season", "meta")
+            as_dict: If True, returns a dict mapping {player_id: value}.
+                     If False, returns a flat list of values matching the index order.
+        """
+        LOG.info(f"Fetching active player IDs from 'index:season_players'")
+        # 1. Pull the exact active player IDs from the static index set
+        player_ids_bytes = await self.client_raw.smembers("index:season_players")
+
+        # Clean the IDs out of bytes format
+        player_ids = [
+            pid.decode("utf-8") if isinstance(pid, bytes) else str(pid)
+            for pid in player_ids_bytes
+        ]
+
+        if not player_ids:
+            LOG.info("No active player IDs found in 'index:season_players'")
+            return {} if as_dict else []
+
+        LOG.info(
+            f"Pipelined fetch of player field '{field}' (subKey='{subKey}') for {len(player_ids)} players"
+        )
+
+        # Format the suffix cleanly based on whether a subKey is requested
+        suffix = f":{subKey}" if subKey else ""
+
+        # 2. Pipeline the HGET requests natively for maximum performance
+        async with self.client_raw.pipeline(transaction=False) as pipe:
+            for pid in player_ids:
+                target_key = f"player:{pid}{suffix}"
+                pipe.hget(target_key, field)
+
+            results = await pipe.execute()
+
+        # 3. Clean string responses out of binary formatting
+        decoded_results = [
+            res.decode("utf-8") if isinstance(res, bytes) else res for res in results
+        ]
+
+        LOG.info(
+            f"Pipelined fetch complete for player field '{field}' ({len(decoded_results)} values decoded)"
+        )
+
+        # 4. Return conditional output structure based on parameter configuration
+        if as_dict:
+            return dict(zip(player_ids, decoded_results))
+
+        return decoded_results
 
     # ---------------------------------------------------------
     # RAW SNAPSHOT DUMP
