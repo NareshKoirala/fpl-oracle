@@ -1,5 +1,5 @@
 # API Endpoints
-SEASON = "2025/2026"
+SEASON = "2026/2027"
 
 FPL_BOOTSTRAP = "https://fantasy.premierleague.com/api/bootstrap-static/"
 FIXTURES = "https://fantasy.premierleague.com/api/fixtures/"
